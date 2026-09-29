@@ -1,47 +1,9 @@
-import react from "@vitejs/plugin-react";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { defineConfig } from "vite-plus";
 import tailwindcss from "@tailwindcss/vite";
+import press from "fumapress/vite";
 import { fumadocsMdx } from "fumadocs-mdx/vite";
-import { nitro } from "nitro/vite";
 import { lazyPlugins } from "vite-plus";
 
 export default defineConfig({
-  server: {
-    port: 3000,
-  },
-  plugins: lazyPlugins(() => [
-    fumadocsMdx(),
-    tailwindcss(),
-    tanstackStart({
-      prerender: {
-        enabled: true,
-        crawlLinks: true,
-        filter: ({ path }) => path !== "/",
-      },
-
-      pages: [
-        {
-          path: "/docs",
-        },
-        {
-          path: "/api/search",
-        },
-        {
-          path: "llms-full.txt",
-        },
-        {
-          path: "llms.txt",
-        },
-      ],
-    }),
-    react(),
-    nitro(),
-  ]),
-  resolve: {
-    tsconfigPaths: true,
-    alias: {
-      tslib: "tslib/tslib.es6.js",
-    },
-  },
+  plugins: lazyPlugins(() => [press(), fumadocsMdx(), tailwindcss()]),
 });
