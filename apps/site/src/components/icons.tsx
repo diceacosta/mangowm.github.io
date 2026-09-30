@@ -9,8 +9,8 @@ import {
   Wallet,
   TriangleAlert,
   ChevronDown,
-  RectangleHorizontal,
-  RectangleVertical,
+  Columns2,
+  Rows2,
   type LucideProps,
 } from "lucide-react";
 import githubLogo from "@mangowm/assets/logos/github.svg";
@@ -56,6 +56,6 @@ export const AlertTriangleSvg = (props: LucideProps) => <TriangleAlert {...props
 
 export const ChevronDownIcon = () => <ChevronDown size={12} />;
 
-export const HorizIcon = () => <RectangleHorizontal size={14} />;
+export const HorizIcon = () => <Columns2 size={14} aria-hidden="true" />;
 
-export const VertIcon = () => <RectangleVertical size={14} />;
+export const VertIcon = () => <Rows2 size={14} aria-hidden="true" />;

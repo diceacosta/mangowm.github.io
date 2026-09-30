@@ -168,6 +168,9 @@ export function MangoLayouts() {
             type="button"
             onClick={() => selectOrientation("horizontal")}
             title="Horizontal"
+            aria-label="Horizontal"
+            aria-pressed={orientation === "horizontal" && supportsOrientation}
+            disabled={!supportsOrientation}
             className={cn(
               "layouts-orientation-btn",
               orientation === "horizontal" &&
@@ -181,6 +184,9 @@ export function MangoLayouts() {
             type="button"
             onClick={() => selectOrientation("vertical")}
             title="Vertical"
+            aria-label="Vertical"
+            aria-pressed={orientation === "vertical" && supportsOrientation}
+            disabled={!supportsOrientation}
             className={cn(
               "layouts-orientation-btn",
               orientation === "vertical" && supportsOrientation && "layouts-orientation-btn-active",
