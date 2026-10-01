@@ -24,6 +24,12 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),
@@ -38,8 +44,13 @@ function RootComponent() {
       </head>
       <body>
         <ScriptOnce children={themeScript} />
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <Header />
-        <Outlet />
+        <main id="main-content">
+          <Outlet />
+        </main>
         <Scripts />
       </body>
     </html>

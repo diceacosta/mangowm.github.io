@@ -82,7 +82,7 @@ export function Header() {
             <Link
               to="/showcase"
               className="nav-link"
-              activeProps={{ className: "nav-link-active" }}
+              activeProps={{ className: "nav-link-active", "aria-current": "page" }}
             >
               Showcase
             </Link>
@@ -91,7 +91,7 @@ export function Header() {
             <Link
               to="/releases"
               className="nav-link"
-              activeProps={{ className: "nav-link-active" }}
+              activeProps={{ className: "nav-link-active", "aria-current": "page" }}
             >
               Releases
             </Link>

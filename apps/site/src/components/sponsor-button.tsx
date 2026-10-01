@@ -89,7 +89,7 @@ export function SponsorButton({
       if (type === "address") {
         await navigator.clipboard.writeText(SPONSOR_DATA.ADDRESS);
         setLastCopied(type);
-        showToast("Address copied to clipboard!");
+        showToast("Address copied");
         setTimeout(() => setLastCopied(null), 2000);
       } else {
         const res = await fetch(SPONSOR_DATA.QR_SRC);
@@ -99,7 +99,7 @@ export function SponsorButton({
         if (navigator.clipboard && ClipboardItem) {
           await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
           setLastCopied(type);
-          showToast("QR Code copied to clipboard!");
+          showToast("QR code copied");
           setTimeout(() => setLastCopied(null), 2000);
         } else {
           const url = URL.createObjectURL(blob);
@@ -110,7 +110,7 @@ export function SponsorButton({
           link.click();
           document.body.removeChild(link);
           URL.revokeObjectURL(url);
-          showToast("QR Code downloaded!");
+          showToast("QR code downloaded");
         }
       }
     } catch (err) {
@@ -132,13 +132,7 @@ export function SponsorButton({
       </button>
 
       <SimpleDialog open={open} onClose={() => setOpen(false)}>
-        <div
-          style={{
-            position: "relative",
-            background:
-              "linear-gradient(to bottom right, color-mix(in srgb, var(--color-primary) 5%, transparent), var(--color-background))",
-          }}
-        >
+        <div>
           <button onClick={() => setOpen(false)} className="modal-close" aria-label="Close">
             <XSvg className="w-5 h-5" />
           </button>
@@ -158,11 +152,11 @@ export function SponsorButton({
                 <img src={SPONSOR_DATA.QR_SRC} alt="BEP20 QR Code" className="modal-qr-img" />
                 <div className="modal-qr-overlay">
                   {lastCopied === "qr" ? (
-                    <CheckSvg className="w-8 h-8" style={{ color: "var(--color-primary)" }} />
+                    <CheckSvg className="modal-qr-check" />
                   ) : (
                     <>
                       <ImageSvg className="modal-qr-overlay-icon" />
-                      <span className="modal-qr-overlay-text">Copy QR</span>
+                      <span className="modal-qr-overlay-text">Copy</span>
                     </>
                   )}
                 </div>
@@ -175,7 +169,7 @@ export function SponsorButton({
                 <div className="modal-address-header">
                   <label className="modal-address-label">
                     <WalletSvg className="w-3.5 h-3.5" />
-                    Wallet Address
+                    Wallet address
                   </label>
                   <span className="modal-network-badge">{SPONSOR_DATA.NETWORK}</span>
                 </div>

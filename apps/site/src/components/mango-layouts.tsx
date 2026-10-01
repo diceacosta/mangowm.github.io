@@ -229,11 +229,6 @@ export function MangoLayouts() {
           <DwindleLayout />
         </Activity>
       </div>
-
-      <p className="layouts-label">
-        <span className="layouts-label-name">{activeDef.label}</span>
-        {supportsOrientation && <>&mdash; {orientation}</>}
-      </p>
     </div>
   );
 }
