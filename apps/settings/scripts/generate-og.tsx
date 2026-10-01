@@ -1,12 +1,14 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ImageResponse } from "@takumi-rs/image-response";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 const logoPaths: Array<{ fill: string; d: string }> = (() => {
-  const raw = readFileSync(resolve(__dirname, "../src/assets/mangowm-logo.svg"), "utf-8");
+  const raw = readFileSync(require.resolve("@mangowm/assets/logos/mangowm.svg"), "utf-8");
   const result: Array<{ fill: string; d: string }> = [];
   const re = /<path\s+fill="([^"]*)"[^>]*d="([^"]*)"/g;
   let m;

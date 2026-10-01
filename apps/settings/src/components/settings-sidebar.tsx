@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Logo } from "@/components/logo";
+import logo from "@mangowm/assets/logos/mangowm.svg";
 import { SidebarNav } from "@/components/sidebar-nav";
 import {
   Sidebar,
@@ -39,7 +39,7 @@ export function SettingsSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <Logo className="size-6 shrink-0" />
+              <img src={logo} alt="mangowm" className="size-6 shrink-0" />
               <div className="flex min-w-0 flex-col">
                 <span className="text-base font-semibold leading-none">mangowm settings</span>
                 <span className="mt-1 font-mono text-[10px] text-muted-foreground/70">

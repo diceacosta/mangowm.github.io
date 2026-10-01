@@ -7,7 +7,7 @@ import { completeOnboarding } from "@/lib/onboarding";
 import { updateSettings } from "@/lib/settings";
 import { uploadConfigFromDir } from "@/lib/config-file";
 import { useConfigStore } from "@/lib/config-store";
-import mangowmLogo from "@/assets/mangowm-logo.svg";
+import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
 
 const BASE = ".config/mango";
 const BD = BaseDirectory.Home;
