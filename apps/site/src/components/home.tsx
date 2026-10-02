@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { latestVersion } from "../constants";
-import { MangoLayouts } from "./mango-layouts";
+import { LayoutPreview } from "./layouts/layout-preview";
 import { SponsorButton } from "./sponsor-button";
 import { ArrowRight, HeartSvg } from "./icons";
 
@@ -47,7 +47,7 @@ function Hero({ version }: { version: string }) {
 
         <div className="layouts-mobile">
           <div className="hero-visual">
-            <MangoLayouts />
+            <LayoutPreview />
           </div>
         </div>
       </section>
@@ -82,7 +82,7 @@ function Hero({ version }: { version: string }) {
           </div>
           <div className="hero-col-layouts">
             <div className="hero-visual">
-              <MangoLayouts />
+              <LayoutPreview />
             </div>
           </div>
         </div>
