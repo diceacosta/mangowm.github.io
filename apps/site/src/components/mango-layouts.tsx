@@ -5,7 +5,6 @@ import { CenterTileLayout } from "./layouts/center-tile-layout";
 import { DeckLayout } from "./layouts/deck-layout";
 import { GridLayout } from "./layouts/grid-layout";
 import { MonocleLayout } from "./layouts/monocle-layout";
-import { OverviewLayout } from "./layouts/overview-layout";
 import { RightTileLayout } from "./layouts/right-tile-layout";
 import { ScrollerLayout } from "./layouts/scroller-layout";
 import { DwindleLayout } from "./layouts/dwindle-layout";
@@ -16,7 +15,6 @@ type LayoutId =
   | "tiling"
   | "scroller"
   | "grid"
-  | "overview"
   | "deck"
   | "center-tile"
   | "right-tile"
@@ -45,7 +43,6 @@ const OTHER_LAYOUTS: LayoutDef[] = [
   { id: "center-tile", label: "Center Tile", supportsOrientation: false },
   { id: "right-tile", label: "Right Tile", supportsOrientation: false },
   { id: "monocle", label: "Monocle", supportsOrientation: false },
-  { id: "overview", label: "Overview", supportsOrientation: false },
 ];
 
 const ALL_LAYOUTS = [...MAIN_LAYOUTS, ...OTHER_LAYOUTS];
@@ -206,9 +203,6 @@ export function MangoLayouts() {
         </Activity>
         <Activity mode={activeLayout === "grid" ? "visible" : "hidden"}>
           <GridLayout orientation={orientation} />
-        </Activity>
-        <Activity mode={activeLayout === "overview" ? "visible" : "hidden"}>
-          <OverviewLayout />
         </Activity>
         <Activity mode={activeLayout === "deck" ? "visible" : "hidden"}>
           <DeckLayout orientation={orientation} />
