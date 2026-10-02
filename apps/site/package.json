@@ -12,23 +12,23 @@
   },
   "dependencies": {
     "@mangowm/assets": "workspace:*",
-    "@rolldown/plugin-babel": "catalog:",
-    "@tailwindcss/vite": "catalog:",
     "@tanstack/react-router": "catalog:",
-    "@tanstack/react-start": "1.168.53",
-    "babel-plugin-react-compiler": "catalog:",
+    "@tanstack/react-start": "catalog:",
     "lucide-react": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:",
-    "tailwindcss": "catalog:"
+    "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@rolldown/plugin-babel": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
+    "babel-plugin-react-compiler": "catalog:",
     "nitro": "3.0.260903-beta",
     "srvx": "^1.0.4",
+    "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:"
