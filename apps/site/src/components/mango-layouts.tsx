@@ -1,5 +1,5 @@
 import { Activity, useEffect, useEffectEvent, useRef, useState } from "react";
-import { cn } from "../cn";
+import { cn } from "@/cn";
 import { ChevronDownIcon, HorizIcon, VertIcon } from "./icons";
 import { CenterTileLayout } from "./layouts/center-tile-layout";
 import { DeckLayout } from "./layouts/deck-layout";
