@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Columns2,
   Rows2,
+  Menu,
   type LucideProps,
 } from "lucide-react";
 import githubLogo from "@mangowm/assets/logos/github.svg";
@@ -55,6 +56,8 @@ export const WalletSvg = (props: LucideProps) => <Wallet {...props} />;
 export const AlertTriangleSvg = (props: LucideProps) => <TriangleAlert {...props} />;
 
 export const ChevronDownIcon = () => <ChevronDown size={12} />;
+
+export const MenuSvg = (props: LucideProps) => <Menu {...props} />;
 
 export const HorizIcon = () => <Columns2 size={14} aria-hidden="true" />;
 

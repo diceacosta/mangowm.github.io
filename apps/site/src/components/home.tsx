@@ -17,56 +17,20 @@ function VersionTag({ version }: { version: string }) {
 function Hero({ version }: { version: string }) {
   return (
     <>
-      {/* Mobile */}
-      <section className="hero-mobile">
-        <div className="hero-content">
-          <div className="mb-6 flex justify-center">
-            <VersionTag version={version} />
-          </div>
-          <h1 className="hero-title">
-            <span className="block">Lightweight</span>
-            <span className="hero-title-muted block">&amp; feature-rich</span>
-          </h1>
-          <p className="hero-desc">
-            A lightweight, feature-rich Wayland compositor built on wlroots and scenefx.
-          </p>
-          <div className="hero-actions">
-            <a href="/docs" className="btn-primary">
-              Get started
-            </a>
-            <a
-              href="https://github.com/mangowm/mango"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-            >
-              View on GitHub
-            </a>
-          </div>
-        </div>
-
-        <div className="layouts-mobile">
-          <div className="hero-visual">
-            <LayoutPreview />
-          </div>
-        </div>
-      </section>
-
-      {/* Desktop */}
-      <section className="hero-desktop">
-        <div className="hero-row">
-          <div className="hero-col text-left">
-            <div className="mb-6 flex justify-start">
+      <section className="relative flex min-h-[calc(100dvh_-_3.5rem)] flex-1 items-center px-5 py-16 lg:px-8 lg:py-20">
+        <div className="mx-auto grid w-full max-w-[75rem] items-center gap-12 lg:grid-cols-[1fr_minmax(0,1.1fr)] lg:gap-16">
+          <div className="text-center lg:text-left">
+            <div className="mb-6 flex justify-center lg:justify-start">
               <VersionTag version={version} />
             </div>
-            <h1 className="hero-title hero-title-lg text-left">
+            <h1 className="mb-5 text-balance font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-foreground">
               <span className="block">Lightweight</span>
-              <span className="hero-title-muted block">&amp; feature-rich</span>
+              <span className="block text-primary-text">&amp; feature-rich</span>
             </h1>
-            <p className="hero-desc hero-desc-lg text-left">
+            <p className="mx-auto mb-8 max-w-[32rem] text-pretty text-lg leading-[1.55] text-muted-foreground lg:mx-0 lg:text-[1.1875rem]">
               A lightweight, feature-rich Wayland compositor built on wlroots and scenefx.
             </p>
-            <div className="hero-actions hero-actions-left">
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
               <a href="/docs" className="btn-primary">
                 Get started
               </a>
@@ -80,10 +44,9 @@ function Hero({ version }: { version: string }) {
               </a>
             </div>
           </div>
-          <div className="hero-col-layouts">
-            <div className="hero-visual">
-              <LayoutPreview />
-            </div>
+
+          <div className="hero-visual">
+            <LayoutPreview />
           </div>
         </div>
       </section>
