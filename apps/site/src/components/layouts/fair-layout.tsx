@@ -151,8 +151,8 @@ export function FairLayout({ orientation }: FairLayoutProps) {
 
       const getTarget = (index: number, active: number) => {
         const targetSize = Math.max(active, index + 1);
-        const r = layouts[targetSize]?.[index] ?? layouts[1][0];
-        return { x: r.x, y: r.y, w: r.width, h: r.height };
+        const r = layouts[targetSize]?.[index] ?? layouts[1]?.[0];
+        return { x: r?.x ?? 0, y: r?.y ?? 0, w: r?.width ?? width, h: r?.height ?? height };
       };
 
       let pos0 = getTarget(0, activeWindows);

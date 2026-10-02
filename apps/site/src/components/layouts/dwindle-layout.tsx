@@ -79,12 +79,12 @@ export function DwindleLayout() {
       const L3 = getDwindleRects(3, width, height, GAP);
       const L4 = getDwindleRects(4, width, height, GAP);
       const L5 = getDwindleRects(5, width, height, GAP);
-      const layouts = [[], L1, L2, L3, L4, L5];
+      const layouts: Rect[][] = [[], L1, L2, L3, L4, L5];
+      const fallback: Rect = { x: 0, y: 0, w: width, h: height };
 
-      const getTarget = (index: number, active: number) => {
+      const getTarget = (index: number, active: number): Rect => {
         const targetLayoutSize = Math.max(active, index + 1);
-        if (targetLayoutSize === 0) return L1[0];
-        return layouts[targetLayoutSize][index];
+        return layouts[targetLayoutSize]?.[index] ?? fallback;
       };
 
       let pos0 = getTarget(0, activeWindows);
@@ -160,6 +160,7 @@ function getDwindleRects(count: number, width: number, height: number, gap: numb
   if (count > 1) {
     for (let i = 1; i < count; i++) {
       const parent = rects[i - 1];
+      if (!parent) break;
       const splitH = parent.w >= parent.h;
       if (splitH) {
         const w1 = (parent.w - gap) / 2;

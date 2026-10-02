@@ -30,8 +30,10 @@ interface LayoutDef {
   supportsOrientation: boolean;
 }
 
+const DEFAULT_LAYOUT: LayoutDef = { id: "tiling", label: "Tiling", supportsOrientation: true };
+
 const MAIN_LAYOUTS: LayoutDef[] = [
-  { id: "tiling", label: "Tiling", supportsOrientation: true },
+  DEFAULT_LAYOUT,
   { id: "scroller", label: "Scroller", supportsOrientation: true },
   { id: "grid", label: "Grid", supportsOrientation: true },
   { id: "fair", label: "Fair", supportsOrientation: true },
@@ -58,7 +60,7 @@ export function MangoLayouts() {
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const activeDef = ALL_LAYOUTS.find((l) => l.id === activeLayout)!;
+  const activeDef = ALL_LAYOUTS.find((l) => l.id === activeLayout) ?? DEFAULT_LAYOUT;
   const isMainLayout = MAIN_LAYOUTS.some((l) => l.id === activeLayout);
   const supportsOrientation = activeDef.supportsOrientation;
 
@@ -72,7 +74,7 @@ export function MangoLayouts() {
     autoPlayRef.current = setInterval(() => {
       setActiveLayout((current) => {
         const idx = AUTO_PLAY_IDS.indexOf(current);
-        return AUTO_PLAY_IDS[(idx === -1 ? 0 : idx + 1) % AUTO_PLAY_IDS.length];
+        return AUTO_PLAY_IDS[(idx === -1 ? 0 : idx + 1) % AUTO_PLAY_IDS.length] ?? "tiling";
       });
       setOrientation("horizontal");
     }, AUTO_PLAY_INTERVAL);

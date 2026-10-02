@@ -116,20 +116,21 @@ export function GridLayout({ orientation }: GridLayoutProps) {
       const isSwap = phase === 4;
       const focusedWindow = phase <= 1 ? 1 : phase === 2 ? 2 : phase <= 5 ? 3 : phase === 6 ? 2 : 1;
       const pos = buildGrid(activeWindows);
-      const [prePos] = buildGrid(1);
+      const at = (i: number): Rect => pos[i] ?? { x: 0, y: 0, w: width, h: height };
+      const prePos = buildGrid(1)[0] ?? { x: 0, y: 0, w: width, h: height };
 
       if (activeWindows >= 1) {
-        setCard(r1.current, isSwap ? pos[2] : pos[0], phase > 0 && phase < 8, focusedWindow === 1);
+        setCard(r1.current, isSwap ? at(2) : at(0), phase > 0 && phase < 8, focusedWindow === 1);
       } else {
         setCard(r1.current, { x: 0, y: 0, w: width, h: height }, false, false);
       }
       if (activeWindows >= 2) {
-        setCard(r2.current, pos[1], phase >= 2 && phase < 7, focusedWindow === 2);
+        setCard(r2.current, at(1), phase >= 2 && phase < 7, focusedWindow === 2);
       } else {
         setCard(r2.current, { x: width, y: height, w: prePos.w / 2, h: prePos.h }, false, false);
       }
       if (activeWindows >= 3) {
-        setCard(r3.current, isSwap ? pos[0] : pos[2], phase >= 3 && phase < 6, focusedWindow === 3);
+        setCard(r3.current, isSwap ? at(0) : at(2), phase >= 3 && phase < 6, focusedWindow === 3);
       } else {
         setCard(r3.current, { x: width, y: height, w: width / 2, h: height / 2 }, false, false);
       }
