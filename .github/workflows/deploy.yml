@@ -1,0 +1,41 @@
+name: deploy to pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: voidzero-dev/setup-vp@v1.21.1
+        with:
+          node-version: "26"
+          cache: true
+      - run: vp run -r build
+      - run: |
+          mkdir -p dist/docs dist/settings
+          cp -r apps/site/.output/public/. dist/
+          cp -r apps/docs/dist/public/.   dist/docs/
+          cp -r apps/settings/dist/.      dist/settings/
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v5
