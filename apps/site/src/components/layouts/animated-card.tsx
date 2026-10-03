@@ -1,16 +1,14 @@
 import { cn } from "@/cn";
+import { cardTransition, type CardAction } from "./animation";
 import type { CardFrame } from "./types";
-
-export const CARD_TRANSITION = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
-export const SCROLLER_CARD_TRANSITION = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
 
 interface AnimatedCardProps {
   frame: CardFrame;
   label: string;
-  transition?: string;
+  action: CardAction;
 }
 
-export function AnimatedCard({ frame, label, transition = CARD_TRANSITION }: AnimatedCardProps) {
+export function AnimatedCard({ frame, label, action }: AnimatedCardProps) {
   const { x, y, w, h, visible, active, z } = frame;
 
   return (
@@ -22,7 +20,7 @@ export function AnimatedCard({ frame, label, transition = CARD_TRANSITION }: Ani
         height: h,
         opacity: visible ? 1 : 0,
         zIndex: z,
-        transition,
+        transition: cardTransition(action),
       }}
     >
       {label}

@@ -26,16 +26,8 @@ export interface CardFrame extends Rect {
   z?: number;
 }
 
-export interface TrackFrame {
-  w: number;
-  h: number;
-  offsetX: number;
-  offsetY: number;
-}
-
 export interface LayoutFrame {
   cards: CardFrame[];
-  track?: TrackFrame;
 }
 
 export interface LayoutContext {
@@ -66,5 +58,4 @@ export interface LayoutDef {
   supportsOrientation: boolean;
   render: LayoutRenderer;
   timeline?: Timeline;
-  cardTransition?: string;
 }

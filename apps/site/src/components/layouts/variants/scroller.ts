@@ -1,5 +1,5 @@
 import { effectiveGaps } from "../config";
-import type { CardFrame, LayoutRenderer, Rect, TrackFrame } from "../types";
+import type { CardFrame, LayoutRenderer, Rect } from "../types";
 
 interface ScrollerWindow {
   head: number;
@@ -64,18 +64,17 @@ export const scroller: LayoutRenderer = ({ width, height, orientation, phase, co
 
   const maxClient = Math.max(0, primaryViewport - 2 * structs - primaryGap);
   const headSize = maxClient * config.scrollerProportion;
-  const trackPrimary = headCount * headSize + (headCount - 1) * primaryGap;
 
   const focusStart = focusHead * (headSize + primaryGap);
-  let trackOffset: number;
+  let cameraOffset: number;
   if (headCount <= 1) {
-    trackOffset = (primaryViewport - headSize) / 2 - focusStart;
+    cameraOffset = (primaryViewport - headSize) / 2 - focusStart;
   } else if (focusHead === 0) {
-    trackOffset = structs - focusStart;
+    cameraOffset = structs - focusStart;
   } else if (focusHead === headCount - 1) {
-    trackOffset = primaryViewport - structs - headSize - focusStart;
+    cameraOffset = primaryViewport - structs - headSize - focusStart;
   } else {
-    trackOffset = (primaryViewport - headSize) / 2 - focusStart;
+    cameraOffset = (primaryViewport - headSize) / 2 - focusStart;
   }
 
   const cards: CardFrame[] = scene.map((w) => {
@@ -83,16 +82,12 @@ export const scroller: LayoutRenderer = ({ width, height, orientation, phase, co
     const stackIndex = w.stackIndex ?? 0;
     const crossSize = (crossExtent - (stackCount - 1) * crossGap) / stackCount;
     const crossPos = crossStart + stackIndex * (crossSize + crossGap);
-    const primaryPos = w.head * (headSize + primaryGap);
+    const primaryPos = w.head * (headSize + primaryGap) + cameraOffset;
     const rect: Rect = isVert
       ? { x: crossPos, y: primaryPos, w: crossSize, h: headSize }
       : { x: primaryPos, y: crossPos, w: headSize, h: crossSize };
     return { ...rect, visible: w.visible, active: w.active };
   });
 
-  const track: TrackFrame = isVert
-    ? { w: width, h: trackPrimary, offsetX: 0, offsetY: trackOffset }
-    : { w: trackPrimary, h: height, offsetX: trackOffset, offsetY: 0 };
-
-  return { cards, track };
+  return { cards };
 };
