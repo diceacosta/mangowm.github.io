@@ -7,13 +7,13 @@ catalogMode: prefer
 
 catalog:
   "@base-ui/react": ^1.8.0
-  "@types/node": ^26.5.1
+  "@types/node": ^26.6.4
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
   typescript: ^7.0.2
-  vite: npm:@voidzero-dev/vite-plus-core@0.3.2
-  vitest: 4.1.11
-  vite-plus: 0.3.2
+  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vitest: 5.0.3
+  vite-plus: 1.0.0
   react: ^19.3.0
   react-dom: ^19.3.0
   "@vitejs/plugin-react": ^6.1.1
@@ -21,11 +21,11 @@ catalog:
   babel-plugin-react-compiler: ^1.0.0
   tailwindcss: ^4.3.3
   "@tailwindcss/vite": ^4.3.3
-  lucide-react: ^1.45.0
-  "@tanstack/react-router": 1.170.36
-  "@tanstack/react-start": 1.168.53
-  "@tanstack/router-plugin": ^1.168.38
-  "@tauri-apps/cli": ^2.11.4
+  lucide-react: ^1.51.0
+  "@tanstack/react-router": 1.170.41
+  "@tanstack/react-start": 1.168.60
+  "@tanstack/router-plugin": ^1.168.42
+  "@tauri-apps/cli": ^2.12.1
 overrides:
   vite: "catalog:"
   vitest: "catalog:"
@@ -40,3 +40,4 @@ allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
   - "@tanstack/*"
+  - lucide-react@1.51.0

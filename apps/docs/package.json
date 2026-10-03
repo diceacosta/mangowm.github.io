@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@base-ui/react": "catalog:",
-    "fumadocs-core": "^16.15.14",
-    "fumadocs-mdx": "^15.4.5",
-    "fumadocs-ui": "npm:@fumadocs/base-ui@^16.15.14",
+    "fumadocs-core": "^16.15.18",
+    "fumadocs-mdx": "^15.4.6",
+    "fumadocs-ui": "npm:@fumadocs/base-ui@^16.15.18",
     "fumapress": "1.5.0",
     "react": "catalog:",
     "react-dom": "catalog:"

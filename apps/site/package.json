@@ -28,7 +28,7 @@
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "nitro": "3.0.260903-beta",
-    "srvx": "^1.0.4",
+    "srvx": "^1.0.5",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
