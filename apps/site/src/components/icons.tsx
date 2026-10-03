@@ -7,6 +7,7 @@ import {
   Image,
   Wallet,
   TriangleAlert,
+  Download,
   ChevronDown,
   Columns2,
   Rows2,
@@ -47,6 +48,8 @@ export const CheckSvg = (props: LucideProps) => <Check {...props} />;
 export const CopySvg = (props: LucideProps) => <Copy {...props} />;
 
 export const ImageSvg = (props: LucideProps) => <Image {...props} />;
+
+export const DownloadSvg = (props: LucideProps) => <Download {...props} />;
 
 export const WalletSvg = (props: LucideProps) => <Wallet {...props} />;
 
