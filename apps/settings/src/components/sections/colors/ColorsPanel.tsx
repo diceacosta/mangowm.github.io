@@ -7,7 +7,7 @@ import type { ColorMode } from "@/lib/color-utils";
 import type { PanelProps } from "@/lib/section-types";
 import { useFocusField } from "@/lib/use-focus-field";
 import { PanelShell, PanelHeader, SectionCard } from "@/components/sections/section-ui";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 interface ColorsConfig {
   rootcolor: string;

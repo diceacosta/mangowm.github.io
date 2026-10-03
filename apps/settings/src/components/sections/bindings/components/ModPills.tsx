@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { MODIFIER_ORDER } from "@/lib/keybind-parse";
 
 interface ModPillsProps {

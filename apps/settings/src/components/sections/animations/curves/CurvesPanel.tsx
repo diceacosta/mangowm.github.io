@@ -9,7 +9,7 @@ import { EASING_PRESETS } from "@/lib/easings";
 import { BezierEditor } from "./BezierEditor";
 import { CurveThumb } from "./CurveThumb";
 import { CurveMotionPreview } from "./CurveMotionPreview";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 const CURVE_FIELDS: { key: string; label: string; description: string }[] = [
   {

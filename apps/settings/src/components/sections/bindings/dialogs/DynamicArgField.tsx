@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import type { DispatcherArg } from "@/lib/dispatchers";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";

@@ -24,7 +24,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { getDispatchersByCategory } from "@/lib/dispatchers";
 import type { DispatcherInfo, DispatcherCategory } from "@/lib/dispatchers";
 

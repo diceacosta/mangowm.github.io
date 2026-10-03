@@ -4,7 +4,7 @@ import { useConfigStore } from "@/lib/config-store";
 import type { SourceFile, ConfigLine } from "@/lib/config-types";
 import { serializeConfig } from "@/lib/config-parse";
 import { commonAncestorDir } from "@/lib/path-utils";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 interface TreeNode {
   name: string;

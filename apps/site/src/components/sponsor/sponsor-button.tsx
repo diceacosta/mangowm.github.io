@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
-import { cn } from "@/cn";
+import { cn } from "cn";
 import { AlertTriangleSvg, CheckSvg, CopySvg, HeartSvg, ImageSvg, WalletSvg, XSvg } from "../icons";
 import { Toaster } from "../toaster";
 import { SPONSOR } from "./sponsor-data";

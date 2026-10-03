@@ -8,7 +8,7 @@ import {
   Hand,
   Keyboard,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { DISPATCHER_MAP, parseArgValues } from "@/lib/dispatchers";
 import type { Keybinding } from "@/lib/keybind-types";
 import { ComboDisplay } from "./ComboDisplay";

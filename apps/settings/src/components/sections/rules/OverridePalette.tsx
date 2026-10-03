@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { getOverridesForRuleType } from "@/lib/rules/metadata";
 import type { RuleType, OverrideMeta } from "@/lib/rules/types";
 

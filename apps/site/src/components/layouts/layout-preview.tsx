@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu } from "@base-ui/react/menu";
-import { cn } from "@/cn";
+import { cn } from "cn";
 import { ChevronDownIcon, HorizIcon, VertIcon } from "@/components/icons";
 import { LayoutStage } from "./layout-stage";
 import {

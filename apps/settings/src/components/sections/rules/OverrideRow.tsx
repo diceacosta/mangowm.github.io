@@ -1,5 +1,5 @@
 import { Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { Row, FieldLabel } from "@/components/sections/section-ui";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";

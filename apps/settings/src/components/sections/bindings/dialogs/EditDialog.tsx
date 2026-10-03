@@ -44,7 +44,7 @@ import { DynamicArgField } from "./DynamicArgField";
 import { ModeCombobox } from "./ModeCombobox";
 import { LayoutToggleGroup } from "./LayoutToggleGroup";
 import { ComboInput } from "../components/ComboInput";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 const TYPE_OPTIONS: { type: BindingType; label: string; icon: React.ReactNode }[] = [
   { type: "keyboard", label: "Keyboard", icon: <Keyboard className="size-3.5" /> },

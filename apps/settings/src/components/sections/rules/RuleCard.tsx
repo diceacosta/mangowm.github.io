@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { getOverrideMeta, RULE_MATCHER_LABELS } from "@/lib/rules/metadata";
 import type { RuleType, ParsedRule } from "@/lib/rules/parser";
 

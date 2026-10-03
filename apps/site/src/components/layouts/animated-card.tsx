@@ -1,4 +1,4 @@
-import { cn } from "@/cn";
+import { cn } from "cn";
 import { cardTransition, type CardAction } from "./animation";
 import type { CardFrame } from "./types";
 

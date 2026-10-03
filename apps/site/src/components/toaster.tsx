@@ -1,4 +1,4 @@
-import { cn } from "@/cn";
+import { cn } from "cn";
 
 /**
  * Persistent live region that announces transient messages to assistive tech.

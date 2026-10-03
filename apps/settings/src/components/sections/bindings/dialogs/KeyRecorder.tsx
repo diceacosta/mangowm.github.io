@@ -9,7 +9,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { Input } from "@/components/ui/input";
 import { useKeyRecorder, KEY_GROUPS, xkbToDisplay } from "@/lib/keyboard";
 import { MODIFIER_ORDER, isRawCode, parseRawCode } from "@/lib/keybind-parse";

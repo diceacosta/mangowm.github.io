@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { cn } from "@/cn";
+import { cn } from "cn";
 import { DownloadSvg } from "../icons";
 import { Toaster } from "../toaster";
 import {

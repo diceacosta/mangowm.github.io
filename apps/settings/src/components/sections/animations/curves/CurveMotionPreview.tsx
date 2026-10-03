@@ -3,7 +3,7 @@ import { useConfigBool, useConfigStr, useConfigInt, useConfigFloat } from "@/lib
 import { parseCurve } from "@/lib/curve";
 import type { BezierValue } from "@/lib/curve";
 import { toCss } from "@/lib/color-utils";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import {
   STAGE_W,
   STAGE_H,

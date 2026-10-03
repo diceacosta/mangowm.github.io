@@ -6,7 +6,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { useConfigStore, undo, redo } from "@/lib/config-store";
 import { downloadConfig } from "@/lib/config-file";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 export function PageHeader({
   title,
