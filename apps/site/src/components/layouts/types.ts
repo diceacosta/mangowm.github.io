@@ -1,3 +1,5 @@
+import type { LayoutConfig } from "./config";
+
 export type Orientation = "horizontal" | "vertical";
 
 export type LayoutId =
@@ -43,6 +45,7 @@ export interface LayoutContext {
   phase: number;
   /** Milliseconds since the current phase started, quantised to animation milestones. */
   phaseElapsed: number;
+  config: LayoutConfig;
 }
 
 export type LayoutRenderer = (context: LayoutContext) => LayoutFrame;

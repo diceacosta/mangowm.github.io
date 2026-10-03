@@ -1,22 +1,21 @@
+import { effectiveGaps } from "../config";
 import type { CardFrame, LayoutRenderer, Rect } from "../types";
-import { GAP, focusedSequence, progressiveCount } from "./helpers";
+import { focusedSequence, progressiveCount } from "./helpers";
 
-export const centerTile: LayoutRenderer = ({ width, height, phase }) => {
-  const availW = width - 2 * GAP;
-  const unit = availW / 4;
-  const sideW = unit;
-  const centreW = unit * 2;
-  const xCentre = sideW + GAP;
-  const xRight = sideW + centreW + 2 * GAP;
-
-  const centre: Rect = { x: xCentre, y: 0, w: centreW, h: height };
-  const leftSlot: Rect = { x: 0, y: 0, w: sideW, h: height };
-  const rightSlot: Rect = { x: xRight, y: 0, w: sideW, h: height };
-  const offRight: Rect = { x: width, y: 0, w: sideW, h: height };
-
+export const centerTile: LayoutRenderer = ({ width, height, phase, config }) => {
   const count = progressiveCount(phase);
-  const swap = phase === 4;
   const focused = focusedSequence(phase);
+  const swap = phase === 4;
+  const g = effectiveGaps(config, count);
+
+  const mw = (width - 2 * g.oh - g.ih) * config.mfact;
+  const tw = (width - mw) / 2 - g.oh - g.ih;
+  const mx = g.oh + tw + g.ih;
+
+  const centre: Rect = { x: mx, y: g.ov, w: mw, h: height - 2 * g.ov };
+  const leftSlot: Rect = { x: g.oh, y: g.ov, w: tw, h: height - 2 * g.ov };
+  const rightSlot: Rect = { x: mx + mw + g.ih, y: g.ov, w: tw, h: height - 2 * g.ov };
+  const offRight: Rect = { x: width, y: 0, w: tw, h: height - 2 * g.ov };
 
   // With 3 windows the second card moves to the left slot; with 2 it sits right.
   const second = count >= 3 ? leftSlot : rightSlot;

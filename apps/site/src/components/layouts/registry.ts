@@ -1,5 +1,5 @@
 import { SCROLLER_CARD_TRANSITION } from "./animated-card";
-import { MONOCLE_TIMELINE } from "./timeline";
+import { MONOCLE_TIMELINE, SCROLLER_TIMELINE } from "./timeline";
 import type { LayoutDef } from "./types";
 import { centerTile } from "./variants/center-tile";
 import { deck } from "./variants/deck";
@@ -23,6 +23,7 @@ export const scrollerLayout: LayoutDef = {
   label: "Scroller",
   supportsOrientation: true,
   render: scroller,
+  timeline: SCROLLER_TIMELINE,
   cardTransition: SCROLLER_CARD_TRANSITION,
 };
 

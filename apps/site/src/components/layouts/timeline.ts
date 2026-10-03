@@ -26,6 +26,20 @@ export const MONOCLE_TIMELINE: Timeline = {
   ],
 };
 
+export const SCROLLER_TIMELINE: Timeline = {
+  total: 7500,
+  keyframes: [
+    { phase: 0, at: 0 },
+    { phase: 1, at: 500 },
+    { phase: 2, at: 1500 },
+    { phase: 3, at: 2500 },
+    { phase: 4, at: 4000 },
+    { phase: 5, at: 5000 },
+    { phase: 6, at: 6000 },
+    { phase: 7, at: 7000 },
+  ],
+};
+
 /**
  * Some layouts animate through an intermediate state partway through a phase
  * (mirroring the original staggered `setTimeout`s). Quantising the elapsed time

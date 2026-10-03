@@ -1,137 +1,98 @@
-import type { CardFrame, LayoutRenderer, TrackFrame } from "../types";
-
-const HALF = 50;
+import { effectiveGaps } from "../config";
+import type { CardFrame, LayoutRenderer, Rect, TrackFrame } from "../types";
 
 interface ScrollerWindow {
-  primaryOffset: number;
-  primarySize: number;
-  secondaryOffset?: number;
-  secondarySize?: number;
+  head: number;
+  stackIndex?: number;
+  stackCount?: number;
   visible: boolean;
   active: boolean;
 }
 
-function hidden(primaryOffset: number, primarySize: number): ScrollerWindow {
-  return { primaryOffset, primarySize, visible: false, active: false };
-}
+type Scene = readonly [ScrollerWindow, ScrollerWindow, ScrollerWindow];
 
-function scrollerWindows(phase: number): [ScrollerWindow, ScrollerWindow, ScrollerWindow] {
+const hidden = (head: number): ScrollerWindow => ({ head, visible: false, active: false });
+const win = (head: number, opts: Partial<ScrollerWindow> = {}): ScrollerWindow => ({
+  head,
+  visible: true,
+  active: false,
+  ...opts,
+});
+
+function scrollerScene(phase: number): Scene {
   switch (phase) {
     case 0:
-      return [hidden(0, HALF), hidden(100, HALF), hidden(200, HALF)];
+      return [hidden(0), hidden(1), hidden(2)];
     case 1:
-      return [
-        { primaryOffset: 25, primarySize: HALF, visible: true, active: true },
-        hidden(100, HALF),
-        hidden(200, HALF),
-      ];
+      return [win(0, { active: true }), hidden(1), hidden(1)];
     case 2:
-      return [
-        { primaryOffset: 0, primarySize: HALF, visible: true, active: false },
-        { primaryOffset: HALF, primarySize: HALF, visible: true, active: true },
-        hidden(200, HALF),
-      ];
+      return [win(0), win(1, { active: true }), hidden(1)];
     case 3:
-      return [
-        { primaryOffset: 0, primarySize: HALF, visible: true, active: false },
-        { primaryOffset: HALF, primarySize: HALF, visible: true, active: false },
-        { primaryOffset: 100, primarySize: HALF, visible: true, active: true },
-      ];
+      return [win(0), win(1), win(2, { active: true })];
     case 4:
       return [
-        { primaryOffset: 0, primarySize: HALF, visible: true, active: false },
-        {
-          primaryOffset: HALF,
-          primarySize: HALF,
-          secondaryOffset: 0,
-          secondarySize: HALF,
-          visible: true,
-          active: false,
-        },
-        {
-          primaryOffset: HALF,
-          primarySize: HALF,
-          secondaryOffset: HALF,
-          secondarySize: HALF,
-          visible: true,
-          active: true,
-        },
+        win(0),
+        win(1, { stackIndex: 0, stackCount: 2 }),
+        win(1, { stackIndex: 1, stackCount: 2, active: true }),
       ];
     case 5:
-      return [
-        { primaryOffset: 0, primarySize: HALF, visible: true, active: false },
-        hidden(100, HALF),
-        { primaryOffset: HALF, primarySize: HALF, visible: true, active: true },
-      ];
+      return [win(0), win(1, { active: true }), hidden(1)];
     case 6:
-      return [
-        { primaryOffset: 0, primarySize: HALF, visible: true, active: false },
-        { primaryOffset: HALF, primarySize: HALF, visible: true, active: true },
-        hidden(HALF, HALF),
-      ];
-    case 7:
-      return [
-        { primaryOffset: 25, primarySize: HALF, visible: true, active: true },
-        hidden(HALF, HALF),
-        hidden(HALF, HALF),
-      ];
+      return [win(0, { active: true }), hidden(1), hidden(1)];
     default:
-      return [
-        { primaryOffset: 25, primarySize: HALF, visible: false, active: false },
-        hidden(HALF, HALF),
-        hidden(HALF, HALF),
-      ];
+      return [hidden(0), hidden(0), hidden(0)];
   }
 }
 
-export const scroller: LayoutRenderer = ({ width, height, orientation, phase }) => {
+export const scroller: LayoutRenderer = ({ width, height, orientation, phase, config }) => {
   const isVert = orientation === "vertical";
-  const dim = isVert ? height : width;
-  const gap = Math.min(20, dim * 0.05);
-  const scrollPct = phase === 3 ? HALF : 0;
-  const trackMult = phase === 3 ? 1.5 : 1;
+  const scene = scrollerScene(phase);
+
+  const visibleWindows = scene.filter((w) => w.visible);
+  const headCount = Math.max(1, ...visibleWindows.map((w) => w.head + 1));
+  const focused = scene.find((w) => w.active);
+  const focusHead = focused ? focused.head : 0;
+
+  const gaps = effectiveGaps(config, headCount);
+  const structs = config.scrollerStructs;
+  const primaryViewport = isVert ? height : width;
+  const crossViewport = isVert ? width : height;
+  const primaryGap = isVert ? gaps.iv : gaps.ih;
+  const crossGap = isVert ? gaps.ih : gaps.iv;
+  const crossStart = isVert ? gaps.oh : gaps.ov;
+  const crossExtent = crossViewport - 2 * crossStart;
+
+  const maxClient = Math.max(0, primaryViewport - 2 * structs - primaryGap);
+  const headSize = maxClient * config.scrollerProportion;
+  const trackPrimary = headCount * headSize + (headCount - 1) * primaryGap;
+
+  const focusStart = focusHead * (headSize + primaryGap);
+  let trackOffset: number;
+  if (headCount <= 1) {
+    trackOffset = (primaryViewport - headSize) / 2 - focusStart;
+  } else if (focusHead === 0) {
+    trackOffset = structs - focusStart;
+  } else if (focusHead === headCount - 1) {
+    trackOffset = primaryViewport - structs - headSize - focusStart;
+  } else {
+    trackOffset = (primaryViewport - headSize) / 2 - focusStart;
+  }
+
+  const cards: CardFrame[] = scene.map((w) => {
+    const stackCount = w.stackCount ?? 1;
+    const stackIndex = w.stackIndex ?? 0;
+    const crossSize = (crossExtent - (stackCount - 1) * crossGap) / stackCount;
+    const crossPos = crossStart + stackIndex * (crossSize + crossGap);
+    const primaryPos = w.head * (headSize + primaryGap);
+    const rect: Rect = isVert
+      ? { x: crossPos, y: primaryPos, w: crossSize, h: headSize }
+      : { x: primaryPos, y: crossPos, w: headSize, h: crossSize };
+    return { ...rect, visible: w.visible, active: w.active };
+  });
 
   const track: TrackFrame = isVert
-    ? { w: width, h: height * trackMult, offsetX: 0, offsetY: -(dim * scrollPct) / 100 }
-    : { w: width * trackMult, h: height, offsetX: -(dim * scrollPct) / 100, offsetY: 0 };
+    ? { w: width, h: trackPrimary, offsetX: 0, offsetY: trackOffset }
+    : { w: trackPrimary, h: height, offsetX: trackOffset, offsetY: 0 };
 
-  const card = (window: ScrollerWindow): CardFrame => {
-    const {
-      primaryOffset,
-      primarySize,
-      secondaryOffset = 0,
-      secondarySize = 100,
-      visible,
-      active,
-    } = window;
-
-    const isFirst = primaryOffset === scrollPct;
-    const isLast = primaryOffset + primarySize === scrollPct + 100;
-    const rawPos = (dim * primaryOffset) / 100;
-    const rawSize = (dim * primarySize) / 100;
-    const pos = isFirst ? rawPos : rawPos + gap / 2;
-
-    let size = rawSize;
-    if (!isFirst) size -= gap / 2;
-    if (!isLast) size -= gap / 2;
-    size = Math.max(size, 0);
-
-    const secondaryDim = isVert ? width : height;
-    let secondaryPos: number;
-    let secondarySizePx: number;
-    if (secondarySize < 100) {
-      const half = (secondaryDim - gap) / 2;
-      secondaryPos = secondaryOffset === 0 ? 0 : half + gap;
-      secondarySizePx = half;
-    } else {
-      secondaryPos = 0;
-      secondarySizePx = secondaryDim;
-    }
-
-    return isVert
-      ? { x: secondaryPos, y: pos, w: secondarySizePx, h: size, visible, active }
-      : { x: pos, y: secondaryPos, w: size, h: secondarySizePx, visible, active };
-  };
-
-  return { cards: scrollerWindows(phase).map(card), track };
+  return { cards, track };
 };

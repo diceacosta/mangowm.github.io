@@ -1,5 +1,5 @@
+import { effectiveGaps, type LayoutConfig, type LayoutGaps } from "../config";
 import type { CardFrame, LayoutRenderer, Rect } from "../types";
-import { GAP } from "./helpers";
 
 function dwindleState(phase: number, phaseElapsed: number): { count: number; swap: boolean } {
   switch (phase) {
@@ -24,36 +24,43 @@ function dwindleState(phase: number, phaseElapsed: number): { count: number; swa
   }
 }
 
-function dwindleRects(count: number, width: number, height: number): Rect[] {
+function dwindleRects(
+  count: number,
+  width: number,
+  height: number,
+  config: LayoutConfig,
+  gaps: LayoutGaps,
+): Rect[] {
   const rects: Rect[] = [];
-  if (count === 0) return rects;
-  rects.push({ x: 0, y: 0, w: width, h: height });
+  if (count <= 0) return rects;
+  rects.push({ x: gaps.oh, y: gaps.ov, w: width - 2 * gaps.oh, h: height - 2 * gaps.ov });
 
   for (let i = 1; i < count; i++) {
     const parent = rects[i - 1];
     if (!parent) break;
 
     if (parent.w >= parent.h) {
-      const w1 = (parent.w - GAP) / 2;
-      const w2 = parent.w - GAP - w1;
+      const w1 = Math.max(1, parent.w * config.dwindleRatio - gaps.ih / 2);
+      const w2 = parent.w - w1 - gaps.ih;
       rects[i - 1] = { ...parent, w: w1 };
-      rects.push({ x: parent.x + w1 + GAP, y: parent.y, w: w2, h: parent.h });
+      rects.push({ x: parent.x + w1 + gaps.ih, y: parent.y, w: w2, h: parent.h });
     } else {
-      const h1 = (parent.h - GAP) / 2;
-      const h2 = parent.h - GAP - h1;
+      const h1 = Math.max(1, parent.h * config.dwindleRatio - gaps.iv / 2);
+      const h2 = parent.h - h1 - gaps.iv;
       rects[i - 1] = { ...parent, h: h1 };
-      rects.push({ x: parent.x, y: parent.y + h1 + GAP, w: parent.w, h: h2 });
+      rects.push({ x: parent.x, y: parent.y + h1 + gaps.iv, w: parent.w, h: h2 });
     }
   }
 
   return rects;
 }
 
-export const dwindle: LayoutRenderer = ({ width, height, phase, phaseElapsed }) => {
+export const dwindle: LayoutRenderer = ({ width, height, phase, phaseElapsed, config }) => {
   const { count, swap } = dwindleState(phase, phaseElapsed);
+  const gaps = effectiveGaps(config, count);
   const layouts: Rect[][] = [
-    dwindleRects(0, width, height),
-    ...Array.from({ length: 5 }, (_, i) => dwindleRects(i + 1, width, height)),
+    dwindleRects(0, width, height, config, gaps),
+    ...Array.from({ length: 5 }, (_, i) => dwindleRects(i + 1, width, height, config, gaps)),
   ];
   const fallback: Rect = { x: 0, y: 0, w: width, h: height };
 

@@ -1,43 +1,20 @@
 import type { CardFrame, LayoutRenderer, Rect } from "../types";
-import { GAP, focusedSequence, progressiveCount } from "./helpers";
+import { focusedSequence, progressiveCount, tileRects } from "./helpers";
 
-export const rightTile: LayoutRenderer = ({ width, height, phase }) => {
-  const halfW = (width - GAP) / 2;
-  const halfH = (height - GAP) / 2;
-  const rightX = halfW + GAP;
-  const bottomY = halfH + GAP;
-
+export const rightTile: LayoutRenderer = ({ width, height, phase, config }) => {
   const count = progressiveCount(phase);
-  const swap = phase === 4;
   const focused = focusedSequence(phase);
+  const swap = phase === 4;
 
-  let master: Rect;
-  let stackTop: Rect;
-  let stackBottom: Rect;
+  const rects = tileRects(count, width, height, "horizontal", config, true);
+  const at = (index: number): Rect => rects[index] ?? { x: 0, y: 0, w: width, h: height };
 
-  if (count === 1) {
-    master = { x: 0, y: 0, w: width, h: height };
-    stackTop = { x: 0, y: 0, w: halfW, h: height };
-    stackBottom = { x: 0, y: bottomY, w: halfW, h: halfH };
-  } else if (count === 2) {
-    master = { x: rightX, y: 0, w: halfW, h: height };
-    stackTop = { x: 0, y: 0, w: halfW, h: height };
-    stackBottom = { x: 0, y: bottomY, w: halfW, h: halfH };
-  } else {
-    master = { x: rightX, y: 0, w: halfW, h: height };
-    stackTop = { x: 0, y: 0, w: halfW, h: halfH };
-    stackBottom = { x: 0, y: bottomY, w: halfW, h: halfH };
-  }
-
-  const third = phase >= 3 && phase < 6 ? (swap ? master : stackBottom) : stackBottom;
+  const master = swap && count === 3 ? at(2) : at(0);
+  const third = phase >= 3 && phase < 6 ? (swap ? at(0) : at(2)) : at(2);
 
   const cards: CardFrame[] = [
-    {
-      ...(swap && count === 3 ? stackBottom : master),
-      visible: phase > 0 && phase < 8,
-      active: focused === 1,
-    },
-    { ...stackTop, visible: phase >= 2 && phase < 7, active: focused === 2 },
+    { ...master, visible: phase > 0 && phase < 8, active: focused === 1 },
+    { ...at(1), visible: phase >= 2 && phase < 7, active: focused === 2 },
     { ...third, visible: phase >= 3 && phase < 6, active: focused === 3 },
   ];
 

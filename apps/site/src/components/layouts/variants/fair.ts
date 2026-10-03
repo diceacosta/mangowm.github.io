@@ -1,15 +1,15 @@
+import { effectiveGaps, type LayoutGaps } from "../config";
 import type { CardFrame, LayoutRenderer, Orientation, Rect } from "../types";
-
-const GAP = 12;
 
 export function calculateFairLayout(
   n: number,
   containerW: number,
   containerH: number,
-  gap: number,
+  gaps: LayoutGaps,
   orientation: Orientation,
 ): Rect[] {
   if (n <= 0) return [];
+  const { ih, iv, oh, ov } = gaps;
   const rects: Rect[] = [];
 
   if (orientation === "horizontal") {
@@ -19,8 +19,7 @@ export function calculateFairLayout(
     const firstGroupCols = cols - remainder;
     const firstGroupCount = firstGroupCols * baseRows;
     const maxRows = baseRows + (remainder > 0 ? 1 : 0);
-    const availW = containerW - (cols - 1) * gap;
-    const cw = availW / cols;
+    const cw = (containerW - 2 * oh - (cols - 1) * ih) / cols;
 
     for (let i = 0; i < n; i++) {
       const isFirstGroup = i < firstGroupCount;
@@ -29,11 +28,10 @@ export function calculateFairLayout(
         : firstGroupCols + Math.floor((i - firstGroupCount) / maxRows);
       const rowIdx = isFirstGroup ? i % baseRows : (i - firstGroupCount) % maxRows;
       const rowsInThisCol = isFirstGroup ? baseRows : maxRows;
-      const availH = containerH - (rowsInThisCol - 1) * gap;
-      const ch = availH / rowsInThisCol;
+      const ch = (containerH - 2 * ov - (rowsInThisCol - 1) * iv) / rowsInThisCol;
       rects.push({
-        x: colIdx * (cw + gap),
-        y: rowIdx * (ch + gap),
+        x: oh + colIdx * (cw + ih),
+        y: ov + rowIdx * (ch + iv),
         w: cw,
         h: ch,
       });
@@ -45,8 +43,7 @@ export function calculateFairLayout(
     const firstGroupRows = rows - remainder;
     const firstGroupCount = firstGroupRows * baseCols;
     const maxCols = baseCols + (remainder > 0 ? 1 : 0);
-    const availH = containerH - (rows - 1) * gap;
-    const ch = availH / rows;
+    const ch = (containerH - 2 * ov - (rows - 1) * iv) / rows;
 
     for (let i = 0; i < n; i++) {
       const isFirstGroup = i < firstGroupCount;
@@ -55,11 +52,10 @@ export function calculateFairLayout(
         : firstGroupRows + Math.floor((i - firstGroupCount) / maxCols);
       const colIdx = isFirstGroup ? i % baseCols : (i - firstGroupCount) % maxCols;
       const colsInThisRow = isFirstGroup ? baseCols : maxCols;
-      const availW = containerW - (colsInThisRow - 1) * gap;
-      const cw = availW / colsInThisRow;
+      const cw = (containerW - 2 * oh - (colsInThisRow - 1) * ih) / colsInThisRow;
       rects.push({
-        x: colIdx * (cw + gap),
-        y: rowIdx * (ch + gap),
+        x: oh + colIdx * (cw + ih),
+        y: ov + rowIdx * (ch + iv),
         w: cw,
         h: ch,
       });
@@ -94,10 +90,18 @@ function fairState(phase: number, phaseElapsed: number): { count: number; swap: 
   }
 }
 
-export const fair: LayoutRenderer = ({ width, height, orientation, phase, phaseElapsed }) => {
+export const fair: LayoutRenderer = ({
+  width,
+  height,
+  orientation,
+  phase,
+  phaseElapsed,
+  config,
+}) => {
   const { count, swap } = fairState(phase, phaseElapsed);
+  const gaps = effectiveGaps(config, count);
   const layouts: Rect[][] = Array.from({ length: 6 }, (_, n) =>
-    calculateFairLayout(n, width, height, GAP, orientation),
+    calculateFairLayout(n, width, height, gaps, orientation),
   );
 
   const target = (index: number): Rect => {

@@ -1,25 +1,41 @@
+import { effectiveGaps } from "../config";
 import type { CardFrame, LayoutRenderer, Rect } from "../types";
-import { GAP, focusedSequence } from "./helpers";
+import { focusedSequence } from "./helpers";
 
-export const deck: LayoutRenderer = ({ width, height, orientation, phase }) => {
+export const deck: LayoutRenderer = ({ width, height, orientation, phase, config }) => {
   const isVert = orientation === "vertical";
-
-  const master: Rect = isVert
-    ? { x: 0, y: 0, w: width, h: (height - GAP) / 2 }
-    : { x: 0, y: 0, w: (width - GAP) / 2, h: height };
-
-  const stack: Rect = isVert
-    ? { x: 0, y: (height - GAP) / 2 + GAP, w: width, h: (height - GAP) / 2 }
-    : { x: (width - GAP) / 2 + GAP, y: 0, w: (width - GAP) / 2, h: height };
-
-  const exit: Rect = isVert
-    ? { x: 0, y: height, w: width, h: (height - GAP) / 2 }
-    : { x: width, y: 0, w: (width - GAP) / 2, h: height };
-
-  const fullScreen: Rect = { x: 0, y: 0, w: width, h: height };
   const count = phase <= 1 ? 1 : phase === 2 ? 2 : phase <= 5 ? 3 : phase === 6 ? 2 : 1;
+  const g = effectiveGaps(config, count);
   const swap = phase === 4;
   const focused = focusedSequence(phase);
+
+  let master: Rect;
+  let stack: Rect;
+  if (isVert) {
+    const mh =
+      count > config.nmaster ? Math.round((height - 2 * g.ov) * config.mfact) : height - 2 * g.ov;
+    master = { x: g.oh, y: g.ov, w: width - 2 * g.oh, h: mh };
+    stack = {
+      x: g.oh,
+      y: mh + g.ov + g.iv,
+      w: width - 2 * g.oh,
+      h: height - mh - 2 * g.ov - g.iv,
+    };
+  } else {
+    const mw =
+      count > config.nmaster ? Math.round((width - 2 * g.oh) * config.mfact) : width - 2 * g.oh;
+    master = { x: g.oh, y: g.ov, w: mw, h: height - 2 * g.ov };
+    stack = {
+      x: mw + g.oh + g.ih,
+      y: g.ov,
+      w: width - mw - 2 * g.oh - g.ih,
+      h: height - 2 * g.ov,
+    };
+  }
+
+  const exit: Rect = isVert
+    ? { x: 0, y: height, w: stack.w, h: stack.h }
+    : { x: width, y: 0, w: stack.w, h: stack.h };
 
   const zIndex = (id: number) => {
     let z = id;
@@ -28,17 +44,15 @@ export const deck: LayoutRenderer = ({ width, height, orientation, phase }) => {
     return z;
   };
 
-  const base = count === 1 ? fullScreen : master;
-
   const cards: CardFrame[] = [
     phase < 8
       ? {
-          ...(swap ? stack : base),
+          ...(swap ? stack : master),
           visible: phase >= 1,
           active: focused === 1,
           z: zIndex(1),
         }
-      : { ...fullScreen, visible: false, active: false, z: 1 },
+      : { ...master, visible: false, active: false, z: 1 },
     phase < 7
       ? { ...stack, visible: phase >= 2, active: focused === 2, z: zIndex(2) }
       : { ...exit, visible: false, active: false, z: 2 },
