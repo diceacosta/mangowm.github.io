@@ -27,10 +27,17 @@ export function LayoutStage({
   const previousFrame = render(previous.phase, previous.phaseElapsed);
 
   const cards = frame.cards.map((card, index) => {
-    const wasVisible = previousFrame.cards[index]?.visible ?? false;
+    const previousCard = previousFrame.cards[index];
+    const wasVisible = previousCard?.visible ?? false;
     const action: CardAction =
       wasVisible === card.visible ? "move" : card.visible ? "enter" : "leave";
-    return <AnimatedCard key={index} frame={card} label={String(index + 1)} action={action} />;
+    // A closing card fades/zooms in place (like the compositor's close snapshot)
+    // instead of travelling to its hidden fallback slot, which is often centred.
+    const frame =
+      action === "leave" && previousCard
+        ? { ...previousCard, visible: false, active: false }
+        : card;
+    return <AnimatedCard key={index} frame={frame} label={String(index + 1)} action={action} />;
   });
 
   return (
