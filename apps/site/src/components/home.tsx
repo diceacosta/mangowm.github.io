@@ -16,7 +16,7 @@ function Hero() {
               A lightweight, feature-rich Wayland compositor built on wlroots and scenefx.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-              <a href="/docs" className="btn-primary">
+              <a href="/docs/" className="btn-primary">
                 Get started
               </a>
               <a

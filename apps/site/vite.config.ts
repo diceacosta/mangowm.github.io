@@ -24,6 +24,9 @@ export default defineConfig({
     babel({
       plugins: ["babel-plugin-react-compiler"],
     }),
-    nitro(),
+    nitro({
+      preset: "github_pages",
+      prerender: { ignore: ["/docs", "/settings"] },
+    }),
   ],
 });

@@ -6,10 +6,10 @@ import { SponsorButton } from "./sponsor/sponsor-button";
 import { DiscordIcon, GithubIcon, MenuSvg, XSvg } from "./icons";
 
 const NAV_LINKS = [
-  { label: "Docs", href: "/docs" },
+  { label: "Docs", href: "/docs/" },
   { label: "Showcase", to: "/showcase" },
   { label: "Releases", to: "/releases" },
-  { label: "Settings", href: "/settings" },
+  { label: "Settings", href: "/settings/" },
 ] as const;
 
 type NavLink = (typeof NAV_LINKS)[number];
