@@ -1,5 +1,4 @@
 import {
-  ArrowRight as LucideArrowRight,
   ArrowDown as LucideArrowDown,
   Heart,
   X,
@@ -36,8 +35,6 @@ export function DiscordIcon() {
     </span>
   );
 }
-
-export const ArrowRight = () => <LucideArrowRight size={12} strokeWidth={2.5} />;
 
 export const ArrowDown = () => <LucideArrowDown size={16} />;
 
