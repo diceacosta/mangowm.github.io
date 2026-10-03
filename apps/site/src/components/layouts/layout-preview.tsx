@@ -1,4 +1,5 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { Menu } from "@base-ui/react/menu";
 import { cn } from "@/cn";
 import { ChevronDownIcon, HorizIcon, VertIcon } from "@/components/icons";
 import { LayoutStage } from "./layout-stage";
@@ -15,10 +16,7 @@ import type { LayoutId, Orientation } from "./types";
 export function LayoutPreview() {
   const [activeLayout, setActiveLayout] = useState<LayoutId>(DEFAULT_LAYOUT.id);
   const [orientation, setOrientation] = useState<Orientation>("horizontal");
-  const [showMore, setShowMore] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const activeDef = LAYOUTS.find((layout) => layout.id === activeLayout) ?? DEFAULT_LAYOUT;
   const isPrimary = PRIMARY_LAYOUTS.some((layout) => layout.id === activeLayout);
@@ -38,20 +36,9 @@ export function LayoutPreview() {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
-  const handleClickOutside = useEffectEvent((event: MouseEvent) => {
-    if (!dropdownRef.current?.contains(event.target as Node)) setShowMore(false);
-  });
-
-  useEffect(() => {
-    if (!showMore) return;
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMore]);
-
   const selectLayout = (id: LayoutId) => {
     setActiveLayout(id);
     setIsAutoPlaying(false);
-    setShowMore(false);
   };
 
   const selectOrientation = (value: Orientation) => {
@@ -77,34 +64,32 @@ export function LayoutPreview() {
             </button>
           ))}
 
-          <div ref={dropdownRef} className="dropdown">
-            <button
-              type="button"
-              onClick={() => setShowMore((value) => !value)}
+          <Menu.Root>
+            <Menu.Trigger
               className={cn("layouts-pill-btn-more", !isPrimary && "layouts-pill-btn-more-active")}
             >
               {isPrimary ? "More" : activeDef.label}
               <ChevronDownIcon />
-            </button>
-
-            {showMore && (
-              <div className="dropdown-menu">
-                {SECONDARY_LAYOUTS.map((layout) => (
-                  <button
-                    key={layout.id}
-                    type="button"
-                    onClick={() => selectLayout(layout.id)}
-                    className={cn(
-                      "dropdown-item",
-                      activeLayout === layout.id && "dropdown-item-active",
-                    )}
-                  >
-                    {layout.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+            </Menu.Trigger>
+            <Menu.Portal>
+              <Menu.Positioner sideOffset={6} align="end" className="z-50 outline-none">
+                <Menu.Popup className="dropdown-menu">
+                  {SECONDARY_LAYOUTS.map((layout) => (
+                    <Menu.Item
+                      key={layout.id}
+                      onClick={() => selectLayout(layout.id)}
+                      className={cn(
+                        "dropdown-item",
+                        activeLayout === layout.id && "dropdown-item-active",
+                      )}
+                    >
+                      {layout.label}
+                    </Menu.Item>
+                  ))}
+                </Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu.Root>
         </div>
 
         <div

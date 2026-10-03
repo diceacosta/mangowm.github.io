@@ -2,7 +2,7 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
 import { cn } from "@/cn";
-import { SponsorButton } from "./sponsor-button";
+import { SponsorButton } from "./sponsor/sponsor-button";
 import { DiscordIcon, GithubIcon, MenuSvg, XSvg } from "./icons";
 
 const NAV_LINKS = [

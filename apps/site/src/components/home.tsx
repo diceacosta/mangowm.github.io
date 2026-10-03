@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { latestVersion } from "../constants";
 import { LayoutPreview } from "./layouts/layout-preview";
-import { SponsorButton } from "./sponsor-button";
+import { SponsorButton } from "./sponsor/sponsor-button";
 import { ArrowRight, HeartSvg } from "./icons";
 
 function VersionTag({ version }: { version: string }) {
