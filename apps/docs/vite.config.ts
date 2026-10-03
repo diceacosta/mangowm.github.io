@@ -5,5 +5,5 @@ import { fumadocsMdx } from "fumadocs-mdx/vite";
 import { lazyPlugins } from "vite-plus";
 
 export default defineConfig({
-  plugins: lazyPlugins(() => [press(), fumadocsMdx(), tailwindcss()]),
+  plugins: lazyPlugins(() => [press({ basePath: "/docs/" }), fumadocsMdx(), tailwindcss()]),
 });

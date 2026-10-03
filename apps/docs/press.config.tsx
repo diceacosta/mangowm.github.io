@@ -20,6 +20,7 @@ const docs = defineDocs({
 });
 
 export default defineConfig({
+  mode: "static",
   content: docs.toFumadocsSource(),
   renderPage: createDocsLayoutPage({
     renderPageActions: () => null,
