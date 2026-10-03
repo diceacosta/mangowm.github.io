@@ -8,7 +8,6 @@ import { DiscordIcon, GithubIcon, MenuSvg, XSvg } from "./icons";
 const NAV_LINKS = [
   { label: "Docs", href: "/docs/" },
   { label: "Showcase", to: "/showcase" },
-  { label: "Releases", to: "/releases" },
   { label: "Brand", to: "/brand" },
   { label: "Settings", href: "/settings/" },
 ] as const;
