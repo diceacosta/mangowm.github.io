@@ -1,19 +1,4 @@
-import {
-  ArrowDown as LucideArrowDown,
-  Heart,
-  X,
-  Check,
-  Copy,
-  Image,
-  Wallet,
-  TriangleAlert,
-  Download,
-  ChevronDown,
-  Columns2,
-  Rows2,
-  Menu,
-  type LucideProps,
-} from "lucide-react";
+import { Heart, Menu, type LucideProps } from "lucide-react";
 import githubLogo from "@mangowm/assets/logos/github.svg";
 import githubWhiteLogo from "@mangowm/assets/logos/github-white.svg";
 import discordLogo from "@mangowm/assets/logos/discord.svg";
@@ -37,28 +22,6 @@ export function DiscordIcon() {
   );
 }
 
-export const ArrowDown = () => <LucideArrowDown size={16} />;
-
 export const HeartSvg = (props: LucideProps) => <Heart {...props} />;
 
-export const XSvg = (props: LucideProps) => <X {...props} />;
-
-export const CheckSvg = (props: LucideProps) => <Check {...props} />;
-
-export const CopySvg = (props: LucideProps) => <Copy {...props} />;
-
-export const ImageSvg = (props: LucideProps) => <Image {...props} />;
-
-export const DownloadSvg = (props: LucideProps) => <Download {...props} />;
-
-export const WalletSvg = (props: LucideProps) => <Wallet {...props} />;
-
-export const AlertTriangleSvg = (props: LucideProps) => <TriangleAlert {...props} />;
-
-export const ChevronDownIcon = () => <ChevronDown size={12} />;
-
 export const MenuSvg = (props: LucideProps) => <Menu {...props} />;
-
-export const HorizIcon = () => <Columns2 size={14} aria-hidden="true" />;
-
-export const VertIcon = () => <Rows2 size={14} aria-hidden="true" />;

@@ -1,15 +1,9 @@
-import { createRootRoute, HeadContent, Outlet, ScriptOnce, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { Toaster } from "@mangowm/ui/components/toast";
 import appCss from "../App.css?url";
 import { Header } from "../components/header";
+import { ThemeProvider } from "../components/theme-provider";
 import { siteConfig } from "../constants";
-
-const themeScript = `(function () {
-  try {
-    var stored = localStorage.getItem("theme");
-    var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    if (theme === "dark") document.documentElement.classList.add("dark");
-  } catch (e) {}
-})();`;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -43,14 +37,16 @@ function RootComponent() {
         <HeadContent />
       </head>
       <body>
-        <ScriptOnce children={themeScript} />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <Header />
-        <main id="main-content">
-          <Outlet />
-        </main>
+        <ThemeProvider defaultTheme="system" storageKey="theme">
+          <Header />
+          <main id="main-content">
+            <Outlet />
+          </main>
+        </ThemeProvider>
+        <Toaster />
         <Scripts />
       </body>
     </html>

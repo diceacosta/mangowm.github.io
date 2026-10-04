@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
-import { Menu } from "@base-ui/react/menu";
+import { ChevronDown, Columns2, Rows2 } from "lucide-react";
 import { cn } from "cn";
-import { ChevronDownIcon, HorizIcon, VertIcon } from "@/components/icons";
+import { Button } from "@mangowm/ui/components/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@mangowm/ui/components/dropdown-menu";
+import { ToggleGroup, ToggleGroupItem } from "@mangowm/ui/components/toggle-group";
 import { LayoutStage } from "./layout-stage";
 import {
   AUTO_PLAY_IDS,
@@ -49,87 +56,91 @@ export function LayoutPreview() {
   return (
     <div className="layouts-wrapper">
       <div className="layouts-controls">
-        <div className="layouts-pill">
-          {PRIMARY_LAYOUTS.map((layout) => (
-            <button
-              key={layout.id}
-              type="button"
-              onClick={() => selectLayout(layout.id)}
-              className={cn(
-                "layouts-pill-btn",
-                activeLayout === layout.id && "layouts-pill-btn-active",
-              )}
-            >
-              {layout.label}
-            </button>
-          ))}
+        <div className="inline-flex items-center gap-0.5 rounded-full border border-border bg-card p-1">
+          <ToggleGroup
+            multiple={false}
+            spacing={1}
+            value={[activeLayout]}
+            onValueChange={(value) => {
+              const next = value[0];
+              if (next) selectLayout(next as LayoutId);
+            }}
+            className="rounded-full"
+          >
+            {PRIMARY_LAYOUTS.map((layout) => (
+              <ToggleGroupItem
+                key={layout.id}
+                value={layout.id}
+                className="h-auto min-w-0 rounded-full px-3 py-1.5 text-[0.8125rem] font-medium text-muted-foreground hover:bg-transparent hover:text-foreground aria-pressed:bg-primary aria-pressed:font-semibold aria-pressed:text-primary-foreground"
+              >
+                {layout.label}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
 
-          <Menu.Root>
-            <Menu.Trigger
-              className={cn("layouts-pill-btn-more", !isPrimary && "layouts-pill-btn-more-active")}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={cn(
+                    "h-auto rounded-full px-3 py-1.5 text-[0.8125rem] font-medium text-muted-foreground hover:bg-transparent hover:text-foreground",
+                    !isPrimary &&
+                      "bg-primary font-semibold text-primary-foreground hover:bg-primary",
+                  )}
+                />
+              }
             >
               {isPrimary ? "More" : activeDef.label}
-              <ChevronDownIcon />
-            </Menu.Trigger>
-            <Menu.Portal>
-              <Menu.Positioner sideOffset={6} align="end" className="z-50 outline-none">
-                <Menu.Popup className="dropdown-menu">
-                  {SECONDARY_LAYOUTS.map((layout) => (
-                    <Menu.Item
-                      key={layout.id}
-                      onClick={() => selectLayout(layout.id)}
-                      className={cn(
-                        "dropdown-item",
-                        activeLayout === layout.id && "dropdown-item-active",
-                      )}
-                    >
-                      {layout.label}
-                    </Menu.Item>
-                  ))}
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
-          </Menu.Root>
+              <ChevronDown className="size-3" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[160px]">
+              {SECONDARY_LAYOUTS.map((layout) => (
+                <DropdownMenuItem
+                  key={layout.id}
+                  onClick={() => selectLayout(layout.id)}
+                  className={cn(activeLayout === layout.id && "bg-mango-soft font-semibold")}
+                >
+                  {layout.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
-        <div
-          className={cn(
-            "layouts-orientation-group",
-            !supportsOrientation && "layouts-orientation-group-disabled",
-          )}
+        <ToggleGroup
+          multiple={false}
+          spacing={1}
+          value={supportsOrientation ? [orientation] : []}
+          onValueChange={(value) => {
+            const next = value[0];
+            if (next) selectOrientation(next as Orientation);
+          }}
+          disabled={!supportsOrientation}
           title={!supportsOrientation ? "This layout has no orientation variant" : undefined}
+          className={cn(
+            "rounded-full border border-border bg-card p-1",
+            !supportsOrientation && "opacity-40",
+          )}
         >
-          <button
-            type="button"
-            onClick={() => selectOrientation("horizontal")}
+          <ToggleGroupItem
+            value="horizontal"
             title="Horizontal"
             aria-label="Horizontal"
-            aria-pressed={orientation === "horizontal" && supportsOrientation}
-            disabled={!supportsOrientation}
-            className={cn(
-              "layouts-orientation-btn",
-              orientation === "horizontal" &&
-                supportsOrientation &&
-                "layouts-orientation-btn-active",
-            )}
+            className="h-auto min-w-0 rounded-full p-1.5 text-muted-foreground hover:bg-transparent hover:text-foreground aria-pressed:bg-primary aria-pressed:text-primary-foreground"
           >
-            <HorizIcon />
-          </button>
-          <button
-            type="button"
-            onClick={() => selectOrientation("vertical")}
+            <Columns2 className="size-3.5" aria-hidden="true" />
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            value="vertical"
             title="Vertical"
             aria-label="Vertical"
-            aria-pressed={orientation === "vertical" && supportsOrientation}
-            disabled={!supportsOrientation}
-            className={cn(
-              "layouts-orientation-btn",
-              orientation === "vertical" && supportsOrientation && "layouts-orientation-btn-active",
-            )}
+            className="h-auto min-w-0 rounded-full p-1.5 text-muted-foreground hover:bg-transparent hover:text-foreground aria-pressed:bg-primary aria-pressed:text-primary-foreground"
           >
-            <VertIcon />
-          </button>
-        </div>
+            <Rows2 className="size-3.5" aria-hidden="true" />
+          </ToggleGroupItem>
+        </ToggleGroup>
       </div>
 
       <div className="layouts-preview">

@@ -403,9 +403,6 @@ importers:
 
   apps/site:
     dependencies:
-      '@base-ui/react':
-        specifier: 'catalog:'
-        version: 1.8.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@mangowm/assets':
         specifier: workspace:*
         version: link:../../packages/assets

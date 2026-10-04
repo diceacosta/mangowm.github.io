@@ -1,12 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { Dialog } from "@base-ui/react/dialog";
+import { AlertTriangle, Check, Copy, Heart, Image, Wallet } from "lucide-react";
 import { cn } from "cn";
-import { AlertTriangleSvg, CheckSvg, CopySvg, HeartSvg, ImageSvg, WalletSvg, XSvg } from "../icons";
-import { Toaster } from "../toaster";
+import { Button } from "@mangowm/ui/components/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@mangowm/ui/components/dialog";
+import { toast } from "@mangowm/ui/components/toast";
 import { SPONSOR } from "./sponsor-data";
 import { useCopy, type CopyType } from "./use-copy";
-
-const MESSAGE_DURATION = 2000;
 
 export function SponsorButton({
   size,
@@ -16,130 +22,138 @@ export function SponsorButton({
   className?: string;
 }) {
   const { copied, copy } = useCopy();
-  const [message, setMessage] = useState<string | null>(null);
-  const messageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (messageTimer.current) clearTimeout(messageTimer.current);
-    };
-  }, []);
-
-  const showMessage = (text: string) => {
-    setMessage(text);
-    if (messageTimer.current) clearTimeout(messageTimer.current);
-    messageTimer.current = setTimeout(() => setMessage(null), MESSAGE_DURATION);
-  };
 
   const handleCopy = async (type: CopyType) => {
-    showMessage(await copy(type));
+    const message = await copy(type);
+    toast.add({
+      type: message.startsWith("Failed") ? "error" : "success",
+      description: message,
+    });
   };
 
   return (
-    <>
-      <Dialog.Root>
-        <Dialog.Trigger
-          aria-label="Sponsor mango"
-          className={cn("sponsor-btn", size === "lg" && "sponsor-btn-lg", className)}
-        >
-          <HeartSvg className="sponsor-btn-icon" />
-          <span>Sponsor</span>
-        </Dialog.Trigger>
+    <Dialog>
+      <DialogTrigger
+        render={
+          <Button
+            variant="outline"
+            aria-label="Sponsor mango"
+            className={cn(
+              "gap-[0.45rem] rounded-full border-border bg-card font-semibold hover:border-primary hover:bg-mango-soft hover:text-foreground",
+              size === "lg" ? "h-11 px-6 text-[0.9375rem]" : "h-9 px-[0.9rem] text-[0.8125rem]",
+              className,
+            )}
+          />
+        }
+      >
+        <Heart className="size-4" />
+        <span>Sponsor</span>
+      </DialogTrigger>
 
-        <Dialog.Portal>
-          <Dialog.Backdrop className="modal-backdrop" />
-          <Dialog.Popup className="modal-content">
-            <Dialog.Close className="modal-close" aria-label="Close">
-              <XSvg className="w-5 h-5" />
-            </Dialog.Close>
+      <DialogContent className="max-h-[90vh] overflow-auto rounded-[20px] border-border bg-card sm:max-w-2xl">
+        <DialogHeader className="p-5 sm:px-6 sm:pt-6 sm:pb-2">
+          <DialogTitle className="font-display text-xl font-bold tracking-[-0.02em] sm:text-[1.375rem]">
+            Sponsor mango
+          </DialogTitle>
+          <DialogDescription className="mt-1 max-w-md text-sm text-muted-foreground">
+            Help sustain open-source development.
+          </DialogDescription>
+        </DialogHeader>
 
-            <div className="modal-header">
-              <Dialog.Title className="modal-title">Sponsor mango</Dialog.Title>
-              <Dialog.Description className="modal-subtitle">
-                Help sustain open-source development.
-              </Dialog.Description>
-            </div>
+        <div className="grid grid-cols-1 items-center gap-4 p-5 sm:grid-cols-2 sm:gap-8 sm:p-6">
+          <div className="flex flex-col items-center justify-center">
+            <button
+              type="button"
+              onClick={() => handleCopy("qr")}
+              aria-label="Copy QR code"
+              className={cn(
+                "group relative aspect-square w-full max-w-[140px] cursor-pointer overflow-hidden rounded-[14px] border border-border bg-background p-2 transition-colors hover:border-primary sm:max-w-[200px]",
+                copied === "qr" && "border-success",
+              )}
+            >
+              <img
+                src={SPONSOR.qrSrc}
+                alt="BEP20 QR code"
+                className="h-full w-full rounded-[10px] object-contain"
+              />
+              <div
+                className={cn(
+                  "absolute inset-0 flex flex-col items-center justify-center rounded-[14px] bg-background opacity-0 transition-opacity group-hover:opacity-100",
+                  copied === "qr" && "opacity-100",
+                )}
+              >
+                {copied === "qr" ? (
+                  <Check className="size-8 text-primary" />
+                ) : (
+                  <>
+                    <Image className="mb-1 size-6 text-foreground sm:mb-2 sm:size-8" />
+                    <span className="text-xs font-semibold text-foreground">Copy</span>
+                  </>
+                )}
+              </div>
+            </button>
+            <p className="mt-2 text-center text-xs text-muted-foreground">Tap to copy</p>
+          </div>
 
-            <div className="modal-body">
-              <div className="modal-qr-col">
-                <button
-                  type="button"
-                  onClick={() => handleCopy("qr")}
-                  aria-label="Copy QR code"
-                  className={cn("modal-qr-btn", copied === "qr" && "modal-qr-btn-copied")}
+          <div className="flex flex-col justify-center">
+            <div>
+              <div className="flex items-center justify-between gap-2 px-1">
+                <span className="flex items-center gap-1.5 text-[0.8125rem] font-medium text-muted-foreground">
+                  <Wallet className="size-3.5" />
+                  Wallet address
+                </span>
+                <span className="rounded-full border border-border bg-mango-soft px-2.5 py-0.5 text-[0.6875rem] font-bold text-primary-text">
+                  {SPONSOR.network}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handleCopy("address")}
+                aria-label="Copy wallet address"
+                className={cn(
+                  "mt-2 flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-muted p-3 transition-[border-color,transform] hover:border-primary active:scale-[0.99]",
+                  copied === "address" && "border-success",
+                )}
+              >
+                <code
+                  className="flex-1 font-mono text-xs font-medium break-all text-foreground"
+                  title={SPONSOR.address}
                 >
-                  <img src={SPONSOR.qrSrc} alt="BEP20 QR code" className="modal-qr-img" />
-                  <div className="modal-qr-overlay">
-                    {copied === "qr" ? (
-                      <CheckSvg className="modal-qr-check" />
-                    ) : (
-                      <>
-                        <ImageSvg className="modal-qr-overlay-icon" />
-                        <span className="modal-qr-overlay-text">Copy</span>
-                      </>
-                    )}
-                  </div>
-                </button>
-                <p className="modal-qr-hint">Tap to copy</p>
-              </div>
-
-              <div className="modal-address-col">
-                <div>
-                  <div className="modal-address-header">
-                    <span className="modal-address-label">
-                      <WalletSvg className="w-3.5 h-3.5" />
-                      Wallet address
-                    </span>
-                    <span className="modal-network-badge">{SPONSOR.network}</span>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => handleCopy("address")}
-                    aria-label="Copy wallet address"
-                    className={cn(
-                      "modal-address-box",
-                      copied === "address" && "modal-address-box-copied",
-                    )}
-                  >
-                    <code className="modal-address-code" title={SPONSOR.address}>
-                      {SPONSOR.address}
-                    </code>
-                    <span
-                      className={cn(
-                        "modal-copy-btn",
-                        copied === "address" && "modal-copy-btn-copied",
-                      )}
-                    >
-                      {copied === "address" ? (
-                        <CheckSvg className="w-3.5 h-3.5" />
-                      ) : (
-                        <CopySvg className="w-3.5 h-3.5" />
-                      )}
-                    </span>
-                  </button>
-                </div>
-
-                <div className="modal-warning">
-                  <AlertTriangleSvg className="modal-warning-icon" />
-                  <div>
-                    <p className="modal-warning-title">Verification</p>
-                    <p className="modal-warning-text">
-                      Only use the <span className="modal-warning-code">BEP20</span> network.
-                    </p>
-                  </div>
-                </div>
-              </div>
+                  {SPONSOR.address}
+                </code>
+                <span
+                  className={cn(
+                    "flex size-7 shrink-0 items-center justify-center rounded-full bg-card text-muted-foreground transition-colors hover:text-foreground sm:size-8",
+                    copied === "address" &&
+                      "bg-success text-success-foreground hover:text-success-foreground",
+                  )}
+                >
+                  {copied === "address" ? (
+                    <Check className="size-3.5" />
+                  ) : (
+                    <Copy className="size-3.5" />
+                  )}
+                </span>
+              </button>
             </div>
 
-            <div className="modal-footer">
-              <p className="modal-footer-text">Thanks for your support</p>
+            <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-border bg-muted p-3">
+              <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" />
+              <div>
+                <p className="text-[0.8125rem] font-semibold text-foreground">Verification</p>
+                <p className="mt-0.5 text-[0.8125rem] leading-normal text-muted-foreground">
+                  Only use the <span className="font-semibold text-foreground">BEP20</span> network.
+                </p>
+              </div>
             </div>
-          </Dialog.Popup>
-        </Dialog.Portal>
-      </Dialog.Root>
+          </div>
+        </div>
 
-      <Toaster message={message} />
-    </>
+        <DialogFooter className="border-t border-border bg-muted p-3.5 text-center sm:flex-col sm:justify-center">
+          <p className="text-xs font-medium text-muted-foreground">Thanks for your support</p>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

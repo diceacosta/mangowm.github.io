@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { Download } from "lucide-react";
 import { cn } from "cn";
-import { DownloadSvg } from "../icons";
-import { Toaster } from "../toaster";
+import { RadioGroup, RadioGroupItem } from "@mangowm/ui/components/radio-group";
+import { Slider } from "@mangowm/ui/components/slider";
+import { toast } from "@mangowm/ui/components/toast";
 import {
   LOGO_BACKGROUNDS,
   LOGO_RATIOS,
@@ -19,33 +21,22 @@ import {
 const BACKGROUND_KEYS = Object.keys(LOGO_BACKGROUNDS) as LogoBackground[];
 const RATIO_KEYS = Object.keys(LOGO_RATIOS) as LogoRatio[];
 
-const MESSAGE_DURATION = 2200;
-
-function OptionRadio({
-  name,
+function OptionCard({
+  id,
   value,
   checked,
-  onSelect,
   className,
   children,
 }: {
-  name: string;
+  id: string;
   value: string;
   checked: boolean;
-  onSelect: () => void;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <label className={cn("brand-option", className, checked && "brand-option-active")}>
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={onSelect}
-        className="brand-option-input"
-      />
+    <label htmlFor={id} className={cn("brand-option", className, checked && "brand-option-active")}>
+      <RadioGroupItem id={id} value={value} className="brand-option-input" />
       {children}
     </label>
   );
@@ -57,21 +48,7 @@ export function BrandPage() {
   const [ratio, setRatio] = useState<LogoRatio>("square");
   const [size, setSize] = useState(1024);
   const [padding, setPadding] = useState(8);
-  const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const messageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (messageTimer.current) clearTimeout(messageTimer.current);
-    };
-  }, []);
-
-  const showMessage = (text: string) => {
-    setMessage(text);
-    if (messageTimer.current) clearTimeout(messageTimer.current);
-    messageTimer.current = setTimeout(() => setMessage(null), MESSAGE_DURATION);
-  };
 
   const { width, height } = getLogoDimensions(ratio, size);
   const svg = buildLogoSvg({ width, height, background, padding });
@@ -88,10 +65,10 @@ export function BrandPage() {
         const blob = await renderLogoPng(svg, { width, height });
         downloadBlob(blob, filename);
       }
-      showMessage(`Downloaded ${filename}`);
+      toast.add({ type: "success", description: `Downloaded ${filename}` });
     } catch (error) {
       console.error("Logo export failed:", error);
-      showMessage("Export failed. Please try again.");
+      toast.add({ type: "error", description: "Export failed. Please try again." });
     } finally {
       setBusy(false);
     }
@@ -127,7 +104,7 @@ export function BrandPage() {
                 aria-label={busy ? "Exporting logo" : `Download ${format.toUpperCase()}`}
                 title={busy ? "Exporting…" : `Download ${format.toUpperCase()}`}
               >
-                <DownloadSvg className="size-4" />
+                <Download className="size-4" />
               </button>
             </div>
           </div>
@@ -136,33 +113,39 @@ export function BrandPage() {
         <div className="brand-controls">
           <fieldset className="brand-field">
             <legend className="brand-field-label">Format</legend>
-            <div className="brand-options">
+            <RadioGroup
+              value={format}
+              onValueChange={(value) => setFormat(value as LogoFormat)}
+              className="flex flex-wrap gap-1.5"
+            >
               {(["svg", "png"] as const).map((value) => (
-                <OptionRadio
+                <OptionCard
                   key={value}
-                  name="brand-format"
+                  id={`brand-format-${value}`}
                   value={value}
                   checked={format === value}
-                  onSelect={() => setFormat(value)}
                 >
                   {value.toUpperCase()}
-                </OptionRadio>
+                </OptionCard>
               ))}
-            </div>
+            </RadioGroup>
           </fieldset>
 
           <fieldset className="brand-field">
             <legend className="brand-field-label">Background</legend>
-            <div className="brand-options">
+            <RadioGroup
+              value={background}
+              onValueChange={(value) => setBackground(value as LogoBackground)}
+              className="flex flex-wrap gap-1.5"
+            >
               {BACKGROUND_KEYS.map((value) => {
                 const meta = LOGO_BACKGROUNDS[value];
                 return (
-                  <OptionRadio
+                  <OptionCard
                     key={value}
-                    name="brand-background"
+                    id={`brand-background-${value}`}
                     value={value}
                     checked={background === value}
-                    onSelect={() => setBackground(value)}
                   >
                     <span
                       className={cn(
@@ -173,72 +156,75 @@ export function BrandPage() {
                       aria-hidden="true"
                     />
                     {meta.label}
-                  </OptionRadio>
+                  </OptionCard>
                 );
               })}
-            </div>
+            </RadioGroup>
           </fieldset>
 
           <fieldset className="brand-field">
             <legend className="brand-field-label">Ratio</legend>
-            <div className="brand-options">
+            <RadioGroup
+              value={ratio}
+              onValueChange={(value) => setRatio(value as LogoRatio)}
+              className="flex flex-wrap gap-1.5"
+            >
               {RATIO_KEYS.map((value) => {
                 const meta = LOGO_RATIOS[value];
                 return (
-                  <OptionRadio
+                  <OptionCard
                     key={value}
-                    name="brand-ratio"
+                    id={`brand-ratio-${value}`}
                     value={value}
                     checked={ratio === value}
-                    onSelect={() => setRatio(value)}
                     className="brand-option-stacked"
                   >
                     <span className="brand-option-main">{meta.ratio}</span>
                     <span className="brand-option-sub">{meta.label}</span>
-                  </OptionRadio>
+                  </OptionCard>
                 );
               })}
-            </div>
+            </RadioGroup>
           </fieldset>
 
           <fieldset className="brand-field">
             <legend className="brand-field-label">
               Size <span className="brand-field-hint">longest edge</span>
             </legend>
-            <div className="brand-options">
+            <RadioGroup
+              value={String(size)}
+              onValueChange={(value) => setSize(Number(value))}
+              className="flex flex-wrap gap-1.5"
+            >
               {LOGO_SIZES.map((value) => (
-                <OptionRadio
+                <OptionCard
                   key={value}
-                  name="brand-size"
+                  id={`brand-size-${value}`}
                   value={String(value)}
                   checked={size === value}
-                  onSelect={() => setSize(value)}
                 >
                   {value}px
-                </OptionRadio>
+                </OptionCard>
               ))}
-            </div>
+            </RadioGroup>
           </fieldset>
 
           <div className="brand-field">
             <label className="brand-field-label" htmlFor="brand-padding">
               Padding <span className="brand-field-hint">{padding}%</span>
             </label>
-            <input
+            <Slider
               id="brand-padding"
-              type="range"
+              value={padding}
+              onValueChange={(value) => setPadding(value as number)}
               min={0}
               max={30}
               step={1}
-              value={padding}
-              onChange={(event) => setPadding(Number(event.target.value))}
-              className="brand-range"
+              className="w-full"
             />
           </div>
         </div>
       </section>
-
-      <Toaster message={message} />
     </div>
   );
 }

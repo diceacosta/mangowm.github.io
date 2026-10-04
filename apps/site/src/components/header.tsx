@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Popover } from "@base-ui/react/popover";
 import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
 import { cn } from "cn";
+import { Button } from "@mangowm/ui/components/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@mangowm/ui/components/sheet";
 import { SponsorButton } from "./sponsor/sponsor-button";
-import { DiscordIcon, GithubIcon, MenuSvg, XSvg } from "./icons";
+import { ModeToggle } from "./mode-toggle";
+import { DiscordIcon, GithubIcon, MenuSvg } from "./icons";
 
 const NAV_LINKS = [
   { label: "Docs", href: "/docs/" },
@@ -57,66 +66,6 @@ function DesktopNav({ activeIndex }: { activeIndex: number }) {
   );
 }
 
-function applyStoredTheme() {
-  const theme = localStorage.getItem("theme");
-  const isDark =
-    theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  document.documentElement.classList.toggle("dark", isDark);
-}
-
-function ThemeToggle() {
-  useEffect(() => {
-    window.addEventListener("storage", applyStoredTheme);
-    return () => window.removeEventListener("storage", applyStoredTheme);
-  }, []);
-
-  const toggle = () => {
-    const html = document.documentElement;
-    const isDark = html.classList.contains("dark");
-    if (isDark) {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    }
-  };
-
-  return (
-    <button type="button" onClick={toggle} className="theme-toggle" aria-label="Toggle theme">
-      <svg
-        className="theme-sun"
-        xmlns="http://www.w3.org/2000/svg"
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-      </svg>
-      <svg
-        className="theme-moon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-      </svg>
-    </button>
-  );
-}
-
 function SocialLinks() {
   return (
     <>
@@ -152,66 +101,60 @@ function MobileNav({
   pathname: string;
 }) {
   return (
-    <Popover.Root open={open} onOpenChange={setOpen} modal>
-      <Popover.Trigger
-        aria-label={open ? "Close menu" : "Open menu"}
-        className="site-icon-link site-menu-trigger"
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger
+        render={<Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open menu" />}
       >
-        {open ? <XSvg /> : <MenuSvg />}
-      </Popover.Trigger>
-      <Popover.Portal>
-        <Popover.Backdrop className="site-menu-backdrop" />
-        <Popover.Positioner
-          side="bottom"
-          align="end"
-          sideOffset={2}
-          collisionPadding={8}
-          className="site-menu-positioner"
-        >
-          <Popover.Popup className="site-menu">
-            <nav aria-label="Mobile">
-              <ul className="site-menu-list">
-                {NAV_LINKS.map((link) => {
-                  const active = isActive(link, pathname);
-                  const className = cn("site-menu-item", active && "site-menu-item-active");
-                  const shared = {
-                    className,
-                    "aria-current": active ? ("page" as const) : undefined,
-                    onClick: () => setOpen(false),
-                  };
+        <MenuSvg />
+      </SheetTrigger>
+      <SheetContent
+        side="right"
+        className="w-[min(20rem,calc(100vw-2rem))] gap-0 border-l border-border bg-card/95 p-0 backdrop-blur-xl sm:max-w-sm"
+      >
+        <SheetHeader className="sr-only">
+          <SheetTitle>Menu</SheetTitle>
+          <SheetDescription>Site navigation and quick links</SheetDescription>
+        </SheetHeader>
 
-                  return (
-                    <li key={link.label}>
-                      {"to" in link ? (
-                        <Link to={link.to} {...shared}>
-                          {link.label}
-                        </Link>
-                      ) : (
-                        <a href={link.href} {...shared}>
-                          {link.label}
-                        </a>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+        <nav aria-label="Mobile" className="min-h-0 flex-1 overflow-y-auto p-4">
+          <ul className="site-menu-list">
+            {NAV_LINKS.map((link) => {
+              const active = isActive(link, pathname);
+              const className = cn("site-menu-item", active && "site-menu-item-active");
+              const shared = {
+                className,
+                "aria-current": active ? ("page" as const) : undefined,
+                onClick: () => setOpen(false),
+              };
 
-            <div className="site-menu-footer">
-              <ThemeToggle />
-              <div className="site-menu-socials">
-                <SocialLinks />
-              </div>
-            </div>
-            <div className="site-menu-footer site-menu-cta">
-              <SponsorButton />
-            </div>
+              return (
+                <li key={link.label}>
+                  {"to" in link ? (
+                    <Link to={link.to} {...shared}>
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} {...shared}>
+                      {link.label}
+                    </a>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-            <Popover.Close className="sr-only">Close menu</Popover.Close>
-          </Popover.Popup>
-        </Popover.Positioner>
-      </Popover.Portal>
-    </Popover.Root>
+        <div className="site-menu-footer">
+          <ModeToggle />
+          <div className="site-menu-socials">
+            <SocialLinks />
+          </div>
+        </div>
+        <div className="site-menu-footer site-menu-cta">
+          <SponsorButton />
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
 
@@ -250,7 +193,7 @@ export function Header() {
 
         <div className="site-pill site-piece">
           <div className="site-desktop-only">
-            <ThemeToggle />
+            <ModeToggle />
           </div>
           <div className="site-desktop-only">
             <SocialLinks />

@@ -1,3 +1,4 @@
+import { buttonVariants } from "@mangowm/ui/components/button";
 import { LayoutPreview } from "./layouts/layout-preview";
 import { SponsorButton } from "./sponsor/sponsor-button";
 import { HeartSvg } from "./icons";
@@ -16,14 +17,24 @@ function Hero() {
               A lightweight, feature-rich Wayland compositor built on wlroots and scenefx.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-              <a href="/docs/" className="btn-primary">
+              <a
+                href="/docs/"
+                className={buttonVariants({
+                  size: "lg",
+                  className: "h-11 rounded-xl px-6 text-[0.9375rem] font-semibold",
+                })}
+              >
                 Get started
               </a>
               <a
                 href="https://github.com/mangowm/mango"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary"
+                className={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  className: "h-11 rounded-xl px-6 text-[0.9375rem] font-semibold",
+                })}
               >
                 View on GitHub
               </a>
