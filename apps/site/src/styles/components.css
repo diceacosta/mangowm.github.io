@@ -1150,12 +1150,8 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem clamp(0.75rem, 2vw, 1.25rem);
     pointer-events: none;
-
-    @media (width >= 640px) {
-      padding-inline: 1.25rem;
-    }
   }
 
   .site-header::before {
@@ -1207,6 +1203,12 @@
     height: 3rem;
     padding-inline: 0.4rem;
     border-radius: 9999px;
+
+    @media (width < 1024px) {
+      justify-content: center;
+      width: 3rem;
+      padding-inline: 0;
+    }
 
     @media (width >= 1024px) {
       padding-inline: 0.5rem;
@@ -1264,20 +1266,17 @@
 
   .site-nav-indicator {
     position: absolute;
-    top: 50%;
-    left: 0;
-    height: 2rem;
+    position-anchor: --active-nav;
+    top: anchor(top);
+    left: anchor(left);
+    width: anchor-size(width);
+    height: anchor-size(height);
     border-radius: 9999px;
     background: var(--color-primary);
     box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.28);
     transition:
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.2s ease;
-  }
-
-  .site-nav-indicator[data-visible="false"] {
-    opacity: 0;
+      left 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .site-nav-link {
@@ -1301,7 +1300,18 @@
   }
 
   .site-nav-link-active {
+    anchor-name: --active-nav;
     color: var(--color-primary-foreground);
+  }
+
+  @supports not (position-anchor: auto) {
+    .site-nav-indicator {
+      display: none;
+    }
+
+    .site-nav-link-active {
+      background: var(--color-primary);
+    }
   }
 
   .site-icon-link {
@@ -1361,14 +1371,14 @@
 
   .site-menu-positioner {
     z-index: 61;
-    width: max(
-      var(--anchor-width),
-      min(20rem, calc(100vw - var(--positioner-left, 0px) - 0.75rem))
-    );
+    width: 20rem;
+    max-width: var(--available-width);
   }
 
   .site-menu {
+    max-height: var(--available-height);
     padding: 0.5rem;
+    overflow-y: auto;
     border: 1px solid var(--color-border);
     border-radius: 1.5rem;
     background: color-mix(in oklab, var(--color-card) 92%, transparent);

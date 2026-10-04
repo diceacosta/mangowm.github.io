@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Popover } from "@base-ui/react/popover";
 import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
@@ -47,56 +47,9 @@ function NavLinkItem({ link, active }: { link: NavLink; active: boolean }) {
 }
 
 function DesktopNav({ activeIndex }: { activeIndex: number }) {
-  const navRef = useRef<HTMLElement>(null);
-  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
-
-  useLayoutEffect(() => {
-    const nav = navRef.current;
-    if (!nav) return;
-    const activeEl = nav.querySelector<HTMLElement>("[aria-current='page']");
-    if (!activeEl) {
-      setIndicator(null);
-      return;
-    }
-
-    const measure = () => setIndicator({ left: activeEl.offsetLeft, width: activeEl.offsetWidth });
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(activeEl);
-    observer.observe(nav);
-    window.addEventListener("resize", measure);
-
-    let cancelled = false;
-    document.fonts?.ready.then(
-      () => {
-        if (!cancelled) measure();
-      },
-      () => {},
-    );
-
-    return () => {
-      cancelled = true;
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [activeIndex]);
-
   return (
-    <nav ref={navRef} aria-label="Primary" className="site-nav site-piece">
-      <span
-        aria-hidden="true"
-        className="site-nav-indicator"
-        data-visible={indicator ? "true" : "false"}
-        style={
-          indicator
-            ? {
-                transform: `translateY(-50%) translateX(${indicator.left}px)`,
-                width: indicator.width,
-              }
-            : undefined
-        }
-      />
+    <nav aria-label="Primary" className="site-nav site-piece">
+      {activeIndex >= 0 ? <span aria-hidden="true" className="site-nav-indicator" /> : null}
       {NAV_LINKS.map((link, index) => (
         <NavLinkItem key={link.label} link={link} active={index === activeIndex} />
       ))}
@@ -193,12 +146,10 @@ function MobileNav({
   open,
   setOpen,
   pathname,
-  anchor,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
   pathname: string;
-  anchor: RefObject<HTMLDivElement | null>;
 }) {
   return (
     <Popover.Root open={open} onOpenChange={setOpen} modal>
@@ -211,9 +162,8 @@ function MobileNav({
       <Popover.Portal>
         <Popover.Backdrop className="site-menu-backdrop" />
         <Popover.Positioner
-          anchor={anchor}
           side="bottom"
-          align="start"
+          align="end"
           sideOffset={2}
           collisionPadding={8}
           className="site-menu-positioner"
@@ -269,7 +219,6 @@ export function Header() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const activeIndex = NAV_LINKS.findIndex((link) => isActive(link, pathname));
   const [menuOpen, setMenuOpen] = useState(false);
-  const pillRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -298,7 +247,7 @@ export function Header() {
 
         <DesktopNav activeIndex={activeIndex} />
 
-        <div ref={pillRef} className="site-pill site-piece">
+        <div className="site-pill site-piece">
           <div className="site-desktop-only">
             <ThemeToggle />
           </div>
@@ -308,7 +257,7 @@ export function Header() {
           <div className="site-cta">
             <SponsorButton />
           </div>
-          <MobileNav open={menuOpen} setOpen={setMenuOpen} pathname={pathname} anchor={pillRef} />
+          <MobileNav open={menuOpen} setOpen={setMenuOpen} pathname={pathname} />
         </div>
       </div>
     </header>
