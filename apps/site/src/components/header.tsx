@@ -225,11 +225,12 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth >= 1024) setMenuOpen(false);
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (desktop.matches) setMenuOpen(false);
     };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    desktop.addEventListener("change", onChange);
+    return () => desktop.removeEventListener("change", onChange);
   }, []);
 
   return (

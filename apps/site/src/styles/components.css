@@ -1150,7 +1150,9 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    padding: 0.5rem clamp(0.75rem, 2vw, 1.25rem);
+    padding-block: max(0.5rem, env(safe-area-inset-top)) 0.5rem;
+    padding-inline: max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-left))
+      max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-right));
     pointer-events: none;
   }
 
@@ -1193,7 +1195,6 @@
       0 18px 40px -24px color-mix(in oklab, var(--color-primary) 60%, transparent),
       0 6px 18px -10px oklch(0 0 0 / 0.16);
     backdrop-filter: blur(20px) saturate(1.6);
-    -webkit-backdrop-filter: blur(20px) saturate(1.6);
   }
 
   .site-pill {
@@ -1360,7 +1361,6 @@
     z-index: 60;
     background: var(--color-backdrop);
     backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     transition: opacity 0.2s ease;
 
     &[data-starting-style],
@@ -1384,7 +1384,6 @@
     background: color-mix(in oklab, var(--color-card) 92%, transparent);
     box-shadow: 0 28px 56px -24px oklch(0.4 0.08 70 / 0.45);
     backdrop-filter: blur(22px) saturate(1.5);
-    -webkit-backdrop-filter: blur(22px) saturate(1.5);
     transform-origin: var(--transform-origin);
     transition:
       opacity 0.22s ease,
@@ -1465,6 +1464,18 @@
     .site-menu-backdrop {
       transition: none !important;
       animation: none !important;
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .site-piece,
+    .site-menu {
+      background: var(--color-card);
+      backdrop-filter: none;
+    }
+
+    .site-menu-backdrop {
+      backdrop-filter: none;
     }
   }
 }
