@@ -5,7 +5,7 @@ import { HeartSvg } from "./icons";
 function Hero() {
   return (
     <>
-      <section className="relative flex min-h-[calc(100dvh_-_3.5rem)] flex-1 items-center px-5 py-16 lg:px-8 lg:py-20">
+      <section className="relative flex min-h-[calc(100dvh_-_var(--nav-height))] flex-1 items-center px-5 py-16 lg:px-8 lg:py-20">
         <div className="mx-auto grid w-full max-w-[75rem] items-center gap-12 lg:grid-cols-[1fr_minmax(0,1.1fr)] lg:gap-16">
           <div className="text-center lg:text-left">
             <h1 className="mb-5 text-balance font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-foreground">

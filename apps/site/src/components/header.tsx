@@ -1,5 +1,6 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { Popover } from "@base-ui/react/popover";
 import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
 import { cn } from "cn";
 import { SponsorButton } from "./sponsor/sponsor-button";
@@ -14,59 +15,106 @@ const NAV_LINKS = [
 
 type NavLink = (typeof NAV_LINKS)[number];
 
-const NAV_ITEM = "inline-flex items-center rounded-full text-sm font-medium transition-colors";
+const DISCORD_URL = "https://discord.gg/CPjbDxesh5";
+const GITHUB_URL = "https://github.com/mangowm/mango";
 
-const ICON_LINK =
-  "inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground [&_img]:h-[1.125rem] [&_img]:w-[1.125rem]";
+function isActive(link: NavLink, pathname: string) {
+  const target = "to" in link ? link.to : link.href;
+  const base = target.endsWith("/") ? target : `${target}/`;
+  return pathname === target || pathname.startsWith(base);
+}
 
-function NavItem({
-  link,
-  block,
-  onNavigate,
-}: {
-  link: NavLink;
-  block?: boolean;
-  onNavigate?: () => void;
-}) {
-  const layout = block ? "w-full px-3 py-2" : "px-3 py-1.5";
-  const className = cn(
-    NAV_ITEM,
-    layout,
-    "text-muted-foreground hover:bg-accent hover:text-foreground",
-  );
-  const activeClassName = cn(NAV_ITEM, layout, "bg-primary font-semibold text-primary-foreground");
+function NavLinkItem({ link, active }: { link: NavLink; active: boolean }) {
+  const className = cn("site-nav-link", active && "site-nav-link-active");
+  const shared = {
+    className,
+    "aria-current": active ? ("page" as const) : undefined,
+  };
 
   if ("to" in link) {
     return (
-      <Link
-        to={link.to}
-        className={className}
-        activeProps={{ className: activeClassName, "aria-current": "page" }}
-        onClick={onNavigate}
-      >
+      <Link to={link.to} {...shared}>
         {link.label}
       </Link>
     );
   }
 
   return (
-    <a href={link.href} className={className} onClick={onNavigate}>
+    <a href={link.href} {...shared}>
       {link.label}
     </a>
   );
 }
 
-function ThemeToggle() {
-  const onStorage = useEffectEvent(() => {
-    const theme = localStorage.getItem("theme");
-    const isDark =
-      theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.classList.toggle("dark", isDark);
-  });
+function DesktopNav({ activeIndex }: { activeIndex: number }) {
+  const navRef = useRef<HTMLElement>(null);
+  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
 
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const activeEl = nav.querySelector<HTMLElement>("[aria-current='page']");
+    if (!activeEl) {
+      setIndicator(null);
+      return;
+    }
+
+    const measure = () => setIndicator({ left: activeEl.offsetLeft, width: activeEl.offsetWidth });
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(activeEl);
+    observer.observe(nav);
+    window.addEventListener("resize", measure);
+
+    let cancelled = false;
+    document.fonts?.ready.then(
+      () => {
+        if (!cancelled) measure();
+      },
+      () => {},
+    );
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [activeIndex]);
+
+  return (
+    <nav ref={navRef} aria-label="Primary" className="site-nav site-piece">
+      <span
+        aria-hidden="true"
+        className="site-nav-indicator"
+        data-visible={indicator ? "true" : "false"}
+        style={
+          indicator
+            ? {
+                transform: `translateY(-50%) translateX(${indicator.left}px)`,
+                width: indicator.width,
+              }
+            : undefined
+        }
+      />
+      {NAV_LINKS.map((link, index) => (
+        <NavLinkItem key={link.label} link={link} active={index === activeIndex} />
+      ))}
+    </nav>
+  );
+}
+
+function applyStoredTheme() {
+  const theme = localStorage.getItem("theme");
+  const isDark =
+    theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.classList.toggle("dark", isDark);
+}
+
+function ThemeToggle() {
   useEffect(() => {
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("storage", applyStoredTheme);
+    return () => window.removeEventListener("storage", applyStoredTheme);
   }, []);
 
   const toggle = () => {
@@ -86,8 +134,8 @@ function ThemeToggle() {
       <svg
         className="theme-sun"
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
+        width="17"
+        height="17"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -101,8 +149,8 @@ function ThemeToggle() {
       <svg
         className="theme-moon"
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
+        width="17"
+        height="17"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -116,119 +164,153 @@ function ThemeToggle() {
   );
 }
 
+function SocialLinks() {
+  return (
+    <>
+      <a
+        href={DISCORD_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Discord"
+        className="site-icon-link"
+      >
+        <DiscordIcon />
+      </a>
+      <a
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        className="site-icon-link"
+      >
+        <GithubIcon />
+      </a>
+    </>
+  );
+}
+
+function MobileNav({
+  open,
+  setOpen,
+  pathname,
+  anchor,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  pathname: string;
+  anchor: RefObject<HTMLDivElement | null>;
+}) {
+  return (
+    <Popover.Root open={open} onOpenChange={setOpen} modal>
+      <Popover.Trigger
+        aria-label={open ? "Close menu" : "Open menu"}
+        className="site-icon-link site-menu-trigger"
+      >
+        {open ? <XSvg /> : <MenuSvg />}
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Backdrop className="site-menu-backdrop" />
+        <Popover.Positioner
+          anchor={anchor}
+          side="bottom"
+          align="start"
+          sideOffset={2}
+          collisionPadding={8}
+          className="site-menu-positioner"
+        >
+          <Popover.Popup className="site-menu">
+            <nav aria-label="Mobile">
+              <ul className="site-menu-list">
+                {NAV_LINKS.map((link) => {
+                  const active = isActive(link, pathname);
+                  const className = cn("site-menu-item", active && "site-menu-item-active");
+                  const shared = {
+                    className,
+                    "aria-current": active ? ("page" as const) : undefined,
+                    onClick: () => setOpen(false),
+                  };
+
+                  return (
+                    <li key={link.label}>
+                      {"to" in link ? (
+                        <Link to={link.to} {...shared}>
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a href={link.href} {...shared}>
+                          {link.label}
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+
+            <div className="site-menu-footer">
+              <ThemeToggle />
+              <div className="site-menu-socials">
+                <SocialLinks />
+              </div>
+            </div>
+            <div className="site-menu-footer site-menu-cta">
+              <SponsorButton />
+            </div>
+
+            <Popover.Close className="sr-only">Close menu</Popover.Close>
+          </Popover.Popup>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+}
+
 export function Header() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const activeIndex = NAV_LINKS.findIndex((link) => isActive(link, pathname));
   const [menuOpen, setMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-
-  const closeMenu = () => setMenuOpen(false);
-
-  const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
-    if (event.key === "Escape") setMenuOpen(false);
-  });
+  const pillRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [menuOpen]);
-
-  const onPointerDown = useEffectEvent((event: MouseEvent) => {
-    if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
-  });
+    setMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    document.addEventListener("mousedown", onPointerDown);
-    return () => document.removeEventListener("mousedown", onPointerDown);
-  }, [menuOpen]);
-
-  const onResize = useEffectEvent(() => {
-    if (window.innerWidth >= 1024) setMenuOpen(false);
-  });
-
-  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMenuOpen(false);
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-background">
-      <div className="mx-auto flex h-14 max-w-[75rem] items-center gap-2 px-4 sm:px-6">
+    <header className="site-header">
+      <div className="site-header-bar">
         <Link
           to="/"
-          onClick={closeMenu}
-          className="flex shrink-0 items-center gap-2 font-display text-base font-bold tracking-tight text-foreground"
+          onClick={() => setMenuOpen(false)}
+          className="site-brand site-piece"
+          aria-label="mangowm home"
         >
-          <img src={mangowmLogo} alt="mangowm" className="h-5 w-5" />
-          mangowm
+          <img src={mangowmLogo} alt="" aria-hidden="true" className="site-brand-logo" />
+          <span>mangowm</span>
         </Link>
 
-        <nav aria-label="Primary" className="ml-6 hidden lg:block">
-          <ul className="flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <NavItem link={link} />
-              </li>
-            ))}
-            <li className="ml-2">
-              <SponsorButton />
-            </li>
-          </ul>
-        </nav>
+        <DesktopNav activeIndex={activeIndex} />
 
-        <div className="ml-auto flex items-center gap-1.5">
-          <ThemeToggle />
-          <a
-            href="https://discord.gg/CPjbDxesh5"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Discord"
-            className={ICON_LINK}
-          >
-            <DiscordIcon />
-          </a>
-          <a
-            href="https://github.com/mangowm/mango"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className={ICON_LINK}
-          >
-            <GithubIcon />
-          </a>
-          <button
-            type="button"
-            onClick={() => setMenuOpen((value) => !value)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-controls="site-menu"
-            className={cn(
-              "inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground lg:hidden",
-            )}
-          >
-            {menuOpen ? <XSvg className="h-5 w-5" /> : <MenuSvg className="h-5 w-5" />}
-          </button>
+        <div ref={pillRef} className="site-pill site-piece">
+          <div className="site-desktop-only">
+            <ThemeToggle />
+          </div>
+          <div className="site-desktop-only">
+            <SocialLinks />
+          </div>
+          <div className="site-cta">
+            <SponsorButton />
+          </div>
+          <MobileNav open={menuOpen} setOpen={setMenuOpen} pathname={pathname} anchor={pillRef} />
         </div>
       </div>
-
-      {menuOpen && (
-        <nav
-          id="site-menu"
-          aria-label="Mobile"
-          className="border-t border-border bg-background lg:hidden"
-        >
-          <ul className="mx-auto flex max-w-[75rem] flex-col gap-1 px-4 py-4 sm:px-6">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <NavItem link={link} block onNavigate={closeMenu} />
-              </li>
-            ))}
-            <li className="mt-2">
-              <SponsorButton />
-            </li>
-          </ul>
-        </nav>
-      )}
     </header>
   );
 }
