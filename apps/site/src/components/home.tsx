@@ -45,7 +45,7 @@ function Hero() {
           </p>
 
           <div className="sponsors-grid">
-            {["dl09r", "tonybanters", "vinthara"].map((name) => (
+            {["dl09r", "tonybanters", "vinthara", "stepbrobd"].map((name) => (
               <a
                 key={name}
                 href={`https://github.com/${name}`}
