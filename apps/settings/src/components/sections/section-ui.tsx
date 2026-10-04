@@ -21,18 +21,18 @@
 
 import React from "react";
 import { X, Plus } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Switch } from "@mangowm/ui/components/switch";
+import { Slider } from "@mangowm/ui/components/slider";
+import { Separator } from "@mangowm/ui/components/separator";
+import { Input } from "@mangowm/ui/components/input";
+import { Button } from "@mangowm/ui/components/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@mangowm/ui/components/select";
 
 // ---------------------------------------------------------------------------
 // Primitives

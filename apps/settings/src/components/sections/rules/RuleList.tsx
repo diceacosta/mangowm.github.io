@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { Plus, ListFilter } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mangowm/ui/components/button";
 import { RuleCard } from "./RuleCard";
 import { RuleEditor } from "./RuleEditor";
 import { useRules } from "@/lib/rules/use-rules";

@@ -1,15 +1,15 @@
 import { cn } from "cn";
 import type { DispatcherArg } from "@/lib/dispatchers";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
+import { Label } from "@mangowm/ui/components/label";
+import { Input } from "@mangowm/ui/components/input";
+import { Slider } from "@mangowm/ui/components/slider";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@mangowm/ui/components/select";
 import { TerminalSquare, AlertCircle } from "lucide-react";
 
 interface DynamicArgFieldProps {

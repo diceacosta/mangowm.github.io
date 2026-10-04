@@ -5,10 +5,10 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+} from "@mangowm/ui/components/dialog";
+import { Button } from "@mangowm/ui/components/button";
+import { Switch } from "@mangowm/ui/components/switch";
+import { Label } from "@mangowm/ui/components/label";
 import {
   LayoutGridIcon,
   Zap,

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, PlusIcon } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@mangowm/ui/components/popover";
 import {
   Command,
   CommandEmpty,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@mangowm/ui/components/command";
 import { cn } from "cn";
 
 interface ModeComboboxProps {

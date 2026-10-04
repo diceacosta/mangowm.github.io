@@ -1,9 +1,9 @@
 import { Undo2, Redo2, AlertCircle, SearchIcon, FileCode2Icon, Download } from "lucide-react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";
-import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
+import { Separator } from "@mangowm/ui/components/separator";
+import { SidebarTrigger } from "@mangowm/ui/components/sidebar";
+import { Button } from "@mangowm/ui/components/button";
 import { useConfigStore, undo, redo } from "@/lib/config-store";
 import { downloadConfig } from "@/lib/config-file";
 import { cn } from "cn";

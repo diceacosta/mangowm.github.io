@@ -9,7 +9,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
+} from "@mangowm/ui/components/sidebar";
 import { cn } from "cn";
 
 type NavItem = {

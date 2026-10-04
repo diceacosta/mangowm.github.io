@@ -1,5 +1,5 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Label } from "@mangowm/ui/components/label";
+import { Input } from "@mangowm/ui/components/input";
 import { AlertCircle } from "lucide-react";
 import {
   MOUSE_BUTTONS,

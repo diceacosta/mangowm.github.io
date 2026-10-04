@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { exists, readDir, copyFile, mkdir, BaseDirectory } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
 import { AlertCircle, ArrowRight, Check, Loader2, Upload } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mangowm/ui/components/button";
 import { completeOnboarding } from "@/lib/onboarding";
 import { updateSettings } from "@/lib/settings";
 import { uploadConfigFromDir } from "@/lib/config-file";

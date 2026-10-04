@@ -15,7 +15,7 @@ import {
   Search,
   Zap,
 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@mangowm/ui/components/popover";
 import {
   Command,
   CommandEmpty,
@@ -23,7 +23,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@mangowm/ui/components/command";
 import { cn } from "cn";
 import { getDispatchersByCategory } from "@/lib/dispatchers";
 import type { DispatcherInfo, DispatcherCategory } from "@/lib/dispatchers";

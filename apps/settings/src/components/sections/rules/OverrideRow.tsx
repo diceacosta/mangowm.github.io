@@ -1,16 +1,16 @@
 import { Trash2 } from "lucide-react";
 import { cn } from "cn";
 import { Row, FieldLabel } from "@/components/sections/section-ui";
-import { Slider } from "@/components/ui/slider";
-import { Input } from "@/components/ui/input";
+import { Slider } from "@mangowm/ui/components/slider";
+import { Input } from "@mangowm/ui/components/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+} from "@mangowm/ui/components/select";
+import { Button } from "@mangowm/ui/components/button";
 import { getOverrideMeta } from "@/lib/rules/metadata";
 import type { OverrideMeta, RuleType } from "@/lib/rules/types";
 

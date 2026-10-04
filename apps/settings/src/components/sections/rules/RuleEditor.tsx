@@ -1,14 +1,14 @@
 import { useState, useCallback } from "react";
 import { Plus, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@mangowm/ui/components/button";
+import { Input } from "@mangowm/ui/components/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@mangowm/ui/components/select";
 import { OverrideRow } from "./OverrideRow";
 import { OverridePalette } from "./OverridePalette";
 import {

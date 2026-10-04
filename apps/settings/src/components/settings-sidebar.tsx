@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@mangowm/ui/components/sidebar";
 import { ROOT_SECTIONS, getChildren } from "@/lib/sections";
 import { MANGO_SUPPORTED_VERSION } from "@/lib/settings";
 

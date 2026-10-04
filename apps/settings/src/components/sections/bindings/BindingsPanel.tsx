@@ -13,7 +13,7 @@ import { useFilterBindings } from "./hooks/useFilterBindings";
 import { FilterPill } from "./components/FilterPill";
 import { BindingRow } from "./components/BindingRow";
 import { EditDialog } from "./dialogs/EditDialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mangowm/ui/components/button";
 
 export function BindingsPanel({ focusKey }: PanelProps) {
   const fieldRef = useFocusField(focusKey);

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useConfigStore, useConfigValues } from "@/lib/config-store";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mangowm/ui/components/button";
 import { Trash2, Plus, TerminalSquare } from "lucide-react";
 import type { PanelProps } from "@/lib/section-types";
 import { useFocusField } from "@/lib/use-focus-field";
