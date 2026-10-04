@@ -11,7 +11,7 @@ export function Toaster({ message }: { message: string | null }) {
       aria-live="polite"
       className={cn(
         "toast transition-opacity duration-200",
-        message ? "opacity-100" : "pointer-events-none opacity-0",
+        message ? "toast-visible opacity-100" : "pointer-events-none opacity-0",
       )}
     >
       {message}
