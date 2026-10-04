@@ -409,6 +409,9 @@ importers:
       '@mangowm/assets':
         specifier: workspace:*
         version: link:../../packages/assets
+      '@mangowm/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@tanstack/react-router':
         specifier: 'catalog:'
         version: 1.170.41(react-dom@19.3.0(react@19.3.0))(react@19.3.0)

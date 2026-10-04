@@ -1,6 +1,5 @@
 @import "tailwindcss";
+@import "@mangowm/ui/globals.css";
 @import "./styles/tokens.css";
 @import "./styles/base.css";
 @import "./styles/components.css";
-
-@custom-variant dark (&:where(.dark, .dark *));

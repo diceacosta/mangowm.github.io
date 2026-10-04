@@ -13,6 +13,7 @@
   "dependencies": {
     "@base-ui/react": "catalog:",
     "@mangowm/assets": "workspace:*",
+    "@mangowm/ui": "workspace:*",
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-start": "catalog:",
     "cn": "catalog:",
