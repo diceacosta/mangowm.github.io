@@ -22,8 +22,10 @@
 
 :root {
   color-scheme: light;
-  --nav-height: 4rem;
   --container: 75rem;
+  --nav-gutter: 0.5rem;
+  --nav-piece-height: 3rem;
+  --nav-height: calc(var(--nav-piece-height) + 2 * var(--nav-gutter));
 }
 
 .dark {

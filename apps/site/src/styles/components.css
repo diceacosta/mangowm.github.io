@@ -532,7 +532,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    padding-block: max(0.5rem, env(safe-area-inset-top)) 0.5rem;
+    padding-block: max(var(--nav-gutter), env(safe-area-inset-top)) var(--nav-gutter);
     padding-inline: max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-left))
       max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-right));
     pointer-events: none;
@@ -583,13 +583,13 @@
     display: flex;
     align-items: center;
     gap: 0.125rem;
-    height: 3rem;
+    height: var(--nav-piece-height);
     padding-inline: 0.4rem;
     border-radius: 9999px;
 
     @media (width < 1024px) {
       justify-content: center;
-      width: 3rem;
+      width: var(--nav-piece-height);
       padding-inline: 0;
     }
 
@@ -603,7 +603,7 @@
     flex: none;
     align-items: center;
     gap: 0.5rem;
-    height: 3rem;
+    height: var(--nav-piece-height);
     padding-inline: 0.85rem 1rem;
     border-radius: 9999px;
     color: var(--color-foreground);
@@ -637,7 +637,7 @@
     display: none;
     align-items: center;
     gap: 0.125rem;
-    height: 3rem;
+    height: var(--nav-piece-height);
     padding-inline: 0.4rem;
     border-radius: 9999px;
     pointer-events: auto;
