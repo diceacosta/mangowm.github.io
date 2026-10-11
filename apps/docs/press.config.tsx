@@ -32,6 +32,11 @@ export default defineConfig({
   site: {
     name: "mangowm",
     baseUrl: "https://mangowm.github.io/docs",
+    git: {
+      user: "mangowm",
+      repo: "mango",
+      branch: "main",
+    },
   },
   meta: {
     root() {
