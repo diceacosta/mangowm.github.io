@@ -6,6 +6,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -120,39 +121,36 @@ function MobileNav({
       >
         <MenuSvg />
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="w-[min(20rem,calc(100vw-2rem))] gap-0 border-l border-border bg-card/95 p-0 backdrop-blur-xl sm:max-w-sm"
-      >
+      <SheetContent>
         <SheetHeader className="sr-only">
           <SheetTitle>Menu</SheetTitle>
           <SheetDescription>Site navigation and quick links</SheetDescription>
         </SheetHeader>
 
         <nav aria-label="Primary" className="min-h-0 flex-1 overflow-y-auto p-4">
-          <ul className="site-menu-list">
+          <ul className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.label}>
                 <NavItem
                   item={item}
                   active={isCurrent(item, pathname)}
                   onNavigate={() => setOpen(false)}
-                  className="site-menu-item"
+                  className="flex items-center rounded-2xl px-3 py-2.5 text-[0.9375rem] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground aria-[current=page]:bg-primary aria-[current=page]:text-primary-foreground"
                 />
               </li>
             ))}
           </ul>
         </nav>
 
-        <div className="site-menu-footer">
-          <ModeToggle />
-          <div className="site-menu-socials">
-            <SocialLinks />
+        <SheetFooter className="gap-3 border-t border-border">
+          <div className="flex items-center justify-between">
+            <ModeToggle />
+            <div className="flex items-center gap-1">
+              <SocialLinks />
+            </div>
           </div>
-        </div>
-        <div className="site-menu-footer site-menu-cta">
-          <SponsorButton />
-        </div>
+          <SponsorButton className="w-full" />
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

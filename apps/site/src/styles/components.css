@@ -689,66 +689,6 @@
     }
   }
 
-  .site-menu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .site-menu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.65rem 0.75rem;
-    border-radius: 1rem;
-    color: var(--color-muted-foreground);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition:
-      background-color 0.15s,
-      color 0.15s;
-  }
-
-  .site-menu-item:hover {
-    background: var(--color-accent);
-    color: var(--color-foreground);
-  }
-
-  .site-menu-item[aria-current="page"] {
-    background: var(--color-primary);
-    color: var(--color-primary-foreground);
-  }
-
-  .site-menu-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-top: 0.4rem;
-    padding: 0.6rem 0.5rem 0.3rem;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .site-menu-cta {
-    display: block;
-    padding-block: 0.5rem 0.25rem;
-    border-top: none;
-
-    & > * {
-      width: 100%;
-    }
-  }
-
-  .site-menu-socials {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .site-brand-logo {
       transition: none !important;
