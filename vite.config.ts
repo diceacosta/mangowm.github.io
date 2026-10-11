@@ -7,7 +7,7 @@ export default defineConfig({
   fmt: {
     ignorePatterns: ["**/routeTree.gen.ts"],
     sortTailwindcss: {
-      stylesheet: "packages/ui/src/styles/globals.css",
+      stylesheet: "packages/ui/src/styles/tailwind.css",
       functions: ["cn", "cva"],
     },
     overrides: [
