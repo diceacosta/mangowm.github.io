@@ -62,23 +62,6 @@
     }
   }
 
-  .github-dark,
-  .discord-dark {
-    display: none;
-  }
-
-  .dark {
-    & .github-light,
-    & .discord-light {
-      display: none;
-    }
-
-    & .github-dark,
-    & .discord-dark {
-      display: inline;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
