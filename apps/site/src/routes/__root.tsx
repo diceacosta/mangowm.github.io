@@ -1,5 +1,8 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@mangowm/ui/components/toast";
+import appleTouchIcon from "@mangowm/assets/favicons/apple-touch-icon.png";
+import faviconIco from "@mangowm/assets/favicons/favicon.ico";
+import faviconSvg from "@mangowm/assets/favicons/favicon.svg";
 import appCss from "../App.css?url";
 import { Header } from "../components/header";
 import { ThemeProvider } from "../components/theme-provider";
@@ -17,9 +20,9 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
     ],
     links: [
-      { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "icon", href: faviconIco, sizes: "32x32" },
+      { rel: "icon", type: "image/svg+xml", href: faviconSvg },
+      { rel: "apple-touch-icon", sizes: "180x180", href: appleTouchIcon },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
