@@ -13,7 +13,12 @@ export function AnimatedCard({ frame, label, action }: AnimatedCardProps) {
 
   return (
     <div
-      className={cn("card-base", active ? "card-active" : "card-inactive")}
+      className={cn(
+        "absolute flex items-center justify-center rounded-[14px] font-mono text-xl font-medium tabular-nums",
+        active
+          ? "z-20 border-2 border-primary bg-card text-primary-text"
+          : "z-10 border border-border bg-muted text-muted-foreground",
+      )}
       style={{
         transform: `translate3d(${x}px, ${y}px, 0) scale(${visible ? 1 : 0.9})`,
         width: w,

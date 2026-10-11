@@ -48,43 +48,49 @@ function Hero() {
       </section>
 
       {/* Sponsors */}
-      <section className="sponsors-section">
-        <div className="sponsors-container">
-          <h2 className="sponsors-title">Sponsors</h2>
-          <p className="sponsors-subtitle">
+      <section className="border-t border-border bg-background">
+        <div className="mx-auto max-w-[var(--container)] px-5 py-20 text-center sm:px-8 sm:py-24">
+          <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold tracking-[-0.03em] text-foreground">
+            Sponsors
+          </h2>
+          <p className="mx-auto mt-2 max-w-lg text-pretty text-[1.0625rem] leading-[1.6] text-muted-foreground">
             Thanks to the people who support mango&apos;s development.
           </p>
 
-          <div className="sponsors-grid">
+          <div className="mt-12 flex flex-wrap items-start justify-center gap-8">
             {["dl09r", "tonybanters", "vinthara", "stepbrobd"].map((name) => (
               <a
                 key={name}
                 href={`https://github.com/${name}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sponsor-card"
+                className="group flex flex-col items-center gap-2.5"
               >
                 <img
                   src={`https://unavatar.io/github/${name}`}
                   alt={name}
-                  className="sponsor-avatar"
                   loading="lazy"
+                  className="size-16 rounded-full border-2 border-card object-cover shadow-[0_0_0_1px_var(--color-border)] transition-[box-shadow,transform] duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_2px_var(--color-primary)]"
                 />
-                <span className="sponsor-name">{name}</span>
+                <span className="text-sm font-semibold text-muted-foreground transition-colors group-hover:text-foreground">
+                  {name}
+                </span>
               </a>
             ))}
           </div>
 
-          <div className="sponsor-cta">
-            <div className="sponsor-cta-card-wrap">
-              <div className="sponsor-cta-card">
-                <HeartSvg className="sponsor-cta-icon" />
-                <h3 className="sponsor-cta-title">Become a sponsor</h3>
-                <p className="sponsor-cta-desc">
+          <div className="mt-16 flex justify-center">
+            <div className="relative w-full max-w-[34rem] before:absolute before:z-0 before:inset-[0.85rem_-0.85rem_-0.85rem_0.85rem] before:rounded-3xl before:bg-leaf before:rotate-[2.5deg] before:content-['']">
+              <div className="relative z-[1] w-full rounded-3xl border border-border bg-card p-9 shadow-[0_18px_40px_oklch(0.7_0.13_78_/_0.12)]">
+                <HeartSvg className="mx-auto size-8 text-brand" />
+                <h3 className="mt-3.5 font-display text-xl font-bold tracking-[-0.02em] text-foreground">
+                  Become a sponsor
+                </h3>
+                <p className="mt-2 text-[0.9375rem] leading-[1.6] text-muted-foreground">
                   If mango makes your desktop better, consider supporting its development. Every
                   contribution helps.
                 </p>
-                <div className="sponsor-cta-btn">
+                <div className="mt-6 flex justify-center">
                   <SponsorButton size="lg" />
                 </div>
               </div>

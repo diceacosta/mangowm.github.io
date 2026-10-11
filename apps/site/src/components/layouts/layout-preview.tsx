@@ -54,8 +54,8 @@ export function LayoutPreview() {
   };
 
   return (
-    <div className="layouts-wrapper">
-      <div className="layouts-controls">
+    <div className="w-full">
+      <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
         <div className="inline-flex items-center gap-0.5 rounded-full border border-border bg-card p-1">
           <ToggleGroup
             multiple={false}
@@ -143,7 +143,7 @@ export function LayoutPreview() {
         </ToggleGroup>
       </div>
 
-      <div className="layouts-preview">
+      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_0_oklch(0_0_0_/_0.05)]">
         <LayoutStage key={activeDef.id} layout={activeDef} orientation={orientation} />
       </div>
     </div>
