@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@mangowm/ui/components/sheet";
 import { SponsorButton } from "@/components/sponsor/sponsor-button";
+import { DISCORD_URL, GITHUB_URL } from "@/constants";
 import { ModeToggle } from "./mode-toggle";
 import { DiscordIcon, GithubIcon, MenuSvg } from "./icons";
 
@@ -23,9 +24,6 @@ const NAV_ITEMS = [
 ] as const;
 
 type NavItemData = (typeof NAV_ITEMS)[number];
-
-const DISCORD_URL = "https://discord.gg/CPjbDxesh5";
-const GITHUB_URL = "https://github.com/mangowm/mango";
 
 function isCurrent(item: NavItemData, pathname: string) {
   const target = "to" in item ? item.to : item.href;

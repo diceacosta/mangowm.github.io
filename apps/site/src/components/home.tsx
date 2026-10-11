@@ -1,6 +1,7 @@
 import { buttonVariants } from "@mangowm/ui/components/button";
 import { LayoutPreview } from "@/components/layouts/layout-preview";
 import { SponsorButton } from "@/components/sponsor/sponsor-button";
+import { GITHUB_URL } from "@/constants";
 import { HeartSvg } from "./icons";
 
 function Hero() {
@@ -27,7 +28,7 @@ function Hero() {
                 Get started
               </a>
               <a
-                href="https://github.com/mangowm/mango"
+                href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={buttonVariants({
