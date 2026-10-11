@@ -1,14 +1,14 @@
 import { MONOCLE_TIMELINE, SCROLLER_TIMELINE } from "./timeline";
 import type { LayoutDef } from "./types";
-import { centerTile } from "./variants/center-tile";
-import { deck } from "./variants/deck";
-import { dwindle } from "./variants/dwindle";
-import { fair } from "./variants/fair";
-import { grid } from "./variants/grid";
-import { monocle } from "./variants/monocle";
-import { rightTile } from "./variants/right-tile";
-import { scroller } from "./variants/scroller";
-import { tiling } from "./variants/tiling";
+import { centerTile } from "@/components/layouts/variants/center-tile";
+import { deck } from "@/components/layouts/variants/deck";
+import { dwindle } from "@/components/layouts/variants/dwindle";
+import { fair } from "@/components/layouts/variants/fair";
+import { grid } from "@/components/layouts/variants/grid";
+import { monocle } from "@/components/layouts/variants/monocle";
+import { rightTile } from "@/components/layouts/variants/right-tile";
+import { scroller } from "@/components/layouts/variants/scroller";
+import { tiling } from "@/components/layouts/variants/tiling";
 
 export const tilingLayout: LayoutDef = {
   id: "tiling",

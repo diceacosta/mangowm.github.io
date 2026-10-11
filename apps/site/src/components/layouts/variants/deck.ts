@@ -1,5 +1,5 @@
-import { effectiveGaps } from "../config";
-import type { CardFrame, LayoutRenderer, Rect } from "../types";
+import { effectiveGaps } from "@/components/layouts/config";
+import type { CardFrame, LayoutRenderer, Rect } from "@/components/layouts/types";
 import { focusedSequence } from "./helpers";
 
 export const deck: LayoutRenderer = ({ width, height, orientation, phase, config }) => {

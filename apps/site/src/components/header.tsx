@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@mangowm/ui/components/sheet";
-import { SponsorButton } from "./sponsor/sponsor-button";
+import { SponsorButton } from "@/components/sponsor/sponsor-button";
 import { ModeToggle } from "./mode-toggle";
 import { DiscordIcon, GithubIcon, MenuSvg } from "./icons";
 

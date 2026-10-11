@@ -1,5 +1,5 @@
-import { effectiveGaps, type LayoutConfig, type LayoutGaps } from "../config";
-import type { CardFrame, LayoutRenderer, Rect } from "../types";
+import { effectiveGaps, type LayoutConfig, type LayoutGaps } from "@/components/layouts/config";
+import type { CardFrame, LayoutRenderer, Rect } from "@/components/layouts/types";
 
 function dwindleState(phase: number, phaseElapsed: number): { count: number; swap: boolean } {
   switch (phase) {

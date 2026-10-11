@@ -5,7 +5,7 @@ import { Card } from "./card";
 import { Filter } from "./filter";
 import { Lightbox } from "./lightbox";
 import { SubmitDialog } from "./submit-dialog";
-import { entryMedia, showcaseEntries } from "../../lib/showcase-data";
+import { entryMedia, showcaseEntries } from "@/lib/showcase-data";
 
 export function ShowcasePage() {
   const entries = showcaseEntries;

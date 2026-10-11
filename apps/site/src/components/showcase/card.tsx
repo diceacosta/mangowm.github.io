@@ -1,7 +1,7 @@
 import { ExternalLink, Image, Play } from "lucide-react";
 import { Badge } from "@mangowm/ui/components/badge";
-import { formatDate } from "../../lib/date";
-import type { ShowcaseEntry } from "../../lib/showcase-data";
+import { formatDate } from "@/lib/date";
+import type { ShowcaseEntry } from "@/lib/showcase-data";
 
 export function Card({ entry, onOpen }: { entry: ShowcaseEntry; onOpen: () => void }) {
   const screenshotCount = entry.screenshots.length;

@@ -12,7 +12,7 @@ import {
 } from "@mangowm/ui/components/dialog";
 import { Input } from "@mangowm/ui/components/input";
 import { Label } from "@mangowm/ui/components/label";
-import { parseRepo, submissionProbes } from "../../lib/showcase-media";
+import { parseRepo, submissionProbes } from "@/lib/showcase-media";
 
 type Status =
   | "idle"

@@ -1,5 +1,5 @@
-import type { LayoutConfig } from "../config";
-import type { CardFrame, LayoutRenderer, Orientation, Rect } from "../types";
+import type { LayoutConfig } from "@/components/layouts/config";
+import type { CardFrame, LayoutRenderer, Orientation, Rect } from "@/components/layouts/types";
 
 function buildGrid(
   n: number,

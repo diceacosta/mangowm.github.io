@@ -1,6 +1,6 @@
-import type { LayoutConfig } from "../config";
-import { effectiveGaps } from "../config";
-import type { Orientation, Rect } from "../types";
+import type { LayoutConfig } from "@/components/layouts/config";
+import { effectiveGaps } from "@/components/layouts/config";
+import type { Orientation, Rect } from "@/components/layouts/types";
 
 /** Focused card (1-indexed) for the shared grow/shrink/swap cycle. */
 export const focusedSequence = (phase: number): number =>

@@ -1,5 +1,5 @@
-import { effectiveGaps, type LayoutGaps } from "../config";
-import type { CardFrame, LayoutRenderer, Orientation, Rect } from "../types";
+import { effectiveGaps, type LayoutGaps } from "@/components/layouts/config";
+import type { CardFrame, LayoutRenderer, Orientation, Rect } from "@/components/layouts/types";
 
 export function calculateFairLayout(
   n: number,

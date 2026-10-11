@@ -1,4 +1,4 @@
-import type { CardFrame, LayoutRenderer, Rect } from "../types";
+import type { CardFrame, LayoutRenderer, Rect } from "@/components/layouts/types";
 import { focusedSequence, progressiveCount, tileRects } from "./helpers";
 
 export const rightTile: LayoutRenderer = ({ width, height, phase, config }) => {

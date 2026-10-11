@@ -1,6 +1,6 @@
 import { buttonVariants } from "@mangowm/ui/components/button";
-import { LayoutPreview } from "./layouts/layout-preview";
-import { SponsorButton } from "./sponsor/sponsor-button";
+import { LayoutPreview } from "@/components/layouts/layout-preview";
+import { SponsorButton } from "@/components/sponsor/sponsor-button";
 import { HeartSvg } from "./icons";
 
 function Hero() {

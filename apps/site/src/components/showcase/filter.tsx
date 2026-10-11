@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { Button } from "@mangowm/ui/components/button";
 import { Separator } from "@mangowm/ui/components/separator";
 import { ToggleGroup, ToggleGroupItem } from "@mangowm/ui/components/toggle-group";
-import type { ShowcaseEntry } from "../../lib/showcase-data";
+import type { ShowcaseEntry } from "@/lib/showcase-data";
 
 const VISIBLE_TAGS = 8;
 

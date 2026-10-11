@@ -4,9 +4,9 @@ import { cn } from "cn";
 import { Button } from "@mangowm/ui/components/button";
 import { Dialog, DialogContent, DialogTitle } from "@mangowm/ui/components/dialog";
 import { Skeleton } from "@mangowm/ui/components/skeleton";
-import { formatDate } from "../../lib/date";
-import { entryMedia, type ShowcaseEntry } from "../../lib/showcase-data";
-import { videoMimeType } from "../../lib/showcase-media";
+import { formatDate } from "@/lib/date";
+import { entryMedia, type ShowcaseEntry } from "@/lib/showcase-data";
+import { videoMimeType } from "@/lib/showcase-media";
 
 type MediaStatus = "loading" | "loaded" | "error";
 

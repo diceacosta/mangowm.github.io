@@ -1,5 +1,5 @@
-import { effectiveGaps } from "../config";
-import type { CardFrame, LayoutRenderer } from "../types";
+import { effectiveGaps } from "@/components/layouts/config";
+import type { CardFrame, LayoutRenderer } from "@/components/layouts/types";
 
 export const monocle: LayoutRenderer = ({ width, height, phase, config }) => {
   const firstVisible = phase >= 1 && phase < 8;

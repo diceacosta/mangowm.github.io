@@ -3,10 +3,10 @@ import { Toaster } from "@mangowm/ui/components/toast";
 import appleTouchIcon from "@mangowm/assets/favicons/apple-touch-icon.png";
 import faviconIco from "@mangowm/assets/favicons/favicon.ico";
 import faviconSvg from "@mangowm/assets/favicons/favicon.svg";
-import appCss from "../App.css?url";
-import { Header } from "../components/header";
-import { ThemeProvider } from "../components/theme-provider";
-import { siteConfig } from "../constants";
+import appCss from "@/App.css?url";
+import { Header } from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
+import { siteConfig } from "@/constants";
 
 export const Route = createRootRoute({
   head: () => ({
