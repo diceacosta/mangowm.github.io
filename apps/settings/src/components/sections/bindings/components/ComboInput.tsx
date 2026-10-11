@@ -63,7 +63,7 @@ export function ComboInput({
             allowRawCode
           />
           {requiresModifier(trigger) && mods.length === 0 && (
-            <div className="flex items-center gap-1.5 text-destructive text-[11px] px-1">
+            <div className="flex items-center gap-1.5 px-1 text-[11px] text-destructive">
               <AlertCircle className="size-3.5" />
               <span>Left and Right buttons require at least one modifier.</span>
             </div>
@@ -126,10 +126,10 @@ export function ComboInput({
             pickerPlaceholder="Choose direction..."
           />
           <div className="flex items-center gap-3 px-1">
-            <Label className="text-[13px] font-medium leading-none text-foreground shrink-0">
+            <Label className="shrink-0 text-[13px] leading-none font-medium text-foreground">
               Fingers
             </Label>
-            <div className="flex items-center gap-1.5 bg-background border border-border/50 rounded-md pl-2 focus-within:ring-2 focus-within:ring-primary/20 shadow-sm">
+            <div className="flex items-center gap-1.5 rounded-md border border-border/50 bg-background pl-2 shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
               <Input
                 type="text"
                 inputMode="numeric"
@@ -137,7 +137,7 @@ export function ComboInput({
                 value={fingers}
                 onChange={(e) => onFingersChange?.(e.target.value)}
                 placeholder="3"
-                className="w-16 h-8 border-none bg-transparent shadow-none focus-visible:ring-0 font-mono text-xs px-1 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                className="h-8 w-16 [appearance:textfield] border-none bg-transparent px-1 font-mono text-xs shadow-none focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
             </div>
           </div>

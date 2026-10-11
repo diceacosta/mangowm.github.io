@@ -35,7 +35,7 @@ function CommandSection({
     <SectionCard title={title}>
       <div className="flex flex-col">
         {commands.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-10 text-sm text-muted-foreground bg-muted/5">
+          <div className="flex flex-col items-center justify-center bg-muted/5 py-10 text-sm text-muted-foreground">
             <TerminalSquare className="mb-3 size-5 opacity-20" />
             <p>No commands defined.</p>
           </div>
@@ -44,9 +44,9 @@ function CommandSection({
         {commands.map((cmd, index) => (
           <div
             key={index}
-            className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-accent/50 focus-within:bg-accent/50"
+            className="group flex items-center gap-3 px-4 py-2 transition-colors focus-within:bg-accent/50 hover:bg-accent/50"
           >
-            <span className="mt-0.5 text-muted-foreground/30 font-mono text-sm select-none">$</span>
+            <span className="mt-0.5 font-mono text-sm text-muted-foreground/30 select-none">$</span>
             <input
               value={cmd}
               onChange={(e) => updateEntry(configKey, index, e.target.value)}
@@ -57,7 +57,7 @@ function CommandSection({
               variant="ghost"
               size="icon"
               onClick={() => removeEntry(configKey, index)}
-              className="size-7 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+              className="size-7 text-muted-foreground opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
               aria-label="Remove command"
               title="Remove command"
             >
@@ -67,7 +67,7 @@ function CommandSection({
         ))}
 
         <div className="flex items-center gap-3 bg-muted/30 px-4 py-2.5">
-          <span className="mt-0.5 text-muted-foreground/30 font-mono text-sm select-none">$</span>
+          <span className="mt-0.5 font-mono text-sm text-muted-foreground/30 select-none">$</span>
           <input
             ref={newCmdInputRef}
             value={newCmd}

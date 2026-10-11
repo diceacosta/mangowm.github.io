@@ -9,11 +9,11 @@ function Hero() {
       <section className="relative flex min-h-[calc(100dvh_-_var(--nav-height))] flex-1 items-center px-5 py-16 lg:px-8 lg:py-20">
         <div className="mx-auto grid w-full max-w-[75rem] items-center gap-12 lg:grid-cols-[1fr_minmax(0,1.1fr)] lg:gap-16">
           <div className="text-center lg:text-left">
-            <h1 className="mb-5 text-balance font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-foreground">
+            <h1 className="mb-5 font-display text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance text-foreground">
               <span className="block">Lightweight</span>
               <span className="block text-primary-text">&amp; feature-rich</span>
             </h1>
-            <p className="mx-auto mb-8 max-w-[32rem] text-pretty text-lg leading-[1.55] text-muted-foreground lg:mx-0 lg:text-[1.1875rem]">
+            <p className="mx-auto mb-8 max-w-[32rem] text-lg leading-[1.55] text-pretty text-muted-foreground lg:mx-0 lg:text-[1.1875rem]">
               A lightweight, feature-rich Wayland compositor built on wlroots and scenefx.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
@@ -53,7 +53,7 @@ function Hero() {
           <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold tracking-[-0.03em] text-foreground">
             Sponsors
           </h2>
-          <p className="mx-auto mt-2 max-w-lg text-pretty text-[1.0625rem] leading-[1.6] text-muted-foreground">
+          <p className="mx-auto mt-2 max-w-lg text-[1.0625rem] leading-[1.6] text-pretty text-muted-foreground">
             Thanks to the people who support mango&apos;s development.
           </p>
 
@@ -80,7 +80,7 @@ function Hero() {
           </div>
 
           <div className="mt-16 flex justify-center">
-            <div className="relative w-full max-w-[34rem] before:absolute before:z-0 before:inset-[0.85rem_-0.85rem_-0.85rem_0.85rem] before:rounded-3xl before:bg-leaf before:rotate-[2.5deg] before:content-['']">
+            <div className="relative w-full max-w-[34rem] before:absolute before:inset-[0.85rem_-0.85rem_-0.85rem_0.85rem] before:z-0 before:rotate-[2.5deg] before:rounded-3xl before:bg-leaf before:content-['']">
               <div className="relative z-[1] w-full rounded-3xl border border-border bg-card p-9 shadow-[0_18px_40px_oklch(0.7_0.13_78_/_0.12)]">
                 <HeartSvg className="mx-auto size-8 text-brand" />
                 <h3 className="mt-3.5 font-display text-xl font-bold tracking-[-0.02em] text-foreground">

@@ -56,7 +56,7 @@ export function SearchCommand({ open, onOpenChange, onSelect }: SearchCommandPro
       overlayClassName="fixed inset-0 bg-black/60 backdrop-blur-sm"
       contentClassName="fixed inset-0 z-50 flex items-start justify-center pt-[15vh]"
     >
-      <div className="w-[580px] overflow-hidden rounded-xl border border-border/50 bg-popover shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+      <div className="w-[580px] animate-in overflow-hidden rounded-xl border border-border/50 bg-popover shadow-2xl duration-150 zoom-in-95 fade-in">
         <div className="flex items-center gap-2 border-b border-border/30 px-4">
           <SearchIcon className="size-4 shrink-0 text-muted-foreground/60" />
           <Command.Input
@@ -69,7 +69,7 @@ export function SearchCommand({ open, onOpenChange, onSelect }: SearchCommandPro
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+              className="text-xs text-muted-foreground/50 transition-colors hover:text-muted-foreground"
             >
               Clear
             </button>
@@ -92,7 +92,7 @@ export function SearchCommand({ open, onOpenChange, onSelect }: SearchCommandPro
           {staticResults.length > 0 && (
             <Command.Group
               heading={
-                <span className="flex items-center gap-1.5 px-1 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
+                <span className="flex items-center gap-1.5 px-1 py-1 text-[10px] font-semibold tracking-widest text-muted-foreground/50 uppercase">
                   <SettingsIcon className="size-3" /> Settings
                 </span>
               }
@@ -106,7 +106,7 @@ export function SearchCommand({ open, onOpenChange, onSelect }: SearchCommandPro
           {dynamicResults.length > 0 && (
             <Command.Group
               heading={
-                <span className="flex items-center gap-1.5 px-1 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
+                <span className="flex items-center gap-1.5 px-1 py-1 text-[10px] font-semibold tracking-widest text-muted-foreground/50 uppercase">
                   <TerminalSquareIcon className="size-3" /> Your config
                 </span>
               }
@@ -118,7 +118,7 @@ export function SearchCommand({ open, onOpenChange, onSelect }: SearchCommandPro
           )}
         </Command.List>
 
-        <div className="border-t border-border/20 px-4 py-2 flex gap-4 text-[10px] text-muted-foreground/40">
+        <div className="flex gap-4 border-t border-border/20 px-4 py-2 text-[10px] text-muted-foreground/40">
           <span>
             <kbd className="font-mono">↑↓</kbd> navigate
           </span>
@@ -146,7 +146,7 @@ function ResultItem({
       key={item.id}
       value={item.id}
       onSelect={() => onSelect(item)}
-      className="group flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground aria-selected:bg-accent aria-selected:text-accent-foreground transition-colors duration-100"
+      className="group flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-100 aria-selected:bg-accent aria-selected:text-accent-foreground data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground"
     >
       <div className="flex min-w-0 flex-1 flex-col">
         <span className="truncate font-medium text-foreground">{item.label}</span>
@@ -155,7 +155,7 @@ function ResultItem({
         )}
       </div>
 
-      <span className="shrink-0 rounded-md border border-border/30 bg-muted/40 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/50">
+      <span className="shrink-0 rounded-md border border-border/30 bg-muted/40 px-2 py-0.5 text-[10px] font-medium tracking-wider text-muted-foreground/50 uppercase">
         {item.sectionLabel}
       </span>
 

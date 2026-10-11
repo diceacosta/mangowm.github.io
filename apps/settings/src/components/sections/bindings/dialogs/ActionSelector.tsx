@@ -49,7 +49,7 @@ function HighlightMatch({ text, query }: { text: string; query: string }) {
         part.toLowerCase() === query.trim().toLowerCase() ? (
           <span
             key={i}
-            className="bg-primary/25 text-primary-foreground font-bold rounded-[2px] px-[1px]"
+            className="rounded-[2px] bg-primary/25 px-[1px] font-bold text-primary-foreground"
           >
             {part}
           </span>
@@ -162,14 +162,14 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
         aria-expanded={open}
         className={cn(
           "flex w-full items-center justify-between rounded-lg border border-border/40 text-left transition-all",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+          "focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:outline-none",
           selectedDispatcher
-            ? "bg-card hover:bg-accent/40 p-3 shadow-sm"
-            : "bg-muted/30 hover:bg-muted/50 p-3 border-dashed",
+            ? "bg-card p-3 shadow-sm hover:bg-accent/40"
+            : "border-dashed bg-muted/30 p-3 hover:bg-muted/50",
         )}
       >
         {selectedDispatcher ? (
-          <div className="flex items-center gap-3.5 min-w-0 flex-1">
+          <div className="flex min-w-0 flex-1 items-center gap-3.5">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
               <CategoryIcon category={selectedDispatcher.category} className="size-4.5" />
             </div>
@@ -194,7 +194,7 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
       </PopoverTrigger>
 
       <PopoverContent
-        className="p-0 rounded-xl shadow-xl border-border/60 backdrop-blur-xl bg-background/95"
+        className="rounded-xl border-border/60 bg-background/95 p-0 shadow-xl backdrop-blur-xl"
         align="start"
         sideOffset={6}
         style={{ width: popoverWidth }}
@@ -208,8 +208,8 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
           />
           <CommandList className="max-h-[320px] scrollbar-thin">
             {q && !hasResults && (
-              <CommandEmpty className="py-8 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-                <Search className="size-8 opacity-20 mb-1" />
+              <CommandEmpty className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground">
+                <Search className="mb-1 size-8 opacity-20" />
                 <span className="text-sm font-medium">No actions found.</span>
                 <span className="text-xs opacity-70">Try a different search term.</span>
               </CommandEmpty>
@@ -220,7 +220,7 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
                 heading={
                   <div className="flex items-center gap-1.5 text-muted-foreground/50">
                     <CategoryIcon category={category} className="size-3.5" />
-                    <span className="text-[10px] uppercase tracking-widest font-bold">
+                    <span className="text-[10px] font-bold tracking-widest uppercase">
                       {category}
                     </span>
                   </div>
@@ -236,16 +236,16 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
                       setOpen(false);
                     }}
                     className={cn(
-                      "flex-col items-start cursor-pointer rounded-lg mx-1 my-0.5 px-3 py-2 transition-colors",
+                      "mx-1 my-0.5 cursor-pointer flex-col items-start rounded-lg px-3 py-2 transition-colors",
                       value === d.name
                         ? "bg-primary/10 data-[selected]:bg-primary/15"
                         : "data-[selected]:bg-muted/50",
                     )}
                   >
-                    <div className="flex items-center w-full gap-2">
+                    <div className="flex w-full items-center gap-2">
                       <span
                         className={cn(
-                          "font-mono text-[13px] font-semibold truncate transition-colors",
+                          "truncate font-mono text-[13px] font-semibold transition-colors",
                           value === d.name ? "text-primary" : "text-foreground",
                         )}
                       >
@@ -257,7 +257,7 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
                     </div>
                     <span
                       className={cn(
-                        "text-[11px] mt-0.5 line-clamp-1 transition-colors",
+                        "mt-0.5 line-clamp-1 text-[11px] transition-colors",
                         value === d.name ? "text-primary/80" : "text-muted-foreground/70",
                       )}
                     >

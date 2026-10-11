@@ -87,7 +87,7 @@ function NumberField({
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+      <span className="font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
         {label}
       </span>
       <input
@@ -101,7 +101,7 @@ function NumberField({
           if (e.key === "Enter") commit();
         }}
         aria-label={label}
-        className="w-full rounded-md border border-border/50 bg-background/50 px-2 py-1 text-center font-mono text-[12px] text-foreground outline-none transition-colors focus-visible:border-primary/50 focus-visible:ring-1 focus-visible:ring-primary/30"
+        className="w-full rounded-md border border-border/50 bg-background/50 px-2 py-1 text-center font-mono text-[12px] text-foreground transition-colors outline-none focus-visible:border-primary/50 focus-visible:ring-1 focus-visible:ring-primary/30"
       />
     </div>
   );
@@ -158,12 +158,12 @@ export function CurvesPanel({ focusKey }: PanelProps) {
 
       <div className="mb-4">
         <div className="mb-3 flex items-center gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+          <span className="text-[11px] font-semibold tracking-widest text-muted-foreground uppercase">
             Presets
           </span>
           <div className="h-px flex-1 bg-border/20" />
         </div>
-        <div className="scrollbar-thin flex gap-2 overflow-x-auto pb-1">
+        <div className="flex scrollbar-thin gap-2 overflow-x-auto pb-1">
           {EASING_PRESETS.map((preset) => {
             const isActive = activePreset === preset.name;
             return (
@@ -173,7 +173,7 @@ export function CurvesPanel({ focusKey }: PanelProps) {
                 onClick={() => commitCurve(preset.curve)}
                 aria-pressed={isActive}
                 className={cn(
-                  "flex w-[104px] shrink-0 flex-col items-center gap-1 rounded-lg border p-2 text-left outline-none transition-all duration-150 focus-visible:ring-2 focus-visible:ring-primary/40",
+                  "flex w-[104px] shrink-0 flex-col items-center gap-1 rounded-lg border p-2 text-left transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
                   isActive
                     ? "border-ring bg-primary/10 hover:bg-primary/15"
                     : "border-border/50 bg-card hover:border-border/70",
@@ -222,7 +222,7 @@ export function CurvesPanel({ focusKey }: PanelProps) {
                 >
                   <span
                     className={cn(
-                      "absolute left-0 top-0 h-full w-[2px] rounded-full bg-ring/60 transition-transform duration-200",
+                      "absolute top-0 left-0 h-full w-[2px] rounded-full bg-ring/60 transition-transform duration-200",
                       isSelected ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100",
                     )}
                   />
@@ -235,7 +235,7 @@ export function CurvesPanel({ focusKey }: PanelProps) {
                   />
                   <span
                     className={cn(
-                      "min-w-0 flex-1 truncate text-[13px] font-medium leading-none",
+                      "min-w-0 flex-1 truncate text-[13px] leading-none font-medium",
                       isSelected ? "text-primary" : "text-foreground",
                     )}
                   >

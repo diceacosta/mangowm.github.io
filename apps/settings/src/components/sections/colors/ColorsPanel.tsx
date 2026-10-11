@@ -209,7 +209,7 @@ const ColorInput = memo(function ColorInput({
 
   return (
     <div className="group relative flex items-center gap-3 px-4 py-3 transition-colors duration-150 hover:bg-muted/20">
-      <div className="absolute left-0 top-0 h-full w-[2px] scale-y-0 rounded-full bg-ring/60 transition-transform duration-200 group-hover:scale-y-100" />
+      <div className="absolute top-0 left-0 h-full w-[2px] scale-y-0 rounded-full bg-ring/60 transition-transform duration-200 group-hover:scale-y-100" />
 
       <div className="relative shrink-0" ref={popoverRef}>
         <button
@@ -248,10 +248,10 @@ const ColorInput = memo(function ColorInput({
 
         {isOpen && (
           <div
-            className={`absolute left-0 z-50 min-w-[220px] rounded-xl border border-border/60 bg-popover shadow-xl animate-in fade-in zoom-in-95 duration-150 ${popoverPosition}`}
+            className={`absolute left-0 z-50 min-w-[220px] animate-in rounded-xl border border-border/60 bg-popover shadow-xl duration-150 zoom-in-95 fade-in ${popoverPosition}`}
           >
             <div className="flex items-center justify-between border-b border-border/40 px-3 py-2">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+              <span className="text-[11px] font-semibold tracking-widest text-muted-foreground uppercase">
                 {label}
               </span>
               <div className="flex items-center gap-1.5">
@@ -270,7 +270,7 @@ const ColorInput = memo(function ColorInput({
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-[13px] font-medium leading-none text-foreground">{label}</span>
+        <span className="text-[13px] leading-none font-medium text-foreground">{label}</span>
         <span className="truncate text-[11px] leading-none text-muted-foreground/70">
           {description}
         </span>
@@ -297,7 +297,7 @@ const ColorInput = memo(function ColorInput({
             (e.target as HTMLInputElement).blur();
           }
         }}
-        className="w-44 shrink-0 rounded-md border-0 bg-background/20 px-3 py-2 text-center font-mono text-[12px] outline-none transition-all duration-150 hover:bg-background/30"
+        className="w-44 shrink-0 rounded-md border-0 bg-background/20 px-3 py-2 text-center font-mono text-[12px] transition-all duration-150 outline-none hover:bg-background/30"
         style={{
           boxShadow: isFocused ? `0 0 0 2px ${cssValue}55` : "none",
           color: "hsl(var(--foreground))",
@@ -320,7 +320,7 @@ const PaletteCard = memo(function PaletteCard({ palette, isActive, onSelect }: P
       onClick={() => onSelect(palette)}
       aria-pressed={isActive}
       className={cn(
-        "relative w-[130px] shrink-0 cursor-pointer rounded-lg border p-2 text-left outline-none transition-all duration-150 focus-visible:ring-2 focus-visible:ring-primary/40",
+        "relative w-[130px] shrink-0 cursor-pointer rounded-lg border p-2 text-left transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
         isActive
           ? "border-ring bg-primary/10 hover:bg-primary/15"
           : "border-border/50 bg-card hover:border-border/70",
@@ -472,7 +472,7 @@ export function ColorsPanel({ focusKey }: PanelProps) {
           key={m}
           type="button"
           onClick={() => setMode(m)}
-          className="rounded-md px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider transition-all duration-150"
+          className="rounded-md px-3 py-1 font-mono text-[11px] font-medium tracking-wider uppercase transition-all duration-150"
           style={
             mode === m
               ? {
@@ -500,7 +500,7 @@ export function ColorsPanel({ focusKey }: PanelProps) {
 
       <div className="mb-4">
         <div className="mb-3 flex items-center gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+          <span className="text-[11px] font-semibold tracking-widest text-muted-foreground uppercase">
             Palettes
           </span>
           <div className="h-px flex-1 bg-border/20" />

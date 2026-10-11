@@ -6,6 +6,10 @@ export default defineConfig({
   },
   fmt: {
     ignorePatterns: ["**/routeTree.gen.ts"],
+    sortTailwindcss: {
+      stylesheet: "apps/site/src/App.css",
+      functions: ["cn", "cva"],
+    },
   },
   lint: {
     jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],

@@ -76,11 +76,11 @@ export function RuleList({ ruleType }: RuleListProps) {
       {rules.length === 0 && editing.mode === "idle" ? (
         // Borderless, breathable empty state
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="mb-5 flex size-14 items-center justify-center rounded-full bg-background text-muted-foreground/40 shadow-sm border border-border/50">
+          <div className="mb-5 flex size-14 items-center justify-center rounded-full border border-border/50 bg-background text-muted-foreground/40 shadow-sm">
             <ListFilter className="size-6" />
           </div>
-          <h3 className="text-base font-semibold text-foreground tracking-tight">No Rules Yet</h3>
-          <p className="mt-1.5 mb-6 max-w-sm text-sm text-muted-foreground/60 leading-relaxed">
+          <h3 className="text-base font-semibold tracking-tight text-foreground">No Rules Yet</h3>
+          <p className="mt-1.5 mb-6 max-w-sm text-sm leading-relaxed text-muted-foreground/60">
             Rules let you selectively override behaviour based on exact criteria. Add your first
             rule to get started.
           </p>

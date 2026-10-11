@@ -12,14 +12,14 @@ export function FilterPill({ label, active, onClick, size = "sm" }: FilterPillPr
     <button
       onClick={onClick}
       className={cn(
-        "inline-flex items-center shrink-0 rounded-md font-medium select-none",
+        "inline-flex shrink-0 items-center rounded-md font-medium select-none",
         "transition-all duration-150",
-        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+        "focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none",
         size === "sm" && "h-7 px-2.5 text-[11px]",
         size === "xs" && "h-6 px-2 text-[10px] tracking-wide",
         active
           ? "bg-foreground text-background shadow-sm"
-          : "text-muted-foreground/55 hover:text-foreground hover:bg-muted/70",
+          : "text-muted-foreground/55 hover:bg-muted/70 hover:text-foreground",
       )}
     >
       {label}

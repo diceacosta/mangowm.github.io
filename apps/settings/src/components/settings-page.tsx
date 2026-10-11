@@ -72,14 +72,14 @@ export function SettingsPage() {
         />
         {showConfig ? (
           <div className="flex-1 overflow-hidden p-5">
-            <div className="h-full rounded-xl bg-card ring-1 ring-foreground/10 p-6 flex flex-col">
+            <div className="flex h-full flex-col rounded-xl bg-card p-6 ring-1 ring-foreground/10">
               <ConfigPreviewer />
             </div>
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto scrollbar-gutter-stable p-5">
-            <div className="flex flex-row gap-5 min-h-full">
-              <div className="flex-1 rounded-xl bg-card ring-1 ring-foreground/10 p-6 relative flex flex-col">
+          <div className="flex-1 scrollbar-gutter-stable overflow-y-auto p-5">
+            <div className="flex min-h-full flex-row gap-5">
+              <div className="relative flex flex-1 flex-col rounded-xl bg-card p-6 ring-1 ring-foreground/10">
                 {!ready ? (
                   <div className="flex-1">
                     <Skeleton className="h-96 w-full rounded-xl" />

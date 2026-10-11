@@ -106,7 +106,7 @@ export function KeyRecorder({
         <>
           <CommandInput
             placeholder="Search keys (e.g., Space)..."
-            className="h-10 text-sm border-none focus:ring-0"
+            className="h-10 border-none text-sm focus:ring-0"
           />
           <CommandList className="max-h-[200px] scrollbar-thin">
             <CommandEmpty className="py-4 text-center text-sm text-muted-foreground">
@@ -140,7 +140,7 @@ export function KeyRecorder({
 
     return (
       <>
-        <CommandInput placeholder="Search..." className="h-10 text-sm border-none focus:ring-0" />
+        <CommandInput placeholder="Search..." className="h-10 border-none text-sm focus:ring-0" />
         <CommandList className="max-h-[200px] scrollbar-thin">
           <CommandEmpty className="py-4 text-center text-sm text-muted-foreground">
             No options found.
@@ -169,9 +169,9 @@ export function KeyRecorder({
     const activeMods = MODIFIER_ORDER.filter((m) => mods.includes(m));
 
     return (
-      <div className="flex flex-wrap items-center justify-center gap-2.5 w-full min-h-[4rem]">
+      <div className="flex min-h-[4rem] w-full flex-wrap items-center justify-center gap-2.5">
         {activeMods.map((m) => (
-          <div key={m} className="flex items-center gap-2.5 animate-in zoom-in duration-200">
+          <div key={m} className="flex animate-in items-center gap-2.5 duration-200 zoom-in">
             <button
               type="button"
               onClick={(e) => {
@@ -184,7 +184,7 @@ export function KeyRecorder({
               <span className="text-primary-foreground transition-transform duration-200 group-hover:-translate-y-8">
                 {m}
               </span>
-              <span className="absolute inset-0 flex items-center justify-center text-destructive-foreground translate-y-8 transition-transform duration-200 group-hover:translate-y-0">
+              <span className="absolute inset-0 flex translate-y-8 items-center justify-center text-destructive-foreground transition-transform duration-200 group-hover:translate-y-0">
                 <X className="size-4" strokeWidth={3} />
               </span>
             </button>
@@ -192,14 +192,14 @@ export function KeyRecorder({
           </div>
         ))}
 
-        <div className="relative group flex items-center shadow-sm">
+        <div className="group relative flex items-center shadow-sm">
           {capturedKey ? (
             <kbd
               onClick={handleTriggerClick}
               className={cn(
-                "flex h-10 items-center justify-center rounded-l-lg border-y-2 border-l-2 border-b-4 px-5 font-mono text-base font-black uppercase tracking-widest transition-all cursor-pointer",
+                "flex h-10 cursor-pointer items-center justify-center rounded-l-lg border-y-2 border-b-4 border-l-2 px-5 font-mono text-base font-black tracking-widest uppercase transition-all",
                 isRecording
-                  ? "border-primary bg-primary/10 text-primary animate-pulse border-solid"
+                  ? "animate-pulse border-solid border-primary bg-primary/10 text-primary"
                   : isRawCode(capturedKey) && !isPicker
                     ? "border-amber-500/30 bg-amber-500/10 text-amber-600 hover:border-amber-500/50 hover:bg-amber-500/20"
                     : "border-border bg-card text-foreground hover:border-primary/50 hover:bg-muted",
@@ -211,9 +211,9 @@ export function KeyRecorder({
             <kbd
               onClick={handleTriggerClick}
               className={cn(
-                "flex h-10 min-w-[7rem] items-center justify-center rounded-l-lg border-y-2 border-l-2 border-dashed px-4 font-sans text-[11px] font-bold uppercase tracking-widest transition-all cursor-pointer",
+                "flex h-10 min-w-[7rem] cursor-pointer items-center justify-center rounded-l-lg border-y-2 border-l-2 border-dashed px-4 font-sans text-[11px] font-bold tracking-widest uppercase transition-all",
                 isRecording
-                  ? "border-primary/60 bg-primary/5 text-primary shadow-[0_0_15px_rgba(var(--primary),0.2)] animate-pulse"
+                  ? "animate-pulse border-primary/60 bg-primary/5 text-primary shadow-[0_0_15px_rgba(var(--primary),0.2)]"
                   : "border-muted-foreground/30 bg-muted/10 text-muted-foreground/50 hover:border-primary/40 hover:bg-muted/30",
               )}
             >
@@ -224,20 +224,20 @@ export function KeyRecorder({
           <Popover open={isKeySearchOpen} onOpenChange={setIsKeySearchOpen}>
             <PopoverTrigger
               className={cn(
-                "flex h-10 w-8 items-center justify-center rounded-r-lg border-y-2 border-r-2 border-b-4 transition-all z-10",
+                "z-10 flex h-10 w-8 items-center justify-center rounded-r-lg border-y-2 border-r-2 border-b-4 transition-all",
                 capturedKey
                   ? isRawCode(capturedKey) && !isPicker
-                    ? "border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/20 text-amber-600/70"
-                    : "border-border bg-card hover:bg-muted text-muted-foreground/60"
-                  : "border-dashed border-muted-foreground/30 bg-muted/10 hover:bg-muted/30 hover:border-primary/40",
-                isRecording && "border-primary/60 bg-primary/5 border-solid",
+                    ? "border-amber-500/30 bg-amber-500/5 text-amber-600/70 hover:bg-amber-500/20"
+                    : "border-border bg-card text-muted-foreground/60 hover:bg-muted"
+                  : "border-dashed border-muted-foreground/30 bg-muted/10 hover:border-primary/40 hover:bg-muted/30",
+                isRecording && "border-solid border-primary/60 bg-primary/5",
               )}
               title="Search"
             >
               <ChevronsUpDown className="size-3.5" />
             </PopoverTrigger>
             <PopoverContent
-              className="w-64 p-0 rounded-xl shadow-2xl border-border"
+              className="w-64 rounded-xl border-border p-0 shadow-2xl"
               align="end"
               sideOffset={8}
             >
@@ -250,7 +250,7 @@ export function KeyRecorder({
   };
 
   return (
-    <section className="flex flex-col w-full rounded-xl border border-border/50 bg-background shadow-sm overflow-hidden transition-all duration-300 focus-within:border-primary/40 focus-within:shadow-md">
+    <section className="flex w-full flex-col overflow-hidden rounded-xl border border-border/50 bg-background shadow-sm transition-all duration-300 focus-within:border-primary/40 focus-within:shadow-md">
       {!isPicker && (
         <input
           ref={captureInputRef}
@@ -281,7 +281,7 @@ export function KeyRecorder({
         }
       >
         {(!isPicker || allowRawCode) && (
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <button
               type="button"
               onClick={(e) => {
@@ -289,10 +289,10 @@ export function KeyRecorder({
                 setShowRawInput(!showRawInput);
               }}
               className={cn(
-                "p-1 rounded-md transition-colors",
+                "rounded-md p-1 transition-colors",
                 showRawInput
                   ? "bg-primary/10 text-primary"
-                  : "hover:bg-muted text-muted-foreground/50 hover:text-foreground",
+                  : "text-muted-foreground/50 hover:bg-muted hover:text-foreground",
               )}
               title="Toggle Raw Keycode Input"
             >
@@ -305,7 +305,7 @@ export function KeyRecorder({
 
         {showMods && (
           <div className="mt-5 flex flex-col items-center gap-2.5">
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40">
+            <span className="text-[10px] font-semibold tracking-widest text-muted-foreground/40 uppercase">
               Modifiers
             </span>
             <ModPills selected={mods} onChange={(m) => onModsChange(m)} />
@@ -316,25 +316,25 @@ export function KeyRecorder({
       {(!isPicker || allowRawCode) && (
         <div
           className={cn(
-            "grid transition-all duration-300 ease-in-out bg-muted/20",
+            "grid bg-muted/20 transition-all duration-300 ease-in-out",
             showRawInput
-              ? "grid-rows-[1fr] opacity-100 border-t border-border/50"
-              : "grid-rows-[0fr] opacity-0 border-t-0",
+              ? "grid-rows-[1fr] border-t border-border/50 opacity-100"
+              : "grid-rows-[0fr] border-t-0 opacity-0",
           )}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3">
               <div className="flex flex-col">
-                <span className="text-[11px] font-semibold text-foreground tracking-wide">
+                <span className="text-[11px] font-semibold tracking-wide text-foreground">
                   Raw XKB Code
                 </span>
                 <span className="text-[10px] text-muted-foreground/60">
                   Override with a system code
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 bg-background border border-border/50 rounded-md pl-2 focus-within:ring-2 focus-within:ring-primary/20 shadow-sm">
-                <span className="text-[11px] font-mono font-medium text-muted-foreground/50">
+              <div className="flex items-center gap-1.5 rounded-md border border-border/50 bg-background pl-2 shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
+                <span className="font-mono text-[11px] font-medium text-muted-foreground/50">
                   code:
                 </span>
                 <Input
@@ -344,7 +344,7 @@ export function KeyRecorder({
                   value={rawInput}
                   onChange={handleRawInputChange}
                   placeholder="91"
-                  className="w-16 h-7 border-none bg-transparent shadow-none focus-visible:ring-0 font-mono text-xs px-1 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  className="h-7 w-16 [appearance:textfield] border-none bg-transparent px-1 font-mono text-xs shadow-none focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                 />
               </div>
             </div>

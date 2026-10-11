@@ -46,7 +46,7 @@ export function ModeCombobox({ value, existingModes, onChange }: ModeComboboxPro
         aria-expanded={open}
         className={cn(
           "flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-border/40 px-3 text-sm transition-all",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+          "focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:outline-none",
           value ? "bg-card hover:bg-accent/40" : "bg-muted/30 hover:bg-muted/50",
         )}
       >
@@ -61,7 +61,7 @@ export function ModeCombobox({ value, existingModes, onChange }: ModeComboboxPro
       >
         <Command className="border-0 bg-transparent" shouldFilter={false}>
           <CommandInput autoFocus value={search} onValueChange={setSearch} placeholder="default" />
-          <CommandList className="scrollbar-thin max-h-[180px] pt-2">
+          <CommandList className="max-h-[180px] scrollbar-thin pt-2">
             {filtered.length === 0 && !isNew && <CommandEmpty>No matching modes</CommandEmpty>}
             {filtered.map((m) => (
               <CommandItem key={m} value={m} onSelect={() => select(m)}>

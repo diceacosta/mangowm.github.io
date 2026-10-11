@@ -28,17 +28,17 @@ export function RuleCard({ rule, ruleType, index, onEdit, onDelete }: RuleCardPr
       )}
     >
       {/* Action Bar - Hidden until hover for a cleaner default state */}
-      <div className="absolute right-2 top-2 z-10 flex items-center gap-0.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+      <div className="absolute top-2 right-2 z-10 flex items-center gap-0.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         <button
           onClick={() => onEdit(index)}
-          className="rounded-md p-1.5 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+          className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
           aria-label="Edit rule"
         >
           <Pencil className="size-3.5" />
         </button>
         <button
           onClick={() => onDelete(index)}
-          className="rounded-md p-1.5 text-muted-foreground hover:bg-destructive/15 hover:text-destructive transition-colors"
+          className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-destructive/15 hover:text-destructive"
           aria-label="Delete rule"
         >
           <Trash2 className="size-3.5" />
@@ -47,7 +47,7 @@ export function RuleCard({ rule, ruleType, index, onEdit, onDelete }: RuleCardPr
 
       {/* Matchers Header Section */}
       <div className="border-b border-border/40 bg-muted/20 px-4 py-3">
-        <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+        <div className="mb-2 text-[10px] font-semibold tracking-wider text-muted-foreground/70 uppercase">
           Match Criteria
         </div>
         <div className="flex min-w-0 flex-wrap items-center gap-2 pr-16">
@@ -64,7 +64,7 @@ export function RuleCard({ rule, ruleType, index, onEdit, onDelete }: RuleCardPr
               </span>
             ))
           ) : (
-            <span className="rounded-md border border-border/40 bg-background/50 px-2 py-1 text-[11px] italic text-muted-foreground/60 shadow-sm">
+            <span className="rounded-md border border-border/40 bg-background/50 px-2 py-1 text-[11px] text-muted-foreground/60 italic shadow-sm">
               Global (Applies to all)
             </span>
           )}
@@ -73,7 +73,7 @@ export function RuleCard({ rule, ruleType, index, onEdit, onDelete }: RuleCardPr
 
       {/* Overrides Body Section */}
       <div className="px-4 py-3">
-        <div className="mb-2.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+        <div className="mb-2.5 text-[10px] font-semibold tracking-wider text-muted-foreground/70 uppercase">
           Applied Properties
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -82,7 +82,7 @@ export function RuleCard({ rule, ruleType, index, onEdit, onDelete }: RuleCardPr
               <OverridePill key={key} keyName={key} value={val} ruleType={ruleType} />
             ))
           ) : (
-            <span className="text-[11px] italic text-muted-foreground/50">
+            <span className="text-[11px] text-muted-foreground/50 italic">
               No overrides configured
             </span>
           )}

@@ -54,13 +54,13 @@ export function BindingRow({ entry, hasConflict, onEdit, onDelete }: BindingRowP
   return (
     <div
       className={cn(
-        "group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-3 sm:px-4",
+        "group relative flex flex-col justify-between gap-4 p-3 sm:flex-row sm:items-center sm:px-4",
         "transition-colors duration-200 hover:bg-muted/50",
       )}
     >
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
-        <div className="flex items-center shrink-0 gap-1.5">
-          <span className="text-muted-foreground/50 shrink-0" title={entry.type}>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <span className="shrink-0 text-muted-foreground/50" title={entry.type}>
             {TYPE_ICONS[entry.type] ?? TYPE_ICONS.keyboard}
           </span>
           <div className="flex h-7 items-center rounded-md bg-primary/10 px-2.5 font-mono text-xs font-semibold text-primary">
@@ -69,7 +69,7 @@ export function BindingRow({ entry, hasConflict, onEdit, onDelete }: BindingRowP
         </div>
 
         {rawArgs ? (
-          <code className="rounded-md border border-dashed border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[11px] text-muted-foreground break-all">
+          <code className="rounded-md border border-dashed border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[11px] break-all text-muted-foreground">
             {rawArgs}
           </code>
         ) : parsedArgs && parsedArgs.length > 0 ? (
@@ -77,12 +77,12 @@ export function BindingRow({ entry, hasConflict, onEdit, onDelete }: BindingRowP
             {parsedArgs.map((arg) => (
               <div
                 key={arg.name}
-                className="flex items-center overflow-hidden rounded-md border border-border/50 font-mono text-[11px] bg-background/50"
+                className="flex items-center overflow-hidden rounded-md border border-border/50 bg-background/50 font-mono text-[11px]"
               >
-                <span className="bg-muted/60 px-2 py-1 text-muted-foreground border-r border-border/50 font-medium">
+                <span className="border-r border-border/50 bg-muted/60 px-2 py-1 font-medium text-muted-foreground">
                   {arg.name}
                 </span>
-                <span className="px-2 py-1 text-foreground font-medium break-all">{arg.value}</span>
+                <span className="px-2 py-1 font-medium break-all text-foreground">{arg.value}</span>
               </div>
             ))}
           </div>
@@ -96,7 +96,7 @@ export function BindingRow({ entry, hasConflict, onEdit, onDelete }: BindingRowP
             title="Conflicting binding"
           >
             <AlertTriangle className="h-3.5 w-3.5" />
-            <span className="text-[11px] font-medium leading-none hidden sm:inline">Conflict</span>
+            <span className="hidden text-[11px] leading-none font-medium sm:inline">Conflict</span>
           </span>
         )}
 
@@ -117,13 +117,13 @@ export function BindingRow({ entry, hasConflict, onEdit, onDelete }: BindingRowP
         <div
           className={cn(
             "flex items-center gap-0.5",
-            "opacity-100 sm:opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-within:opacity-100",
+            "opacity-100 transition-opacity duration-200 group-hover:opacity-100 focus-within:opacity-100 sm:opacity-0",
           )}
         >
           <button
             onClick={onEdit}
             aria-label={`Edit binding for ${entry.func}`}
-            className="rounded-md p-1.5 text-muted-foreground hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors"
+            className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
           >
             <Pencil className="h-4 w-4" />
           </button>
@@ -131,7 +131,7 @@ export function BindingRow({ entry, hasConflict, onEdit, onDelete }: BindingRowP
           <button
             onClick={onDelete}
             aria-label={`Remove ${entry.func}`}
-            className="rounded-md p-1.5 text-muted-foreground hover:bg-destructive/15 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors"
+            className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-destructive/15 hover:text-destructive focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
           >
             <Trash2 className="h-4 w-4" />
           </button>

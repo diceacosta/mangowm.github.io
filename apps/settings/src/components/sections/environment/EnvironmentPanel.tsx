@@ -45,8 +45,8 @@ function EnvRow({
   };
 
   return (
-    <div className="group relative flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-1.5 transition-colors hover:bg-muted/30 focus-within:bg-muted/30 focus-within:border-border/50">
-      <div className="flex flex-1 items-center gap-3 w-full">
+    <div className="group relative flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-1.5 transition-colors focus-within:border-border/50 focus-within:bg-muted/30 hover:bg-muted/30">
+      <div className="flex w-full flex-1 items-center gap-3">
         <input
           value={localKey}
           onChange={(e) => setLocalKey(sanitizeKey(e.target.value))}
@@ -54,11 +54,11 @@ function EnvRow({
           onKeyDown={(e) => {
             if (e.key === "Enter") e.currentTarget.blur();
           }}
-          className="w-1/3 bg-transparent px-2 py-1 font-mono text-[13px] font-medium text-foreground outline-none focus:bg-background focus:ring-1 focus:ring-ring/40 rounded transition-all placeholder:text-muted-foreground/30"
+          className="w-1/3 rounded bg-transparent px-2 py-1 font-mono text-[13px] font-medium text-foreground transition-all outline-none placeholder:text-muted-foreground/30 focus:bg-background focus:ring-1 focus:ring-ring/40"
           placeholder="KEY"
           spellCheck={false}
         />
-        <span className="text-muted-foreground/40 font-mono select-none">=</span>
+        <span className="font-mono text-muted-foreground/40 select-none">=</span>
         <input
           value={localValue}
           onChange={(e) => setLocalValue(e.target.value)}
@@ -66,7 +66,7 @@ function EnvRow({
           onKeyDown={(e) => {
             if (e.key === "Enter") e.currentTarget.blur();
           }}
-          className="flex-1 bg-transparent px-2 py-1 font-mono text-[13px] text-muted-foreground focus:text-foreground outline-none focus:bg-background focus:ring-1 focus:ring-ring/40 rounded transition-all placeholder:text-muted-foreground/30"
+          className="flex-1 rounded bg-transparent px-2 py-1 font-mono text-[13px] text-muted-foreground transition-all outline-none placeholder:text-muted-foreground/30 focus:bg-background focus:text-foreground focus:ring-1 focus:ring-ring/40"
           placeholder="value"
           spellCheck={false}
         />
@@ -79,7 +79,7 @@ function EnvRow({
           e.preventDefault();
           removeEntry("env", index);
         }}
-        className="size-8 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 text-muted-foreground hover:bg-destructive/10 hover:text-destructive shrink-0"
+        className="size-8 shrink-0 text-muted-foreground opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
         tabIndex={-1}
       >
         <Trash2 className="size-3.5" />
@@ -134,10 +134,10 @@ export function EnvironmentPanel({ focusKey }: PanelProps) {
       <div className="mb-8 rounded-xl border border-border/50 bg-card p-1.5 shadow-sm">
         <form
           onSubmit={handleAdd}
-          className="flex flex-col sm:flex-row items-center gap-2 rounded-lg bg-muted/10 p-2"
+          className="flex flex-col items-center gap-2 rounded-lg bg-muted/10 p-2 sm:flex-row"
         >
-          <div className="flex w-full flex-1 items-center gap-2 rounded-md border border-border/40 bg-background/50 px-3 py-2 focus-within:bg-background focus-within:ring-2 focus-within:ring-ring/20 focus-within:border-ring/50 transition-all">
-            <span className="text-[11px] uppercase tracking-wider font-semibold text-muted-foreground select-none shrink-0">
+          <div className="flex w-full flex-1 items-center gap-2 rounded-md border border-border/40 bg-background/50 px-3 py-2 transition-all focus-within:border-ring/50 focus-within:bg-background focus-within:ring-2 focus-within:ring-ring/20">
+            <span className="shrink-0 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase select-none">
               Key
             </span>
             <input
@@ -146,13 +146,13 @@ export function EnvironmentPanel({ focusKey }: PanelProps) {
               onChange={(e) => setNewKey(sanitizeKey(e.target.value))}
               onPaste={handleSmartPaste}
               placeholder="QT_QPA_PLATFORMTHEME"
-              className="w-full bg-transparent text-sm font-mono outline-none placeholder:text-muted-foreground/30"
+              className="w-full bg-transparent font-mono text-sm outline-none placeholder:text-muted-foreground/30"
               spellCheck={false}
             />
           </div>
 
-          <div className="flex w-full flex-1 items-center gap-2 rounded-md border border-border/40 bg-background/50 px-3 py-2 focus-within:bg-background focus-within:ring-2 focus-within:ring-ring/20 focus-within:border-ring/50 transition-all">
-            <span className="text-[11px] uppercase tracking-wider font-semibold text-muted-foreground select-none shrink-0">
+          <div className="flex w-full flex-1 items-center gap-2 rounded-md border border-border/40 bg-background/50 px-3 py-2 transition-all focus-within:border-ring/50 focus-within:bg-background focus-within:ring-2 focus-within:ring-ring/20">
+            <span className="shrink-0 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase select-none">
               Value
             </span>
             <input
@@ -160,7 +160,7 @@ export function EnvironmentPanel({ focusKey }: PanelProps) {
               value={newValue}
               onChange={(e) => setNewValue(e.target.value)}
               placeholder="qt6ct"
-              className="w-full bg-transparent text-sm font-mono outline-none placeholder:text-muted-foreground/30"
+              className="w-full bg-transparent font-mono text-sm outline-none placeholder:text-muted-foreground/30"
               spellCheck={false}
             />
           </div>
@@ -168,18 +168,18 @@ export function EnvironmentPanel({ focusKey }: PanelProps) {
           <Button
             type="submit"
             disabled={!newKey.trim()}
-            className="w-full sm:w-auto shrink-0 transition-all shadow-none"
+            className="w-full shrink-0 shadow-none transition-all sm:w-auto"
           >
-            <Plus className="sm:mr-1.5 size-4" />
+            <Plus className="size-4 sm:mr-1.5" />
             <span className="hidden sm:inline">Add</span>
           </Button>
         </form>
       </div>
 
       <div ref={fieldRef("env")} className="flex flex-col gap-2">
-        <div className="flex items-center justify-between px-2 mb-2">
+        <div className="mb-2 flex items-center justify-between px-2">
           <h3 className="text-sm font-medium text-foreground">Session Variables</h3>
-          <span className="text-xs font-mono text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+          <span className="rounded-full bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground">
             {envVars.length}
           </span>
         </div>
@@ -187,7 +187,7 @@ export function EnvironmentPanel({ focusKey }: PanelProps) {
         {envVars.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/60 bg-muted/5 py-12 text-center">
             <h4 className="text-sm font-medium text-foreground">No variables defined</h4>
-            <p className="mt-1 mb-5 text-sm text-muted-foreground max-w-[280px]">
+            <p className="mt-1 mb-5 max-w-[280px] text-sm text-muted-foreground">
               Set environment variables here to configure applications running under mangowm.
             </p>
           </div>

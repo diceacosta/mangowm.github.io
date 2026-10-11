@@ -41,7 +41,7 @@ import {
 /** The left-edge accent bar that slides in on row hover. */
 function AccentHover() {
   return (
-    <div className="absolute left-0 top-0 h-full w-[2px] scale-y-0 rounded-full bg-ring/50 transition-transform duration-200 group-hover:scale-y-100" />
+    <div className="absolute top-0 left-0 h-full w-[2px] scale-y-0 rounded-full bg-ring/50 transition-transform duration-200 group-hover:scale-y-100" />
   );
 }
 
@@ -79,7 +79,7 @@ export interface FieldLabelProps {
 export function FieldLabel({ label, description }: FieldLabelProps) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-      <span className="text-[13px] font-medium leading-none text-foreground">{label}</span>
+      <span className="text-[13px] leading-none font-medium text-foreground">{label}</span>
       <span className="truncate text-[11px] leading-none text-muted-foreground/60">
         {description}
       </span>
@@ -127,7 +127,7 @@ export function ToggleRow({ label, description, value, onChange, enabled }: Togg
       <div className="flex shrink-0 items-center gap-2">
         <span
           className={
-            "text-[10px] font-mono font-medium uppercase tracking-wider " +
+            "font-mono text-[10px] font-medium tracking-wider uppercase " +
             "transition-colors duration-150 " +
             (value ? "text-primary" : "text-muted-foreground/30")
           }
@@ -193,7 +193,7 @@ export function SliderRow({
           disabled={isOff}
           aria-label={label}
         />
-        <span className="w-14 text-right font-mono text-[12px] tabular-nums text-foreground/80">
+        <span className="w-14 text-right font-mono text-[12px] text-foreground/80 tabular-nums">
           {display}
           {unit ?? ""}
         </span>
@@ -329,7 +329,7 @@ export function MultiTagInput({
                   type="button"
                   onClick={() => removeTag(i)}
                   disabled={isOff}
-                  className="inline-flex size-3.5 items-center justify-center rounded-sm text-muted-foreground/50 transition-colors hover:text-destructive hover:bg-destructive/10"
+                  className="inline-flex size-3.5 items-center justify-center rounded-sm text-muted-foreground/50 transition-colors hover:bg-destructive/10 hover:text-destructive"
                 >
                   <X className="size-3" />
                 </button>

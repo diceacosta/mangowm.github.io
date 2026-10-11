@@ -79,9 +79,9 @@ function FileTreeNode({
       <button
         onClick={() => node.sourceFile && onSelect(node.sourceFile)}
         className={cn(
-          "flex w-full items-center gap-2 px-2 py-1 text-sm rounded-md text-left transition-colors cursor-pointer",
+          "flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-left text-sm transition-colors",
           selectedPath === node.path
-            ? "bg-accent text-accent-foreground font-medium"
+            ? "bg-accent font-medium text-accent-foreground"
             : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
         )}
         style={{ paddingLeft: `${depth * 16 + 8}px` }}
@@ -96,7 +96,7 @@ function FileTreeNode({
     <div>
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center gap-2 px-2 py-1 text-sm rounded-md text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors cursor-pointer"
+        className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
         style={{ paddingLeft: `${depth * 16 + 8}px` }}
       >
         <ChevronRightIcon
@@ -128,7 +128,7 @@ function FileTreeNode({
 
 function ConfigLineRow({ line, index }: { line: ConfigLine; index: number }) {
   const gutter = (
-    <span className="text-muted-foreground/20 select-none min-w-[4ch] text-right pr-4 shrink-0 tabular-nums">
+    <span className="min-w-[4ch] shrink-0 pr-4 text-right text-muted-foreground/20 tabular-nums select-none">
       {index + 1}
     </span>
   );
@@ -197,17 +197,17 @@ export function ConfigPreviewer() {
 
   if (files.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center text-muted-foreground/40 text-sm">
+      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground/40">
         No config files loaded
       </div>
     );
   }
 
   return (
-    <div className="flex flex-1 gap-0 -m-6 rounded-xl overflow-hidden">
-      <div className="w-64 shrink-0 border-r border-foreground/10 overflow-y-auto bg-muted/30">
+    <div className="-m-6 flex flex-1 gap-0 overflow-hidden rounded-xl">
+      <div className="w-64 shrink-0 overflow-y-auto border-r border-foreground/10 bg-muted/30">
         <div className="p-3">
-          <div className="text-xs font-medium text-muted-foreground/60 uppercase tracking-wider mb-2 px-2">
+          <div className="mb-2 px-2 text-xs font-medium tracking-wider text-muted-foreground/60 uppercase">
             Config Files
           </div>
           {tree.map((node) => (
@@ -221,15 +221,15 @@ export function ConfigPreviewer() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="sticky top-0 border-b border-foreground/10 bg-card px-4 py-2 flex items-center gap-2 text-xs text-muted-foreground/60 z-10">
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-foreground/10 bg-card px-4 py-2 text-xs text-muted-foreground/60">
           <FileIcon className="size-3.5" />
           <span className="font-mono">{displayPath}</span>
           <span className="ml-auto flex items-center gap-1">
             <button
               onClick={handleCopy}
               disabled={!selectedFile || copied}
-              className="flex items-center gap-1 rounded-md px-2 py-1 transition-colors cursor-pointer hover:bg-accent/50 hover:text-foreground disabled:opacity-30 disabled:pointer-events-none"
+              className="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 transition-colors hover:bg-accent/50 hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
             >
               {copied ? (
                 <span className="text-green-600 dark:text-green-400">Copied!</span>
@@ -246,13 +246,13 @@ export function ConfigPreviewer() {
         </div>
         <div className="flex-1 overflow-auto">
           {selectedFile ? (
-            <pre className="font-mono text-sm leading-6 py-2 min-w-min">
+            <pre className="min-w-min py-2 font-mono text-sm leading-6">
               {selectedFile.lines.map((line, i) => (
                 <ConfigLineRow key={i} line={line} index={i} />
               ))}
             </pre>
           ) : (
-            <div className="flex items-center justify-center h-full text-muted-foreground/40 text-sm">
+            <div className="flex h-full items-center justify-center text-sm text-muted-foreground/40">
               Select a file to view
             </div>
           )}

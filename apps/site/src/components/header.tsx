@@ -181,14 +181,14 @@ export function Header() {
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
-          className="site-piece group inline-flex h-[var(--nav-piece-height)] flex-none items-center gap-2 rounded-full pl-[0.85rem] pr-4 font-display text-[0.95rem] font-semibold tracking-[-0.02em] text-foreground no-underline"
+          className="site-piece group inline-flex h-[var(--nav-piece-height)] flex-none items-center gap-2 rounded-full pr-4 pl-[0.85rem] font-display text-[0.95rem] font-semibold tracking-[-0.02em] text-foreground no-underline"
           aria-label="mangowm home"
         >
           <img
             src={mangowmLogo}
             alt=""
             aria-hidden="true"
-            className="size-5 transition-transform duration-[0.35s] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-[-8deg] group-hover:scale-[1.12]"
+            className="size-5 transition-transform duration-[0.35s] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.12] group-hover:rotate-[-8deg]"
           />
           <span>mangowm</span>
         </Link>

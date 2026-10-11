@@ -129,7 +129,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
   if (mode === "browser") {
     return (
-      <main className="dark min-h-screen bg-background text-foreground flex items-center justify-center p-8 antialiased selection:bg-primary selection:text-primary-foreground">
+      <main className="dark flex min-h-screen items-center justify-center bg-background p-8 text-foreground antialiased selection:bg-primary selection:text-primary-foreground">
         <input
           ref={fileInputRef}
           type="file"
@@ -140,14 +140,14 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         />
         <div className="w-full max-w-xl">
           {status === "checking" && (
-            <div className="flex items-center gap-3 text-muted-foreground justify-center">
+            <div className="flex items-center justify-center gap-3 text-muted-foreground">
               <Loader2 className="size-4 animate-spin" />
               <span className="text-sm">Verifying environment...</span>
             </div>
           )}
 
           {status === "uploading" && (
-            <div className="flex items-center gap-3 text-muted-foreground justify-center">
+            <div className="flex items-center justify-center gap-3 text-muted-foreground">
               <Loader2 className="size-4 animate-spin" />
               <span className="text-sm">Importing config files...</span>
             </div>
@@ -156,14 +156,14 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           {status === "welcome" && (
             <>
               {error && (
-                <div className="flex items-center gap-2 text-sm text-destructive justify-center mb-4">
+                <div className="mb-4 flex items-center justify-center gap-2 text-sm text-destructive">
                   <AlertCircle className="size-4 shrink-0" />
                   <span>{error}</span>
                 </div>
               )}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <button
-                  className="flex flex-col gap-3 rounded-xl bg-card p-5 text-left ring-1 ring-foreground/10 hover:ring-primary/50 transition-all cursor-pointer"
+                  className="flex cursor-pointer flex-col gap-3 rounded-xl bg-card p-5 text-left ring-1 ring-foreground/10 transition-all hover:ring-primary/50"
                   onClick={handleStartFresh}
                 >
                   <span className="text-sm font-medium">Start Fresh</span>
@@ -173,7 +173,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
                   </span>
                 </button>
                 <button
-                  className="flex flex-col gap-3 rounded-xl bg-card p-5 text-left ring-1 ring-foreground/10 hover:ring-primary/50 transition-all cursor-pointer"
+                  className="flex cursor-pointer flex-col gap-3 rounded-xl bg-card p-5 text-left ring-1 ring-foreground/10 transition-all hover:ring-primary/50"
                   onClick={handleUploadClick}
                 >
                   <span className="text-sm font-medium">Import Folder</span>
@@ -191,7 +191,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   }
 
   return (
-    <main className="dark min-h-screen bg-background text-foreground flex items-center justify-center p-8 antialiased selection:bg-primary selection:text-primary-foreground">
+    <main className="dark flex min-h-screen items-center justify-center bg-background p-8 text-foreground antialiased selection:bg-primary selection:text-primary-foreground">
       <input
         ref={fileInputRef}
         type="file"
@@ -200,45 +200,45 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         webkitdirectory=""
         onChange={handleFileSelected}
       />
-      <div className="w-full max-w-sm flex flex-col">
-        <header className="flex items-center gap-4 mb-8">
+      <div className="flex w-full max-w-sm flex-col">
+        <header className="mb-8 flex items-center gap-4">
           <img
             src={mangowmLogo}
             alt="mangowm"
-            className="size-12 opacity-90 animate-in fade-in zoom-in-95 duration-500"
+            className="size-12 animate-in opacity-90 duration-500 zoom-in-95 fade-in"
           />
-          <div className="animate-in fade-in slide-in-from-left-2 duration-500">
+          <div className="animate-in duration-500 fade-in slide-in-from-left-2">
             <h1 className="text-xl font-medium tracking-tight">mangowm settings</h1>
             <p className="text-sm text-muted-foreground">Initial Setup</p>
           </div>
         </header>
 
-        <section className="flex flex-col justify-center min-h-[140px]">
+        <section className="flex min-h-[140px] flex-col justify-center">
           {status === "checking" && (
-            <div className="flex items-center gap-3 text-muted-foreground animate-in fade-in">
+            <div className="flex animate-in items-center gap-3 text-muted-foreground fade-in">
               <Loader2 className="size-4 animate-spin" />
               <span className="text-sm">Verifying environment...</span>
             </div>
           )}
 
           {status === "uploading" && (
-            <div className="flex items-center gap-3 text-muted-foreground animate-in fade-in">
+            <div className="flex animate-in items-center gap-3 text-muted-foreground fade-in">
               <Loader2 className="size-4 animate-spin" />
               <span className="text-sm">Importing config files...</span>
             </div>
           )}
 
           {status === "welcome" && (
-            <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-right-4 duration-500">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+            <div className="flex animate-in flex-col gap-3 duration-500 fade-in slide-in-from-right-4">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 No existing configuration found. We will start with a fresh default environment.
               </p>
             </div>
           )}
 
           {status === "ready" && (
-            <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-500">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+            <div className="flex animate-in flex-col gap-4 duration-500 fade-in slide-in-from-right-4">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 An existing configuration was detected. Would you like to back it up before applying
                 new settings?
               </p>
@@ -252,26 +252,26 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           )}
 
           {status === "running" && (
-            <div className="flex items-center gap-3 text-muted-foreground animate-in fade-in">
+            <div className="flex animate-in items-center gap-3 text-muted-foreground fade-in">
               <Loader2 className="size-4 animate-spin" />
               <span className="text-sm">Creating backup...</span>
             </div>
           )}
 
           {status === "success" && (
-            <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-right-4 duration-500">
+            <div className="flex animate-in flex-col gap-3 duration-500 fade-in slide-in-from-right-4">
               <div className="flex items-center gap-2.5 text-emerald-500">
                 <Check className="size-5" />
                 <span className="font-medium">Backup Complete</span>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 Your previous configuration has been safely archived.
               </p>
             </div>
           )}
         </section>
 
-        <footer className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-border/40">
+        <footer className="mt-6 flex items-center justify-end gap-3 border-t border-border/40 pt-6">
           {status === "checking" || status === "uploading" ? null : status === "running" ? (
             <Button className="w-32 transition-all" disabled>
               <Loader2 className="size-4 animate-spin" />

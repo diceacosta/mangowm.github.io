@@ -56,7 +56,7 @@ export function OverrideRow({
           variant="ghost"
           size="icon-sm"
           onClick={onRemove}
-          className="size-8 shrink-0 rounded-full text-muted-foreground/40 opacity-0 transition-all duration-200 hover:bg-destructive/10 hover:text-destructive group-hover:opacity-100 focus-visible:opacity-100"
+          className="size-8 shrink-0 rounded-full text-muted-foreground/40 opacity-0 transition-all duration-200 group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive focus-visible:opacity-100"
           aria-label="Remove override"
           title="Remove override"
         >
@@ -116,7 +116,7 @@ function OverrideInput({
                   "cursor-pointer rounded-md border border-transparent px-3 py-1 text-[11px] font-semibold tracking-wide transition-all duration-200",
                   isActive
                     ? activeStyle
-                    : "text-muted-foreground/60 hover:text-foreground/80 hover:bg-muted/50",
+                    : "text-muted-foreground/60 hover:bg-muted/50 hover:text-foreground/80",
                 )}
               >
                 {opt.label}
@@ -186,7 +186,7 @@ function OverrideInput({
       return (
         <Select value={currentValue} onValueChange={(v) => v && onChange(v)}>
           <SelectTrigger
-            className="w-36 h-8 text-[12px] bg-background/50 font-medium shadow-sm transition-colors hover:border-border/80 focus:ring-1 focus:ring-primary/30"
+            className="h-8 w-36 bg-background/50 text-[12px] font-medium shadow-sm transition-colors hover:border-border/80 focus:ring-1 focus:ring-primary/30"
             aria-label={meta.label}
           >
             <SelectValue>
@@ -215,7 +215,7 @@ function OverrideInput({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             className={cn(
-              "w-48 h-8 shrink-0 bg-background/50 font-mono text-[12px] shadow-sm transition-colors hover:border-border/80 focus-visible:bg-background focus-visible:ring-1 focus-visible:ring-primary/30",
+              "h-8 w-48 shrink-0 bg-background/50 font-mono text-[12px] shadow-sm transition-colors hover:border-border/80 focus-visible:bg-background focus-visible:ring-1 focus-visible:ring-primary/30",
               hasError && "border-red-500/60 focus-visible:ring-red-500/30",
             )}
             spellCheck={false}

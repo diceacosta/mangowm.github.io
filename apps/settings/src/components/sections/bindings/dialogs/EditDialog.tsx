@@ -62,9 +62,9 @@ function SectionLabel({
   icon?: React.ElementType;
 }) {
   return (
-    <div className="flex items-center gap-1.5 px-1 mb-1">
+    <div className="mb-1 flex items-center gap-1.5 px-1">
       {Icon && <Icon className="size-3.5 text-primary/70" />}
-      <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">
+      <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
         {children}
       </span>
     </div>
@@ -73,7 +73,7 @@ function SectionLabel({
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-border/40 bg-card/50 shadow-sm overflow-hidden divide-y divide-border/20 backdrop-blur-sm">
+    <div className="divide-y divide-border/20 overflow-hidden rounded-xl border border-border/40 bg-card/50 shadow-sm backdrop-blur-sm">
       {children}
     </div>
   );
@@ -255,8 +255,8 @@ export function EditDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl overflow-hidden p-0 shadow-2xl border-border/60 bg-background/95 backdrop-blur-md flex flex-col max-h-[90vh]">
-        <DialogHeader className="px-5 pt-5 pb-3 border-b border-border/30 bg-muted/20 shrink-0">
+      <DialogContent className="flex max-h-[90vh] flex-col overflow-hidden border-border/60 bg-background/95 p-0 shadow-2xl backdrop-blur-md sm:max-w-xl">
+        <DialogHeader className="shrink-0 border-b border-border/30 bg-muted/20 px-5 pt-5 pb-3">
           <DialogTitle className="text-lg tracking-tight">
             {editingEntry ? "Edit Binding" : "New Binding"}
           </DialogTitle>
@@ -267,10 +267,10 @@ export function EditDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-5 px-5 py-5 overflow-y-auto scrollbar-thin">
-          <section className="flex flex-col gap-2 shrink-0">
+        <div className="flex scrollbar-thin flex-col gap-5 overflow-y-auto px-5 py-5">
+          <section className="flex shrink-0 flex-col gap-2">
             <SectionLabel>Binding Type</SectionLabel>
-            <div className="flex items-center gap-1.5 flex-wrap">
+            <div className="flex flex-wrap items-center gap-1.5">
               {TYPE_OPTIONS.map(({ type, label, icon }) => {
                 const active = bindingType === type;
                 return (
@@ -287,8 +287,8 @@ export function EditDialog({
                       "flex h-8 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-all",
                       active
                         ? "border-primary/40 bg-primary/10 text-primary shadow-sm"
-                        : "border-border/50 text-muted-foreground/70 hover:border-primary/30 hover:text-primary hover:bg-primary/5",
-                      editingEntry && "opacity-60 cursor-not-allowed",
+                        : "border-border/50 text-muted-foreground/70 hover:border-primary/30 hover:bg-primary/5 hover:text-primary",
+                      editingEntry && "cursor-not-allowed opacity-60",
                     )}
                   >
                     {icon}
@@ -299,7 +299,7 @@ export function EditDialog({
             </div>
           </section>
 
-          <section className="flex flex-col gap-2 shrink-0">
+          <section className="flex shrink-0 flex-col gap-2">
             <SectionLabel icon={bindingType === "keyboard" ? undefined : Zap}>
               {bindingType === "keyboard"
                 ? "Key Combination"
@@ -323,7 +323,7 @@ export function EditDialog({
             />
           </section>
 
-          <section className="flex flex-col gap-2 shrink-0 relative z-10">
+          <section className="relative z-10 flex shrink-0 flex-col gap-2">
             <SectionLabel icon={Zap}>Trigger Action</SectionLabel>
             <div className="flex flex-col gap-2">
               <ActionSelector
@@ -334,10 +334,10 @@ export function EditDialog({
               />
 
               {func && currentSchema.length > 0 && (
-                <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="rounded-xl border border-border/40 bg-card shadow-sm overflow-hidden flex flex-col">
-                    <div className="bg-muted/30 px-3 py-1.5 border-b border-border/30">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                <div className="animate-in duration-300 fade-in slide-in-from-top-2">
+                  <div className="flex flex-col overflow-hidden rounded-xl border border-border/40 bg-card shadow-sm">
+                    <div className="border-b border-border/30 bg-muted/30 px-3 py-1.5">
+                      <span className="text-[10px] font-bold tracking-widest text-muted-foreground/60 uppercase">
                         Action Parameters
                       </span>
                     </div>
@@ -359,19 +359,19 @@ export function EditDialog({
           </section>
 
           {isKeyboard && func === "switch_layout" && (
-            <section className="flex flex-col gap-2 shrink-0">
+            <section className="flex shrink-0 flex-col gap-2">
               <SectionLabel icon={LayoutGridIcon}>Layout Cycle</SectionLabel>
               <Card>
-                <div className="flex items-center gap-3 px-4 py-3 bg-muted/5 border-b border-border/20">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="p-1.5 bg-primary/10 rounded-md text-primary">
+                <div className="flex items-center gap-3 border-b border-border/20 bg-muted/5 px-4 py-3">
+                  <div className="flex min-w-0 items-center gap-2.5">
+                    <div className="rounded-md bg-primary/10 p-1.5 text-primary">
                       <LayoutGridIcon className="size-3.5 shrink-0" />
                     </div>
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-[13px] font-medium leading-none text-foreground">
+                      <span className="text-[13px] leading-none font-medium text-foreground">
                         Cycle Order
                       </span>
-                      <span className="text-[11px] text-muted-foreground/70 leading-snug">
+                      <span className="text-[11px] leading-snug text-muted-foreground/70">
                         Restrict which layouts switch_layout cycles through.
                       </span>
                     </div>
@@ -382,12 +382,12 @@ export function EditDialog({
             </section>
           )}
 
-          <section className="flex flex-col gap-2 shrink-0">
+          <section className="flex shrink-0 flex-col gap-2">
             <SectionLabel icon={Settings2}>Mode</SectionLabel>
             <Card>
               <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex flex-col gap-1 pr-4">
-                  <Label className="text-[13px] font-medium leading-none text-foreground">
+                  <Label className="text-[13px] leading-none font-medium text-foreground">
                     Mode
                   </Label>
                   <span className="text-[11px] text-muted-foreground/70">
@@ -404,15 +404,15 @@ export function EditDialog({
           </section>
 
           {isKeyboard && (
-            <section className="flex flex-col shrink-0 mt-2">
+            <section className="mt-2 flex shrink-0 flex-col">
               <button
                 type="button"
                 onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center justify-between w-full p-2 -mx-2 rounded-lg hover:bg-muted/50 transition-colors group"
+                className="group -mx-2 flex w-full items-center justify-between rounded-lg p-2 transition-colors hover:bg-muted/50"
               >
                 <div className="flex items-center gap-1.5">
                   <Settings2 className="size-3.5 text-primary/70" />
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/80 group-hover:text-foreground transition-colors">
+                  <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase transition-colors group-hover:text-foreground">
                     Advanced Flags
                   </span>
                 </div>
@@ -427,14 +427,14 @@ export function EditDialog({
               <div
                 className={cn(
                   "grid transition-all duration-300 ease-in-out",
-                  showAdvanced ? "grid-rows-[1fr] opacity-100 pt-2" : "grid-rows-[0fr] opacity-0",
+                  showAdvanced ? "grid-rows-[1fr] pt-2 opacity-100" : "grid-rows-[0fr] opacity-0",
                 )}
               >
                 <div className="overflow-hidden">
                   <Card>
-                    <div className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-muted/10 border-b border-border/20">
+                    <div className="flex items-center justify-between border-b border-border/20 px-4 py-3 transition-colors hover:bg-muted/10">
                       <div className="flex flex-col gap-1 pr-4">
-                        <Label className="text-[13px] font-medium leading-none text-foreground">
+                        <Label className="text-[13px] leading-none font-medium text-foreground">
                           Lockscreen Passthrough
                         </Label>
                         <span className="text-[11px] text-muted-foreground/70">
@@ -447,9 +447,9 @@ export function EditDialog({
                       />
                     </div>
 
-                    <div className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-muted/10 border-b border-border/20">
+                    <div className="flex items-center justify-between border-b border-border/20 px-4 py-3 transition-colors hover:bg-muted/10">
                       <div className="flex flex-col gap-1 pr-4">
-                        <Label className="text-[13px] font-medium leading-none text-foreground">
+                        <Label className="text-[13px] leading-none font-medium text-foreground">
                           Symbol Only Match
                         </Label>
                         <span className="text-[11px] text-muted-foreground/70">
@@ -462,9 +462,9 @@ export function EditDialog({
                       />
                     </div>
 
-                    <div className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-muted/10 border-b border-border/20">
+                    <div className="flex items-center justify-between border-b border-border/20 px-4 py-3 transition-colors hover:bg-muted/10">
                       <div className="flex flex-col gap-1 pr-4">
-                        <Label className="text-[13px] font-medium leading-none text-foreground">
+                        <Label className="text-[13px] leading-none font-medium text-foreground">
                           Trigger on Release
                         </Label>
                         <span className="text-[11px] text-muted-foreground/70">
@@ -479,7 +479,7 @@ export function EditDialog({
 
                     <div className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-muted/10">
                       <div className="flex flex-col gap-1 pr-4">
-                        <Label className="text-[13px] font-medium leading-none text-foreground">
+                        <Label className="text-[13px] leading-none font-medium text-foreground">
                           Pass to Application
                         </Label>
                         <span className="text-[11px] text-muted-foreground/70">
@@ -494,7 +494,7 @@ export function EditDialog({
 
                     <div className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-muted/10">
                       <div className="flex flex-col gap-1 pr-4">
-                        <Label className="text-[13px] font-medium leading-none text-foreground">
+                        <Label className="text-[13px] leading-none font-medium text-foreground">
                           Allow Conflicts
                         </Label>
                         <span className="text-[11px] text-muted-foreground/70">
@@ -515,17 +515,17 @@ export function EditDialog({
           )}
         </div>
 
-        <div className="border-t border-border/40 bg-muted/20 shrink-0">
+        <div className="shrink-0 border-t border-border/40 bg-muted/20">
           {conflicts.length > 0 && (
-            <div className="px-5 py-3 bg-destructive/10 border-b border-destructive/20 flex items-start gap-2.5 text-xs text-destructive">
-              <ShieldAlert className="size-4 shrink-0 mt-0.5 text-destructive/80" />
+            <div className="flex items-start gap-2.5 border-b border-destructive/20 bg-destructive/10 px-5 py-3 text-xs text-destructive">
+              <ShieldAlert className="mt-0.5 size-4 shrink-0 text-destructive/80" />
               <p className="leading-relaxed">
                 <span className="font-bold">Conflict{conflicts.length > 1 ? "s" : ""}:</span>{" "}
                 {conflicts.slice(0, 3).map((c, i) => (
                   <span key={c.id}>
                     {i > 0 && ", "}
                     {c.mods}+{c.key} is bound to{" "}
-                    <code className="font-mono bg-destructive/20 px-1 py-0.5 rounded-sm font-bold tracking-tight">
+                    <code className="rounded-sm bg-destructive/20 px-1 py-0.5 font-mono font-bold tracking-tight">
                       {c.func}
                     </code>
                   </span>

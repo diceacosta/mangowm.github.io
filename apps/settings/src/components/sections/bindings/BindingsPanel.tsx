@@ -113,19 +113,19 @@ export function BindingsPanel({ focusKey }: PanelProps) {
   };
 
   return (
-    <div ref={fieldRef("bindings")} className="flex flex-col h-full gap-6">
+    <div ref={fieldRef("bindings")} className="flex h-full flex-col gap-6">
       <div className="flex flex-col gap-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1">
             <h2 className="text-lg font-semibold tracking-tight text-foreground">Bindings</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               Configure keyboard shortcuts, mouse buttons, scroll actions, and gesture bindings.
             </p>
           </div>
         </div>
 
         {hasMultipleModes && (
-          <div className="flex items-center border-b border-border/40 overflow-x-auto scrollbar-none">
+          <div className="flex scrollbar-none items-center overflow-x-auto border-b border-border/40">
             {modes.map((m) => {
               const isActive = activeMode === m;
               return (
@@ -133,10 +133,10 @@ export function BindingsPanel({ focusKey }: PanelProps) {
                   key={m}
                   onClick={() => setActiveMode(m)}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium transition-colors select-none whitespace-nowrap border-b-2",
+                    "border-b-2 px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors select-none",
                     isActive
                       ? "border-primary text-foreground"
-                      : "border-transparent text-muted-foreground hover:text-foreground hover:border-border/60",
+                      : "border-transparent text-muted-foreground hover:border-border/60 hover:text-foreground",
                   )}
                 >
                   {m === "All" ? "All" : m}
@@ -148,9 +148,9 @@ export function BindingsPanel({ focusKey }: PanelProps) {
       </div>
 
       <div className="flex flex-col gap-3">
-        <div className="flex flex-col sm:flex-row gap-3 items-center">
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
           <div className="relative w-full">
-            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/40" />
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground/40" />
             <input
               type="text"
               role="search"
@@ -158,16 +158,16 @@ export function BindingsPanel({ focusKey }: PanelProps) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className={cn(
-                "h-9 w-full rounded-lg border bg-background pl-9 pr-8 text-sm",
-                "border-border/60 text-foreground placeholder:text-muted-foreground/40 shadow-sm",
+                "h-9 w-full rounded-lg border bg-background pr-8 pl-9 text-sm",
+                "border-border/60 text-foreground shadow-sm placeholder:text-muted-foreground/40",
                 "transition-all duration-200",
-                "focus:outline-none focus:border-ring/50 focus:ring-2 focus:ring-ring/20",
+                "focus:border-ring/50 focus:ring-2 focus:ring-ring/20 focus:outline-none",
               )}
             />
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground/50 hover:text-foreground transition-colors"
+                className="absolute top-1/2 right-2 -translate-y-1/2 p-1 text-muted-foreground/50 transition-colors hover:text-foreground"
                 aria-label="Clear search"
               >
                 <X className="size-3.5" />
@@ -177,7 +177,7 @@ export function BindingsPanel({ focusKey }: PanelProps) {
 
           <Button
             size="sm"
-            className="shrink-0 gap-1.5 shadow-sm w-full sm:w-auto"
+            className="w-full shrink-0 gap-1.5 shadow-sm sm:w-auto"
             onClick={() => handleOpenDialog()}
           >
             <Plus className="size-4" />
@@ -188,15 +188,15 @@ export function BindingsPanel({ focusKey }: PanelProps) {
             <button
               onClick={() => setShowConflicts(!showConflicts)}
               className={cn(
-                "inline-flex items-center shrink-0 rounded-lg font-medium select-none w-full sm:w-auto",
-                "transition-all duration-200 h-9 px-3 text-xs border shadow-sm",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20",
+                "inline-flex w-full shrink-0 items-center rounded-lg font-medium select-none sm:w-auto",
+                "h-9 border px-3 text-xs shadow-sm transition-all duration-200",
+                "focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:outline-none",
                 showConflicts
-                  ? "bg-destructive text-destructive-foreground border-destructive"
-                  : "bg-background text-destructive hover:bg-destructive/10 border-destructive/20",
+                  ? "border-destructive bg-destructive text-destructive-foreground"
+                  : "border-destructive/20 bg-background text-destructive hover:bg-destructive/10",
               )}
             >
-              <AlertTriangle className="size-3.5 mr-2" />
+              <AlertTriangle className="mr-2 size-3.5" />
               {conflictIds.size} Conflicting
             </button>
           )}
@@ -205,7 +205,7 @@ export function BindingsPanel({ focusKey }: PanelProps) {
         <div
           role="tablist"
           aria-label="Filter by category"
-          className="flex items-center gap-1.5 flex-wrap"
+          className="flex flex-wrap items-center gap-1.5"
         >
           {cats.map((cat) => (
             <FilterPill
@@ -218,15 +218,15 @@ export function BindingsPanel({ focusKey }: PanelProps) {
         </div>
       </div>
 
-      <div className="flex-1 pb-10 mt-2">
+      <div className="mt-2 flex-1 pb-10">
         {allEntries.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border/60 bg-muted/5 py-16 text-center">
-            <div className="p-3 bg-background rounded-full border border-border/50 shadow-sm">
+            <div className="rounded-full border border-border/50 bg-background p-3 shadow-sm">
               <Plus className="size-6 text-muted-foreground/50" aria-hidden="true" />
             </div>
             <div className="max-w-[200px]">
-              <h3 className="text-sm font-medium text-foreground mb-1">No bindings yet</h3>
-              <p className="text-xs text-muted-foreground mb-4">
+              <h3 className="mb-1 text-sm font-medium text-foreground">No bindings yet</h3>
+              <p className="mb-4 text-xs text-muted-foreground">
                 Create your first custom binding to get started.
               </p>
               <Button size="sm" className="w-full" onClick={() => handleOpenDialog()}>
@@ -237,18 +237,18 @@ export function BindingsPanel({ focusKey }: PanelProps) {
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-muted/5 py-16 text-center">
             {showConflicts ? (
-              <AlertTriangle className="size-8 text-muted-foreground/30 mb-2" aria-hidden="true" />
+              <AlertTriangle className="mb-2 size-8 text-muted-foreground/30" aria-hidden="true" />
             ) : (
-              <Search className="size-8 text-muted-foreground/30 mb-2" aria-hidden="true" />
+              <Search className="mb-2 size-8 text-muted-foreground/30" aria-hidden="true" />
             )}
 
             <h3 className="text-sm font-medium text-foreground">No matches found</h3>
-            <p className="text-xs text-muted-foreground max-w-[300px]">
+            <p className="max-w-[300px] text-xs text-muted-foreground">
               {showConflicts
                 ? "There are conflicts globally, but none match your current search or category filters."
                 : "We couldn't find any bindings matching your current filters and search query."}
             </p>
-            <div className="flex items-center gap-2 mt-2">
+            <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm" className="h-8 text-xs" onClick={clearAllFilters}>
                 Clear all filters
               </Button>
@@ -256,7 +256,7 @@ export function BindingsPanel({ focusKey }: PanelProps) {
           </div>
         ) : (
           <div className="flex flex-col gap-6">
-            <div className="text-[11px] font-medium text-muted-foreground/60 flex items-center justify-between px-1">
+            <div className="flex items-center justify-between px-1 text-[11px] font-medium text-muted-foreground/60">
               <span>
                 Showing {filtered.length} binding{filtered.length !== 1 ? "s" : ""}
                 {activeMode !== "All" && (
@@ -271,12 +271,12 @@ export function BindingsPanel({ focusKey }: PanelProps) {
             {[...grouped.entries()].map(([category, items]) => (
               <section key={category} aria-label={category}>
                 <div className="mb-2 flex items-center gap-2 px-1">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+                  <h3 className="text-[12px] font-semibold tracking-widest text-muted-foreground/70 uppercase">
                     {category}
                   </h3>
-                  <div className="h-px bg-border/40 flex-1 ml-2" />
+                  <div className="ml-2 h-px flex-1 bg-border/40" />
                 </div>
-                <div className="rounded-xl border border-border/50 bg-card shadow-sm overflow-hidden divide-y divide-border/30 transition-all hover:shadow-md">
+                <div className="divide-y divide-border/30 overflow-hidden rounded-xl border border-border/50 bg-card shadow-sm transition-all hover:shadow-md">
                   {items.map((e) => (
                     <div key={e.id} ref={fieldRef(e.id)}>
                       <BindingRow

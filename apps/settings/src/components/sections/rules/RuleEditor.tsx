@@ -71,7 +71,7 @@ export function RuleEditor({ ruleType, initialRule, onSave, onCancel, index }: R
             variant="ghost"
             size="sm"
             onClick={onCancel}
-            className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive h-8 px-3"
+            className="h-8 px-3 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
           >
             Cancel
           </Button>
@@ -112,7 +112,7 @@ export function RuleEditor({ ruleType, initialRule, onSave, onCancel, index }: R
         <div className="px-5 py-4">
           <div className="flex flex-col gap-1">
             {overrideKeys.length === 0 ? (
-              <div className="py-4 text-sm italic text-muted-foreground/50">
+              <div className="py-4 text-sm text-muted-foreground/50 italic">
                 No properties selected to override.
               </div>
             ) : (
@@ -129,7 +129,7 @@ export function RuleEditor({ ruleType, initialRule, onSave, onCancel, index }: R
             )}
           </div>
 
-          <div className="flex justify-center border-t border-border/30 mt-3 pt-3">
+          <div className="mt-3 flex justify-center border-t border-border/30 pt-3">
             {paletteOpen ? (
               <div className="w-full">
                 <OverridePalette
@@ -177,7 +177,7 @@ function MatcherInput({
         <span className="text-[13px] font-medium text-foreground">{label}</span>
         <Select value={currentValue} onValueChange={(v) => v !== null && onChange(v)}>
           <SelectTrigger
-            className="w-64 h-9 text-[12px] bg-background/50 font-medium shadow-sm transition-colors hover:border-border/80 focus:ring-1 focus:ring-primary/30"
+            className="h-9 w-64 bg-background/50 text-[12px] font-medium shadow-sm transition-colors hover:border-border/80 focus:ring-1 focus:ring-primary/30"
             aria-label={label}
           >
             <SelectValue>

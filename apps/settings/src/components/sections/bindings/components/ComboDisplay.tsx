@@ -58,7 +58,7 @@ export function ComboDisplay({ type, mods, triggerLabel, fingers }: ComboDisplay
         <span key={i} className="inline-flex items-center gap-1">
           <KeyBadge label={p} />
           {i < parts.length - 1 && (
-            <span className="text-[10px] text-muted-foreground/40 font-mono">+</span>
+            <span className="font-mono text-[10px] text-muted-foreground/40">+</span>
           )}
         </span>
       ))}

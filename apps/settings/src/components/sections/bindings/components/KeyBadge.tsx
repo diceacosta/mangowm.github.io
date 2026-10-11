@@ -6,9 +6,9 @@ export function KeyBadge({ label }: { label: string }) {
       className={cn(
         "inline-flex items-center justify-center",
         "h-[22px] min-w-[22px] px-1.5",
-        "rounded-[5px] font-mono text-[11px] font-medium leading-none",
+        "rounded-[5px] font-mono text-[11px] leading-none font-medium",
         "border border-border bg-muted text-muted-foreground",
-        "select-none shadow-[0_1px_0_0_hsl(var(--border))]",
+        "shadow-[0_1px_0_0_hsl(var(--border))] select-none",
       )}
     >
       {label}

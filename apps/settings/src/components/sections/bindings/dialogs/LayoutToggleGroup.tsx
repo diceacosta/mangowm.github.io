@@ -32,8 +32,8 @@ export function LayoutToggleGroup() {
           type="button"
           onClick={() => toggle(name)}
           className={cn(
-            "flex items-center justify-center h-8 rounded-lg border px-3 font-medium select-none transition-all duration-100 text-[12px]",
-            "bg-primary text-primary-foreground border-primary/30 shadow-sm",
+            "flex h-8 items-center justify-center rounded-lg border px-3 text-[12px] font-medium transition-all duration-100 select-none",
+            "border-primary/30 bg-primary text-primary-foreground shadow-sm",
           )}
         >
           {name}
@@ -41,7 +41,7 @@ export function LayoutToggleGroup() {
       ))}
 
       {inactiveLayouts.length > 0 && activeLayouts.length > 0 && (
-        <span className="w-px self-stretch mx-1 bg-border/30" />
+        <span className="mx-1 w-px self-stretch bg-border/30" />
       )}
       {inactiveLayouts.map((name) => (
         <button
@@ -49,8 +49,8 @@ export function LayoutToggleGroup() {
           type="button"
           onClick={() => toggle(name)}
           className={cn(
-            "flex items-center justify-center h-8 rounded-lg border px-3 font-medium select-none transition-all duration-100 text-[12px]",
-            "border-dashed border-muted-foreground/25 text-muted-foreground/55 bg-transparent hover:bg-muted/30 hover:border-muted-foreground/50 hover:text-muted-foreground/75",
+            "flex h-8 items-center justify-center rounded-lg border px-3 text-[12px] font-medium transition-all duration-100 select-none",
+            "border-dashed border-muted-foreground/25 bg-transparent text-muted-foreground/55 hover:border-muted-foreground/50 hover:bg-muted/30 hover:text-muted-foreground/75",
           )}
         >
           {name}

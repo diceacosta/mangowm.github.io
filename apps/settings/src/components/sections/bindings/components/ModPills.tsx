@@ -17,7 +17,7 @@ export function ModPills({ selected, onChange }: ModPillsProps) {
             type="button"
             onClick={() => onChange(active ? selected.filter((x) => x !== m) : [...selected, m])}
             className={cn(
-              "flex h-7 items-center rounded-md border px-2.5 text-[10px] font-semibold uppercase tracking-widest transition-all",
+              "flex h-7 items-center rounded-md border px-2.5 text-[10px] font-semibold tracking-widest uppercase transition-all",
               active
                 ? "border-primary/30 bg-primary/10 text-primary"
                 : "border-dashed border-muted-foreground/30 text-muted-foreground/60 hover:border-primary/40 hover:bg-primary/5 hover:text-primary",
@@ -28,7 +28,7 @@ export function ModPills({ selected, onChange }: ModPillsProps) {
         );
       })}
       {selected.length === 0 && (
-        <span className="text-[10px] italic text-muted-foreground/40 leading-7">none</span>
+        <span className="text-[10px] leading-7 text-muted-foreground/40 italic">none</span>
       )}
     </div>
   );

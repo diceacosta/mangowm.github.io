@@ -75,7 +75,7 @@ export function OverridePalette({ ruleType, usedKeys, onSelect, onClose }: Overr
           <CommandGroup
             key={category}
             heading={
-              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground/50">
+              <span className="text-[10px] font-bold tracking-widest text-muted-foreground/50 uppercase">
                 {category}
               </span>
             }
@@ -87,7 +87,7 @@ export function OverridePalette({ ruleType, usedKeys, onSelect, onClose }: Overr
                 value={meta.key}
                 onSelect={() => handleSelect(meta)}
                 className={cn(
-                  "flex items-center gap-3 cursor-pointer rounded-lg mx-0.5 px-3 py-2.5 transition-colors",
+                  "mx-0.5 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors",
                 )}
               >
                 <div className="flex size-6 shrink-0 items-center justify-center rounded-md bg-muted/50 text-muted-foreground/40 group-hover/command-item:bg-primary/10 group-hover/command-item:text-primary">

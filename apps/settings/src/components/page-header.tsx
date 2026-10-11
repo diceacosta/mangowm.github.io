@@ -33,22 +33,22 @@ export function PageHeader({
           {error && (
             <div className="ml-4 flex items-center gap-1.5 text-sm text-destructive">
               <AlertCircle className="size-4" />
-              <span className="truncate max-w-80">{error}</span>
+              <span className="max-w-80 truncate">{error}</span>
             </div>
           )}
         </div>
 
-        <div className="flex-1 flex justify-center">
+        <div className="flex flex-1 justify-center">
           {onSearch && (
             <button
               onClick={onSearch}
-              className="flex items-center gap-2 rounded-lg border border-border/40 bg-muted/30 px-3 py-1.5 text-xs text-muted-foreground/70 hover:border-border/70 hover:bg-muted/50 hover:text-muted-foreground transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+              className="flex cursor-pointer items-center gap-2 rounded-lg border border-border/40 bg-muted/30 px-3 py-1.5 text-xs text-muted-foreground/70 transition-all outline-none hover:border-border/70 hover:bg-muted/50 hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
               title="Search settings (Ctrl+K)"
             >
               <SearchIcon className="size-3.5 shrink-0" />
               <span className="hidden sm:inline">Search settings…</span>
               <span className="inline sm:hidden">Search…</span>
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded-md border border-border/30 bg-muted/50 px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground/60">
+              <kbd className="hidden items-center gap-0.5 rounded-md border border-border/30 bg-muted/50 px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground/60 sm:inline-flex">
                 Ctrl+K
               </kbd>
             </button>
