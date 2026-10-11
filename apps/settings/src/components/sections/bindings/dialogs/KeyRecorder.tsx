@@ -108,7 +108,7 @@ export function KeyRecorder({
             placeholder="Search keys (e.g., Space)..."
             className="h-10 border-none text-sm focus:ring-0"
           />
-          <CommandList className="max-h-[200px] scrollbar-thin">
+          <CommandList className="scrollbar-thin max-h-[200px]">
             <CommandEmpty className="py-4 text-center text-sm text-muted-foreground">
               No keys found.
             </CommandEmpty>
@@ -141,7 +141,7 @@ export function KeyRecorder({
     return (
       <>
         <CommandInput placeholder="Search..." className="h-10 border-none text-sm focus:ring-0" />
-        <CommandList className="max-h-[200px] scrollbar-thin">
+        <CommandList className="scrollbar-thin max-h-[200px]">
           <CommandEmpty className="py-4 text-center text-sm text-muted-foreground">
             No options found.
           </CommandEmpty>

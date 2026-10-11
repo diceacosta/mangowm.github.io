@@ -53,7 +53,7 @@ export function OverridePalette({ ruleType, usedKeys, onSelect, onClose }: Overr
         onValueChange={setQuery}
         className="h-10 text-sm focus:ring-0"
       />
-      <CommandList className="max-h-72 scrollbar-thin">
+      <CommandList className="scrollbar-thin max-h-72">
         <CommandEmpty className="py-8 text-center text-sm text-muted-foreground">
           {query.trim() ? (
             <>

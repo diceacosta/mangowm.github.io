@@ -206,7 +206,7 @@ export function ActionSelector({ value, onChange }: ActionSelectorProps) {
             onValueChange={setSearchQuery}
             className="h-11 text-sm focus:ring-0"
           />
-          <CommandList className="max-h-[320px] scrollbar-thin">
+          <CommandList className="scrollbar-thin max-h-[320px]">
             {q && !hasResults && (
               <CommandEmpty className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground">
                 <Search className="mb-1 size-8 opacity-20" />

@@ -7,9 +7,29 @@ export default defineConfig({
   fmt: {
     ignorePatterns: ["**/routeTree.gen.ts"],
     sortTailwindcss: {
-      stylesheet: "apps/site/src/App.css",
+      stylesheet: "packages/ui/src/styles/globals.css",
       functions: ["cn", "cva"],
     },
+    overrides: [
+      {
+        files: ["apps/site/**"],
+        options: {
+          sortTailwindcss: { stylesheet: "apps/site/src/App.css", functions: ["cn", "cva"] },
+        },
+      },
+      {
+        files: ["apps/settings/**"],
+        options: {
+          sortTailwindcss: { stylesheet: "apps/settings/src/index.css", functions: ["cn", "cva"] },
+        },
+      },
+      {
+        files: ["apps/docs/**"],
+        options: {
+          sortTailwindcss: { stylesheet: "apps/docs/src/app.css", functions: ["cn", "cva"] },
+        },
+      },
+    ],
   },
   lint: {
     jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],
