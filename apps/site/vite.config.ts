@@ -19,6 +19,10 @@ export default defineConfig({
         enabled: true,
         crawlLinks: false,
       },
+      sitemap: {
+        enabled: true,
+        host: "https://mangowm.github.io",
+      },
     }),
     react(),
     babel({
