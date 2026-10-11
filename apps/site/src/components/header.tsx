@@ -176,7 +176,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 pt-[max(var(--nav-gutter),env(safe-area-inset-top))] pb-[var(--nav-gutter)] pl-[max(clamp(0.75rem,2vi,1.25rem),env(safe-area-inset-left))] pr-[max(clamp(0.75rem,2vi,1.25rem),env(safe-area-inset-right))] pointer-events-none">
+    <header className="site-header">
       <div className="pointer-events-none relative z-[2] mx-auto flex w-full max-w-[var(--container)] items-center justify-between gap-2">
         <Link
           to="/"

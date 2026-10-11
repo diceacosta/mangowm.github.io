@@ -336,6 +336,16 @@
   }
 }
 
+@utility site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  padding-block: max(var(--nav-gutter), env(safe-area-inset-top)) var(--nav-gutter);
+  padding-inline: max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-left))
+    max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-right));
+  pointer-events: none;
+}
+
 @layer components {
   .site-piece {
     pointer-events: auto;
