@@ -55,12 +55,11 @@ function NavLinkItem({ link, active }: { link: NavLink; active: boolean }) {
   );
 }
 
-function DesktopNav({ activeIndex }: { activeIndex: number }) {
+function DesktopNav({ pathname }: { pathname: string }) {
   return (
     <nav aria-label="Primary" className="site-nav site-piece">
-      {activeIndex >= 0 ? <span aria-hidden="true" className="site-nav-indicator" /> : null}
-      {NAV_LINKS.map((link, index) => (
-        <NavLinkItem key={link.label} link={link} active={index === activeIndex} />
+      {NAV_LINKS.map((link) => (
+        <NavLinkItem key={link.label} link={link} active={isActive(link, pathname)} />
       ))}
     </nav>
   );
@@ -160,7 +159,6 @@ function MobileNav({
 
 export function Header() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const activeIndex = NAV_LINKS.findIndex((link) => isActive(link, pathname));
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -189,7 +187,7 @@ export function Header() {
           <span>mangowm</span>
         </Link>
 
-        <DesktopNav activeIndex={activeIndex} />
+        <DesktopNav pathname={pathname} />
 
         <div className="site-pill site-piece">
           <div className="site-desktop-only">

@@ -647,21 +647,6 @@
     }
   }
 
-  .site-nav-indicator {
-    position: absolute;
-    position-anchor: --active-nav;
-    top: anchor(top);
-    left: anchor(left);
-    width: anchor-size(width);
-    height: anchor-size(height);
-    border-radius: 9999px;
-    background: var(--color-primary);
-    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.28);
-    transition:
-      left 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
   .site-nav-link {
     position: relative;
     z-index: 1;
@@ -683,18 +668,8 @@
   }
 
   .site-nav-link-active {
-    anchor-name: --active-nav;
+    background: var(--color-primary);
     color: var(--color-primary-foreground);
-  }
-
-  @supports not (position-anchor: auto) {
-    .site-nav-indicator {
-      display: none;
-    }
-
-    .site-nav-link-active {
-      background: var(--color-primary);
-    }
   }
 
   .site-icon-link {
@@ -793,7 +768,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .site-nav-indicator,
     .site-brand-logo {
       transition: none !important;
       animation: none !important;
