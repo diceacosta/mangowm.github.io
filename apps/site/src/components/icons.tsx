@@ -7,8 +7,13 @@ import discordWhiteLogo from "@mangowm/assets/logos/discord-white.svg";
 export function GithubIcon() {
   return (
     <span className="inline-flex items-center">
-      <img src={githubLogo} alt="" aria-hidden="true" className="github-light w-5 h-5" />
-      <img src={githubWhiteLogo} alt="" aria-hidden="true" className="github-dark w-5 h-5" />
+      <img src={githubLogo} alt="" aria-hidden="true" className="github-light size-[1.125rem]" />
+      <img
+        src={githubWhiteLogo}
+        alt=""
+        aria-hidden="true"
+        className="github-dark size-[1.125rem]"
+      />
     </span>
   );
 }
@@ -16,8 +21,13 @@ export function GithubIcon() {
 export function DiscordIcon() {
   return (
     <span className="inline-flex items-center">
-      <img src={discordLogo} alt="" aria-hidden="true" className="discord-light w-5 h-5" />
-      <img src={discordWhiteLogo} alt="" aria-hidden="true" className="discord-dark w-5 h-5" />
+      <img src={discordLogo} alt="" aria-hidden="true" className="discord-light size-[1.125rem]" />
+      <img
+        src={discordWhiteLogo}
+        alt=""
+        aria-hidden="true"
+        className="discord-dark size-[1.125rem]"
+      />
     </span>
   );
 }

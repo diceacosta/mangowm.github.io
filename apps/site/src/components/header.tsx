@@ -67,40 +67,42 @@ function NavItem({
 
 function DesktopNav({ pathname }: { pathname: string }) {
   return (
-    <nav aria-label="Primary" className="site-nav site-piece">
+    <nav
+      aria-label="Primary"
+      className="site-piece pointer-events-auto relative hidden h-[var(--nav-piece-height)] items-center gap-0.5 rounded-full px-[0.4rem] lg:mx-auto lg:flex"
+    >
       {NAV_ITEMS.map((item) => (
         <NavItem
           key={item.label}
           item={item}
           active={isCurrent(item, pathname)}
-          className="site-nav-link"
+          className="relative z-[1] inline-flex h-8 items-center rounded-full px-[0.8rem] text-sm font-medium whitespace-nowrap text-muted-foreground no-underline transition-colors duration-[180ms] hover:text-foreground aria-[current=page]:bg-primary aria-[current=page]:text-primary-foreground"
         />
       ))}
     </nav>
   );
 }
 
+const SOCIAL_LINKS = [
+  { href: DISCORD_URL, label: "Discord", Icon: DiscordIcon },
+  { href: GITHUB_URL, label: "GitHub", Icon: GithubIcon },
+] as const;
+
 function SocialLinks() {
   return (
     <>
-      <a
-        href={DISCORD_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Discord"
-        className="site-icon-link"
-      >
-        <DiscordIcon />
-      </a>
-      <a
-        href={GITHUB_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-        className="site-icon-link"
-      >
-        <GithubIcon />
-      </a>
+      {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          className="inline-flex size-8 flex-none items-center justify-center rounded-full text-muted-foreground transition-[color,background-color] duration-150 hover:bg-accent hover:text-foreground"
+        >
+          <Icon />
+        </a>
+      ))}
     </>
   );
 }
@@ -174,28 +176,33 @@ export function Header() {
   }, []);
 
   return (
-    <header className="site-header">
-      <div className="site-header-bar">
+    <header className="sticky top-0 z-50 pt-[max(var(--nav-gutter),env(safe-area-inset-top))] pb-[var(--nav-gutter)] pl-[max(clamp(0.75rem,2vi,1.25rem),env(safe-area-inset-left))] pr-[max(clamp(0.75rem,2vi,1.25rem),env(safe-area-inset-right))] pointer-events-none">
+      <div className="pointer-events-none relative z-[2] mx-auto flex w-full max-w-[var(--container)] items-center justify-between gap-2">
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
-          className="site-brand site-piece"
+          className="site-piece group inline-flex h-[var(--nav-piece-height)] flex-none items-center gap-2 rounded-full pl-[0.85rem] pr-4 font-display text-[0.95rem] font-semibold tracking-[-0.02em] text-foreground no-underline"
           aria-label="mangowm home"
         >
-          <img src={mangowmLogo} alt="" aria-hidden="true" className="site-brand-logo" />
+          <img
+            src={mangowmLogo}
+            alt=""
+            aria-hidden="true"
+            className="size-5 transition-transform duration-[0.35s] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-[-8deg] group-hover:scale-[1.12]"
+          />
           <span>mangowm</span>
         </Link>
 
         <DesktopNav pathname={pathname} />
 
-        <div className="site-pill site-piece">
-          <div className="site-desktop-only">
+        <div className="site-piece flex h-[var(--nav-piece-height)] items-center gap-0.5 rounded-full max-lg:w-[var(--nav-piece-height)] max-lg:justify-center max-lg:px-0 lg:px-2">
+          <div className="hidden lg:contents">
             <ModeToggle />
           </div>
-          <div className="site-desktop-only">
+          <div className="hidden lg:contents">
             <SocialLinks />
           </div>
-          <div className="site-cta">
+          <div className="hidden lg:mx-1 lg:block">
             <SponsorButton />
           </div>
           <MobileNav open={menuOpen} setOpen={setMenuOpen} pathname={pathname} />
