@@ -24,18 +24,16 @@ const RATIO_KEYS = Object.keys(LOGO_RATIOS) as LogoRatio[];
 function OptionCard({
   id,
   value,
-  checked,
   className,
   children,
 }: {
   id: string;
   value: string;
-  checked: boolean;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className={cn("brand-option", className, checked && "brand-option-active")}>
+    <label htmlFor={id} className={cn("brand-option", className)}>
       <RadioGroupItem id={id} value={value} className="brand-option-input" />
       {children}
     </label>
@@ -119,12 +117,7 @@ export function BrandPage() {
               className="flex flex-wrap gap-1.5"
             >
               {(["svg", "png"] as const).map((value) => (
-                <OptionCard
-                  key={value}
-                  id={`brand-format-${value}`}
-                  value={value}
-                  checked={format === value}
-                >
+                <OptionCard key={value} id={`brand-format-${value}`} value={value}>
                   {value.toUpperCase()}
                 </OptionCard>
               ))}
@@ -141,12 +134,7 @@ export function BrandPage() {
               {BACKGROUND_KEYS.map((value) => {
                 const meta = LOGO_BACKGROUNDS[value];
                 return (
-                  <OptionCard
-                    key={value}
-                    id={`brand-background-${value}`}
-                    value={value}
-                    checked={background === value}
-                  >
+                  <OptionCard key={value} id={`brand-background-${value}`} value={value}>
                     <span
                       className={cn(
                         "brand-swatch",
@@ -176,7 +164,6 @@ export function BrandPage() {
                     key={value}
                     id={`brand-ratio-${value}`}
                     value={value}
-                    checked={ratio === value}
                     className="brand-option-stacked"
                   >
                     <span className="brand-option-main">{meta.ratio}</span>
@@ -197,12 +184,7 @@ export function BrandPage() {
               className="flex flex-wrap gap-1.5"
             >
               {LOGO_SIZES.map((value) => (
-                <OptionCard
-                  key={value}
-                  id={`brand-size-${value}`}
-                  value={String(value)}
-                  checked={size === value}
-                >
+                <OptionCard key={value} id={`brand-size-${value}`} value={String(value)}>
                   {value}px
                 </OptionCard>
               ))}

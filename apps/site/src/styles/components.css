@@ -292,7 +292,7 @@
     opacity: 0.75;
   }
 
-  .brand-option-active {
+  .brand-option:has(.brand-option-input[data-checked]) {
     border-color: var(--color-primary);
     background-color: var(--color-mango-soft);
     color: var(--color-foreground);
