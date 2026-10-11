@@ -2,6 +2,7 @@ import { defineConfig } from "fumapress";
 import { fumadocsMdx } from "fumapress/adapters/mdx";
 import { metaSchema, pageSchema } from "fumapress/adapters/mdx/schema";
 import { createDocsLayoutPage } from "fumapress/layouts/docs";
+import { lucideIconsPlugin } from "fumadocs-core/source/plugins/lucide-icons";
 import { defineDocs } from "fumadocs-mdx/macro";
 
 const docs = defineDocs({
@@ -25,6 +26,9 @@ export default defineConfig({
   renderPage: createDocsLayoutPage({
     renderPageActions: () => null,
   }),
+  loaderOptions: {
+    plugins: [lucideIconsPlugin()],
+  },
   site: {
     name: "mangowm",
     baseUrl: "https://mangowm.github.io/docs",
