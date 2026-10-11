@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vp dev",
     "build": "vp build",
+    "showcase:generate": "node scripts/generate-showcase.ts",
     "check": "vp check --fix",
     "preview": "vp preview",
     "types:check": "tsc --noEmit"
@@ -33,6 +34,7 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "yaml": "catalog:"
   }
 }

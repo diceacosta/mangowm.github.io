@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [showcase-updated]
 
 permissions:
   contents: read
@@ -23,6 +25,8 @@ jobs:
           node-version: "26"
           cache: true
       - run: vp run ready
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           mkdir -p dist/docs dist/settings
           cp -r apps/site/.output/public/. dist/
