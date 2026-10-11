@@ -1,9 +1,4 @@
 {
-  "compilerOptions": {
-    "noEmit": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
-    "esModuleInterop": true
-  }
+  "extends": "@mangowm.github.io/config/tsconfig.json",
+  "include": ["vite.config.ts"]
 }

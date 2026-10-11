@@ -1,25 +1,12 @@
 {
+  "extends": "@mangowm.github.io/config/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2023",
-    "lib": ["dom", "dom.iterable", "ES2023"],
     "types": ["vite-plus/client"],
-    "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": true,
-    "erasableSyntaxOnly": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noEmit": true
+    "noUncheckedIndexedAccess": true
   },
   "exclude": ["node_modules", "dist"]
 }

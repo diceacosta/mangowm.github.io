@@ -22,6 +22,7 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@mangowm.github.io/config": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@types/node": "catalog:",

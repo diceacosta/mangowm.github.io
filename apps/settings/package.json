@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^8.0.6",
+    "@mangowm.github.io/config": "workspace:*",
     "@takumi-rs/image-response": "^2.14.0",
     "@tauri-apps/cli": "catalog:",
     "@types/babel__core": "^7.20.5",
