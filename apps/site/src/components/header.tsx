@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
-import { cn } from "cn";
 import { Button } from "@mangowm/ui/components/button";
 import {
   Sheet,
@@ -15,42 +14,52 @@ import { SponsorButton } from "./sponsor/sponsor-button";
 import { ModeToggle } from "./mode-toggle";
 import { DiscordIcon, GithubIcon, MenuSvg } from "./icons";
 
-const NAV_LINKS = [
+const NAV_ITEMS = [
   { label: "Docs", href: "/docs/" },
   { label: "Showcase", to: "/showcase" },
   { label: "Brand", to: "/brand" },
   { label: "Settings", href: "/settings/" },
 ] as const;
 
-type NavLink = (typeof NAV_LINKS)[number];
+type NavItemData = (typeof NAV_ITEMS)[number];
 
 const DISCORD_URL = "https://discord.gg/CPjbDxesh5";
 const GITHUB_URL = "https://github.com/mangowm/mango";
 
-function isActive(link: NavLink, pathname: string) {
-  const target = "to" in link ? link.to : link.href;
+function isCurrent(item: NavItemData, pathname: string) {
+  const target = "to" in item ? item.to : item.href;
   const base = target.endsWith("/") ? target : `${target}/`;
   return pathname === target || pathname.startsWith(base);
 }
 
-function NavLinkItem({ link, active }: { link: NavLink; active: boolean }) {
-  const className = cn("site-nav-link", active && "site-nav-link-active");
+function NavItem({
+  item,
+  active,
+  onNavigate,
+  className,
+}: {
+  item: NavItemData;
+  active: boolean;
+  onNavigate?: () => void;
+  className: string;
+}) {
   const shared = {
     className,
     "aria-current": active ? ("page" as const) : undefined,
+    onClick: onNavigate,
   };
 
-  if ("to" in link) {
+  if ("to" in item) {
     return (
-      <Link to={link.to} {...shared}>
-        {link.label}
+      <Link to={item.to} {...shared}>
+        {item.label}
       </Link>
     );
   }
 
   return (
-    <a href={link.href} {...shared}>
-      {link.label}
+    <a href={item.href} {...shared}>
+      {item.label}
     </a>
   );
 }
@@ -58,8 +67,13 @@ function NavLinkItem({ link, active }: { link: NavLink; active: boolean }) {
 function DesktopNav({ pathname }: { pathname: string }) {
   return (
     <nav aria-label="Primary" className="site-nav site-piece">
-      {NAV_LINKS.map((link) => (
-        <NavLinkItem key={link.label} link={link} active={isActive(link, pathname)} />
+      {NAV_ITEMS.map((item) => (
+        <NavItem
+          key={item.label}
+          item={item}
+          active={isCurrent(item, pathname)}
+          className="site-nav-link"
+        />
       ))}
     </nav>
   );
@@ -115,31 +129,18 @@ function MobileNav({
           <SheetDescription>Site navigation and quick links</SheetDescription>
         </SheetHeader>
 
-        <nav aria-label="Mobile" className="min-h-0 flex-1 overflow-y-auto p-4">
+        <nav aria-label="Primary" className="min-h-0 flex-1 overflow-y-auto p-4">
           <ul className="site-menu-list">
-            {NAV_LINKS.map((link) => {
-              const active = isActive(link, pathname);
-              const className = cn("site-menu-item", active && "site-menu-item-active");
-              const shared = {
-                className,
-                "aria-current": active ? ("page" as const) : undefined,
-                onClick: () => setOpen(false),
-              };
-
-              return (
-                <li key={link.label}>
-                  {"to" in link ? (
-                    <Link to={link.to} {...shared}>
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <a href={link.href} {...shared}>
-                      {link.label}
-                    </a>
-                  )}
-                </li>
-              );
-            })}
+            {NAV_ITEMS.map((item) => (
+              <li key={item.label}>
+                <NavItem
+                  item={item}
+                  active={isCurrent(item, pathname)}
+                  onNavigate={() => setOpen(false)}
+                  className="site-menu-item"
+                />
+              </li>
+            ))}
           </ul>
         </nav>
 

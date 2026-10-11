@@ -667,7 +667,7 @@
     }
   }
 
-  .site-nav-link-active {
+  .site-nav-link[aria-current="page"] {
     background: var(--color-primary);
     color: var(--color-primary-foreground);
   }
@@ -735,10 +735,9 @@
     color: var(--color-foreground);
   }
 
-  .site-menu-item-active {
-    background: var(--color-mango-soft);
-    color: var(--color-foreground);
-    font-weight: 600;
+  .site-menu-item[aria-current="page"] {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
   }
 
   .site-menu-footer {
