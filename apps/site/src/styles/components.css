@@ -538,20 +538,6 @@
     pointer-events: none;
   }
 
-  .site-header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      var(--color-background) 0%,
-      color-mix(in oklab, var(--color-background) 72%, transparent) 58%,
-      transparent 100%
-    );
-  }
-
   .site-header-bar {
     position: relative;
     z-index: 2;
@@ -560,13 +546,9 @@
     justify-content: space-between;
     gap: 0.5rem;
     width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
     pointer-events: none;
-
-    @media (width >= 1024px) {
-      justify-content: center;
-      width: fit-content;
-      margin-inline: auto;
-    }
   }
 
   .site-piece {
@@ -644,6 +626,7 @@
 
     @media (width >= 1024px) {
       display: flex;
+      margin-inline: auto;
     }
   }
 
