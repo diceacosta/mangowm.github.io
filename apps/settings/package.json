@@ -10,7 +10,7 @@
     "build:desktop": "tauri build",
     "preview": "vp preview",
     "check": "vp check --fix",
-    "og": "tsx scripts/generate-og.tsx"
+    "og": "vp run --filter @mangowm/og build && node scripts/generate-og.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
@@ -39,14 +39,13 @@
   "devDependencies": {
     "@babel/core": "^8.0.6",
     "@mangowm.github.io/config": "workspace:*",
-    "@takumi-rs/image-response": "^2.14.0",
+    "@mangowm/og": "workspace:*",
     "@tauri-apps/cli": "catalog:",
     "@types/babel__core": "^7.20.5",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "tsx": "^4.23.15",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:"

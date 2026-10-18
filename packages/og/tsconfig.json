@@ -1,0 +1,8 @@
+{
+  "extends": "@mangowm.github.io/config/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "include": ["src"]
+}
