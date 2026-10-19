@@ -88,7 +88,7 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="mx-auto w-full max-w-[var(--container)] px-5 sm:px-8">
-        <div className="grid gap-10 pt-14 pb-12 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16 lg:pt-16 lg:pb-14">
+        <div className="grid gap-10 pt-14 pb-12 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:pt-16 lg:pb-14">
           <div className="max-w-sm">
             <Link
               to="/"
@@ -105,7 +105,7 @@ export function Footer() {
             </Link>
 
             <p className="mt-4 text-sm leading-[1.65] text-pretty text-muted-foreground">
-              A lightweight, feature-rich Wayland compositor built on wlroots and scenefx.
+              Free and open source, built on wlroots and scenefx.
             </p>
           </div>
 
