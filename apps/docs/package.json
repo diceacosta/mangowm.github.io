@@ -6,7 +6,9 @@
   "sideEffects": false,
   "scripts": {
     "dev": "fumapress dev",
+    "predev": "vp run --filter @mangowm/og build",
     "build": "fumapress build",
+    "prebuild": "vp run --filter @mangowm/og build",
     "start": "fumapress start",
     "check": "vp check --fix",
     "types:check": "tsc --noEmit"
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@mangowm.github.io/config": "workspace:*",
+    "@mangowm/og": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@types/mdx": "^2.0.14",
     "@types/node": "catalog:",
