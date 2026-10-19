@@ -115,7 +115,7 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
               />
               <span
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: 600,
                   letterSpacing: "0.06em",
                   color: "rgba(255,255,255,0.62)",
@@ -129,8 +129,8 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
           <p
             style={{
               fontWeight: 800,
-              fontSize: 80,
-              letterSpacing: "-0.04em",
+              fontSize: 64,
+              letterSpacing: "-0.035em",
               margin: 0,
               lineHeight: 1.1,
               color: "#fff",
@@ -143,7 +143,7 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
           {description ? (
             <p
               style={{
-                fontSize: 28,
+                fontSize: 24,
                 color: "rgba(255,255,255,0.58)",
                 letterSpacing: "-0.02em",
                 margin: 0,
