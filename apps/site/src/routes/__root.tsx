@@ -4,6 +4,7 @@ import appleTouchIcon from "@mangowm/assets/favicons/apple-touch-icon.png";
 import faviconIco from "@mangowm/assets/favicons/favicon.ico";
 import faviconSvg from "@mangowm/assets/favicons/favicon.svg";
 import appCss from "@/App.css?url";
+import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ogPages } from "@/lib/og-pages";
@@ -47,6 +48,7 @@ function RootComponent() {
           <main id="main-content">
             <Outlet />
           </main>
+          <Footer />
         </ThemeProvider>
         <Toaster />
         <Scripts />
