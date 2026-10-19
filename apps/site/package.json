@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
+    "predev": "vp run og",
     "prebuild": "vp run og",
     "build": "vp build",
     "showcase:generate": "node scripts/generate-showcase.ts",

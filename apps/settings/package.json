@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "dev:desktop": "tauri dev",
+    "predev": "vp run og",
     "build": "vp build",
+    "prebuild": "vp run og",
+    "dev:desktop": "tauri dev",
     "build:desktop": "tauri build",
     "preview": "vp preview",
     "check": "vp check --fix",
