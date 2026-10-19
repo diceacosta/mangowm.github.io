@@ -1,7 +1,6 @@
 export const siteConfig = {
   name: "mangowm",
   url: "https://mangowm.github.io",
-  title: "mangowm - Lightweight Wayland compositor",
   description: "Minimal. Modular. Modern.",
 };
 

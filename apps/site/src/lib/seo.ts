@@ -16,11 +16,11 @@ export function pageMeta(page: OgPage) {
     { property: "og:image", content: image },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: page.heading },
+    { property: "og:image:alt", content: page.imageAlt },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: page.title },
     { name: "twitter:description", content: page.description },
     { name: "twitter:image", content: image },
-    { name: "twitter:image:alt", content: page.heading },
+    { name: "twitter:image:alt", content: page.imageAlt },
   ];
 }
