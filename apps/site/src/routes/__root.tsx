@@ -6,18 +6,15 @@ import faviconSvg from "@mangowm/assets/favicons/favicon.svg";
 import appCss from "@/App.css?url";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
-import { siteConfig } from "@/constants";
+import { ogPages } from "@/lib/og-pages";
+import { pageMeta } from "@/lib/seo";
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-      { title: siteConfig.title },
-      { name: "description", content: siteConfig.description },
-      { property: "og:title", content: siteConfig.title },
-      { property: "og:description", content: siteConfig.description },
-      { property: "og:type", content: "website" },
+      ...pageMeta(ogPages.home),
     ],
     links: [
       { rel: "icon", href: faviconIco, sizes: "32x32" },

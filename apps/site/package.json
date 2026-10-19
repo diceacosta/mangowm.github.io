@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
+    "prebuild": "vp run og",
     "build": "vp build",
     "showcase:generate": "node scripts/generate-showcase.ts",
     "check": "vp check --fix",
     "preview": "vp preview",
+    "og": "vp run --filter @mangowm/og build && node scripts/generate-og.ts",
     "types:check": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@mangowm.github.io/config": "workspace:*",
+    "@mangowm/og": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@types/node": "catalog:",
