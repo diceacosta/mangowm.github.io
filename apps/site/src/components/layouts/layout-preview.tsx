@@ -56,7 +56,7 @@ export function LayoutPreview() {
   return (
     <div className="w-full">
       <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
-        <div className="inline-flex items-center gap-0.5 rounded-full border border-border bg-card p-1">
+        <div className="inline-flex max-w-full [scrollbar-width:none] items-center gap-0.5 overflow-x-auto rounded-full border border-border bg-card p-1 [&::-webkit-scrollbar]:hidden">
           <ToggleGroup
             multiple={false}
             spacing={1}
