@@ -9,7 +9,7 @@ const SIGNATURE_LOGO_STYLE = {
 
 type FooterLink = { label: string; title?: string } & (
   | { href: string; to?: undefined }
-  | { to: "/showcase" | "/brand"; href?: undefined }
+  | { to: "/showcase" | "/brand" | "/sponsor"; href?: undefined }
 );
 
 const FOOTER_LINK_GROUPS: readonly { label: string; links: readonly FooterLink[] }[] = [
@@ -19,6 +19,7 @@ const FOOTER_LINK_GROUPS: readonly { label: string; links: readonly FooterLink[]
       { label: "Docs", href: "/docs/" },
       { label: "Showcase", to: "/showcase" },
       { label: "Brand", to: "/brand" },
+      { label: "Sponsor", to: "/sponsor" },
       { label: "Settings", href: "/settings/" },
     ],
   },

@@ -1,6 +1,7 @@
 import { buttonVariants } from "@mangowm/ui/components/button";
 import { LayoutPreview } from "@/components/layouts/layout-preview";
 import { SponsorButton } from "@/components/sponsor/sponsor-button";
+import { Sponsors } from "@/components/sponsor/sponsors";
 import { GITHUB_URL } from "@/constants";
 import { HeartSvg } from "./icons";
 
@@ -58,27 +59,7 @@ function Hero() {
             Thanks to the people who support mango&apos;s development.
           </p>
 
-          <div className="mt-12 flex flex-wrap items-start justify-center gap-8">
-            {["dl09r", "tonybanters", "vinthara", "stepbrobd"].map((name) => (
-              <a
-                key={name}
-                href={`https://github.com/${name}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-2.5"
-              >
-                <img
-                  src={`https://unavatar.io/github/${name}`}
-                  alt={name}
-                  loading="lazy"
-                  className="size-16 rounded-full border-2 border-card object-cover shadow-[0_0_0_1px_var(--color-border)] transition-[box-shadow,transform] duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_0_2px_var(--color-primary)]"
-                />
-                <span className="text-sm font-semibold text-muted-foreground transition-colors group-hover:text-foreground">
-                  {name}
-                </span>
-              </a>
-            ))}
-          </div>
+          <Sponsors className="mt-12 justify-center" />
 
           <div className="mt-16 flex justify-center">
             <div className="relative w-full max-w-[34rem] before:absolute before:inset-[0.85rem_-0.85rem_-0.85rem_0.85rem] before:z-0 before:rotate-[2.5deg] before:rounded-3xl before:bg-leaf before:content-['']">
@@ -92,7 +73,7 @@ function Hero() {
                   contribution helps.
                 </p>
                 <div className="mt-6 flex justify-center">
-                  <SponsorButton size="lg" />
+                  <SponsorButton large />
                 </div>
               </div>
             </div>

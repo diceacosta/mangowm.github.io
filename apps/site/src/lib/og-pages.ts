@@ -1,6 +1,6 @@
 import { siteConfig } from "../constants.ts";
 
-export type OgPageId = "home" | "showcase" | "brand";
+export type OgPageId = "home" | "showcase" | "brand" | "sponsor";
 
 export interface OgPage {
   id: OgPageId;
@@ -37,6 +37,16 @@ export const ogPages: Record<OgPageId, OgPage> = {
     heading: "Community setups",
     imageAlt: "Community setups for mangowm",
     image: "og/showcase.webp",
+  },
+  sponsor: {
+    id: "sponsor",
+    path: "/sponsor",
+    title: pageTitle("Sponsor"),
+    description: "Support mango's development.",
+    eyebrow: "Sponsor",
+    heading: "Support mango",
+    imageAlt: "Sponsor mangowm's development",
+    image: "og/sponsor.webp",
   },
   brand: {
     id: "brand",

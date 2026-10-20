@@ -3,3 +3,5 @@ export const SPONSOR = {
   qrSrc: "/sponsor-qr.png",
   network: "BEP20 (BSC)",
 } as const;
+
+export const SPONSORS = ["dl09r", "tonybanters", "vinthara", "stepbrobd"] as const;
