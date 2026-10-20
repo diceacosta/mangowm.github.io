@@ -8,10 +8,11 @@ const SIGNATURE_LOGO_STYLE = {
   "--signature-logo": `url("${mangowmLogo}")`,
 } as CSSProperties;
 
-const DOCS_LINKS = [
-  { label: "Installation", href: "/docs/installation" },
-  { label: "Configuration", href: "/docs/configuration" },
-  { label: "FAQ", href: "/docs/faq" },
+const SITE_LINKS = [
+  { label: "Docs", href: "/docs/" },
+  { label: "Showcase", to: "/showcase" },
+  { label: "Brand", to: "/brand" },
+  { label: "Settings", href: "/settings/" },
 ] as const;
 
 const PROJECT_LINKS = [
@@ -35,13 +36,15 @@ const COMMUNITY_LINKS = [
   { label: "Issues", href: `${GITHUB_URL}/issues` },
 ] as const;
 
-function LinkColumn({
-  title,
-  links,
-}: {
-  title: string;
-  links: readonly { label: string; href: string; title?: string }[];
-}) {
+type FooterLink = { label: string; title?: string } & (
+  | { href: string; to?: undefined }
+  | { to: "/showcase" | "/brand"; href?: undefined }
+);
+
+const LINK_CLASS =
+  "relative inline-block w-fit text-sm text-muted-foreground transition-colors duration-150 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-primary/80 after:transition-transform after:duration-200 after:ease-out hover:text-foreground hover:after:scale-x-100";
+
+function LinkColumn({ title, links }: { title: string; links: readonly FooterLink[] }) {
   return (
     <nav aria-label={title}>
       <h2 className="font-mono text-[0.6875rem] font-medium tracking-[0.14em] text-muted-foreground uppercase">
@@ -50,16 +53,22 @@ function LinkColumn({
       <ul className="mt-4 flex flex-col items-start gap-2.5">
         {links.map((link) => (
           <li key={link.label}>
-            <a
-              href={link.href}
-              title={link.title}
-              className="relative inline-block w-fit text-sm text-muted-foreground transition-colors duration-150 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-primary/80 after:transition-transform after:duration-200 after:ease-out hover:text-foreground hover:after:scale-x-100"
-              {...(link.href.startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              {link.label}
-            </a>
+            {link.to ? (
+              <Link to={link.to} title={link.title} className={LINK_CLASS}>
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                href={link.href}
+                title={link.title}
+                className={LINK_CLASS}
+                {...(link.href.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                {link.label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
@@ -110,7 +119,7 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 sm:gap-10 lg:gap-14">
-            <LinkColumn title="Documentation" links={DOCS_LINKS} />
+            <LinkColumn title="Site" links={SITE_LINKS} />
             <LinkColumn title="Project" links={PROJECT_LINKS} />
             <LinkColumn title="Community" links={COMMUNITY_LINKS} />
           </div>
