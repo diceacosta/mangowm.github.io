@@ -216,16 +216,15 @@
   .site-footer {
     position: relative;
     border-top: 1px solid var(--color-border);
-    background: color-mix(in oklab, var(--color-muted) 42%, var(--color-background));
+    background: var(--color-background);
   }
 
-  .site-footer-signature {
+  .site-footer-wordmark {
     position: relative;
-    overflow: hidden;
-    padding-top: 0.25em;
+    width: fit-content;
+    max-width: 100%;
     pointer-events: none;
     user-select: none;
-    contain: paint;
   }
 
   .site-footer-signature-word,
@@ -243,24 +242,26 @@
     --signature-wave: linear-gradient(
       90deg,
       transparent 0%,
-      color-mix(in oklab, var(--color-brand) 40%, transparent) 15%,
-      color-mix(in oklab, var(--color-leaf) 35%, transparent) 28%,
-      color-mix(in oklab, var(--color-brand) 40%, transparent) 40%,
+      color-mix(in oklab, var(--color-brand) 55%, transparent) 15%,
+      color-mix(in oklab, var(--color-leaf) 45%, transparent) 28%,
+      color-mix(in oklab, var(--color-brand) 55%, transparent) 40%,
       transparent 55%
     );
     display: flex;
     align-items: baseline;
     width: fit-content;
-    margin-inline: auto;
-    margin-bottom: -0.14em;
+    margin-bottom: 0;
+    pointer-events: auto;
+    text-decoration: none;
+    transform: translateY(-0.09em);
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 17vw, 17rem);
+    font-size: clamp(3.5rem, 9.5vw, 9rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
     font-kerning: normal;
     white-space: nowrap;
-    color: color-mix(in oklab, var(--color-primary-text) 10%, transparent);
+    color: color-mix(in oklab, var(--color-primary-text) 30%, transparent);
     transition: color 500ms ease;
     background-position: 0 50%;
     -webkit-background-clip: text;
@@ -277,6 +278,7 @@
     margin-inline: -0.08em -0.015em;
     transform: translateY(-0.04em) rotate(-58deg);
     transform-origin: 50% 50%;
+    color: color-mix(in oklab, var(--color-primary-text) 55%, transparent);
     transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
     -webkit-mask-image: var(--signature-logo);
     mask-image: var(--signature-logo);
@@ -313,8 +315,8 @@
   }
 
   /* Paused off-screen by the IntersectionObserver in footer.tsx. */
-  .site-footer-signature[data-wave="off"] .site-footer-signature-word,
-  .site-footer-signature[data-wave="off"] .site-footer-signature-o {
+  .site-footer-wordmark[data-wave="off"] .site-footer-signature-word,
+  .site-footer-wordmark[data-wave="off"] .site-footer-signature-o {
     animation-play-state: paused;
   }
 
@@ -334,13 +336,13 @@
   }
 
   @media (forced-colors: active) {
-    .site-footer-signature {
-      visibility: hidden;
+    .site-footer-signature-word {
+      background-image: none;
     }
   }
 
   .site-footer:has(.footer-brand:hover, .footer-brand:focus-visible) .site-footer-signature-word {
-    color: color-mix(in oklab, var(--color-primary-text) 15%, transparent);
+    color: color-mix(in oklab, var(--color-primary-text) 48%, transparent);
   }
 
   .site-footer:has(.footer-brand:hover, .footer-brand:focus-visible) .site-footer-signature-o {
