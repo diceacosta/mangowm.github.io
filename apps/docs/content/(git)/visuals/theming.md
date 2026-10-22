@@ -50,7 +50,7 @@ You can also color-code windows based on their state:
 | Global     | `global_color`           | `0xb153a7ff`  |
 | Overlay    | `overlay_color`          | `0x14a57cff`  |
 
-> **Tip:** For scratchpad window sizing, see [Scratchpad](/docs/window-management/scratchpad) configuration.
+> **Tip:** For scratchpad window sizing, see [Scratchpad](/window-management/scratchpad) configuration.
 
 ### Overview Jump Mode
 

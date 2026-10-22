@@ -125,10 +125,7 @@ bindl=CTRL,comma,spawn,brightness.sh down
 
 ```toml
 [bind.default.conflict]
-"SUPER+r" = [
-"spawn_shell,config-check.sh",
-"reload_config"
-]
+"SUPER+r" = ["spawn_shell,config-check.sh", "reload_config"]
 
 
 [bind.default.lock]

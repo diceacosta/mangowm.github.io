@@ -66,7 +66,7 @@ window_rule=force_tearing:1,title:Counter-Strike 2
 ```
 
 > **Warning:** Some graphics cards require setting `env=WLR_DRM_NO_ATOMIC,1` in config before mango starts for tearing to work.
-> See [Monitors — Tearing](/docs/configuration/monitors#tearing-game-mode) for details.
+> See [Monitors — Tearing](/configuration/monitors#tearing-game-mode) for details.
 
 ---
 
@@ -80,7 +80,7 @@ Add a window rule to force the cursor to stay inside the game window while it is
 window_rule=confine_pointer:1,app_id:steam_app_526870
 ```
 
-Use `app_id:` or `title:` to match your game — see [Window Rules](/docs/window-management/rules) for the available matching options.
+Use `app_id:` or `title:` to match your game — see [Window Rules](/window-management/rules) for the available matching options.
 
 `confine_pointer=1` keeps the cursor 5px inside the window's surface whenever that window is the focused, visible window. The confinement is released as soon as the window loses focus, gets hidden, minimized, or moved to a hidden tag. It does not rely on the pointer constraints protocol.
 

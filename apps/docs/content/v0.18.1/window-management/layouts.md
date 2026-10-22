@@ -164,7 +164,7 @@ deck_tab_mode=1
 | :-------------- | :------ | :------------------------------------------------------------------------------------------------- |
 | `circle_layout` | -       | A comma-separated list of layouts `switch_layout` cycles through,the value sample:`tile,scroller`. |
 
-You can switch layouts dynamically or set a default for specific tags using [Tag Rules](/docs/window-management/rules#tag-rules).
+You can switch layouts dynamically or set a default for specific tags using [Tag Rules](/window-management/rules#tag-rules).
 
 **Keybinding Examples:**
 

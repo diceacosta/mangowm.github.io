@@ -7,7 +7,7 @@ description: Configure mouse buttons, scrolling, gestures, and lid switches.
 
 Assign actions to mouse button presses with optional modifier keys.
 
-> **Info:** All of the bindings in this page (`mousebind`, `axisbind`, `gesturebind`, `switchbind`) support key modes via `key_mode=<name>`, using the exact same rules as `bind`. See [Keys: Key Modes](/docs/bindings/keys).
+> **Info:** All of the bindings in this page (`mousebind`, `axisbind`, `gesturebind`, `switchbind`) support key modes via `key_mode=<name>`, using the exact same rules as `bind`. See [Keys: Key Modes](/bindings/keys).
 
 ### Syntax
 
@@ -67,7 +67,7 @@ gesturebind=MODIFIERS,DIRECTION,FINGERS,COMMAND,PARAMETERS
 - **Direction**: `up`, `down`, `left`, `right`
 - **Fingers**: `3` or `4`
 
-> **Info:** Gestures require proper trackpad configuration. See [Input Devices](/docs/configuration/input) for trackpad settings like `tap_to_click` and `trackpad_disable_while_typing`.
+> **Info:** Gestures require proper trackpad configuration. See [Input Devices](/configuration/input) for trackpad settings like `tap_to_click` and `trackpad_disable_while_typing`.
 
 ### Drag previews for bound gestures
 

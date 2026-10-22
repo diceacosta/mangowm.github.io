@@ -5,16 +5,16 @@ description: A lightweight and feature-rich Wayland compositor based on dwl.
 
 **mango** is a Wayland compositor based on [dwl](https://codeberg.org/dwl/dwl/). It aims to be as lightweight as `dwl` and can be built completely within a few seconds, without compromising on functionality.
 
-> **Philosophy:** **Lightweight & Fast**: mango is designed to be minimal yet functional. It compiles in seconds and offers a robust set of features out of the box.
+> **Philosophy:** **Lightweight & Fast**: mango is designed to be minimal yet functional.
 
 ## Feature Highlights
 
 Beyond basic window management, mangowm provides a rich set of features designed for a modern Wayland experience.
 
-- **[Animations](/docs/visuals/animations)** — Smooth, customizable animations for opening, moving, closing windows and tag switching.
-- **[Layouts](/docs/window-management/layouts)** — Supports Scroller, Master-Stack, Monocle, Grid, Deck, and more, with per-tag layouts.
-- **[Visual Effects](/docs/visuals/effects)** — Built-in blur, shadows, corner radius, and opacity effects powered by scenefx.
-- **[IPC & Scripting](/docs/ipc)** — Control the compositor externally with robust IPC support for custom scripts and widgets.
+- **[Animations](/visuals/animations)** — Smooth, customizable animations for opening, moving, closing windows and tag switching.
+- **[Layouts](/window-management/layouts)** — Supports Scroller, Master-Stack, Monocle, Grid, Deck, and more, with per-tag layouts.
+- **[Visual Effects](/visuals/effects)** — Built-in blur, shadows, corner radius, and opacity effects powered by scenefx.
+- **[IPC & Scripting](/ipc)** — Control the compositor externally with robust IPC support for custom scripts and widgets.
 
 ## Additional Features
 

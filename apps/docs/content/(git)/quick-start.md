@@ -83,6 +83,6 @@ git clone https://github.com/DreamMaoMao/mango-config.git ~/.config/mango
 
 Now that you are up and running, dive deeper into customizing mangowm:
 
-- [Configure Monitors](/docs/configuration/monitors) — Set up resolution, scaling, and multi-monitor layouts.
-- [Window Rules](/docs/window-management/rules#window-rules) — Define how specific applications should behave.
-- [Appearance](/docs/visuals/theming) — Customize colors, borders, gaps, and effects.
+- [Configure Monitors](/configuration/monitors) — Set up resolution, scaling, and multi-monitor layouts.
+- [Window Rules](/window-management/rules#window-rules) — Define how specific applications should behave.
+- [Appearance](/visuals/theming) — Customize colors, borders, gaps, and effects.

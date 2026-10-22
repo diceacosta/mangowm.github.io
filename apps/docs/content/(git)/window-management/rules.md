@@ -52,7 +52,7 @@ window_rule_once=Parameter:Values,Parameter:Values,app_id:Values,title:Values
 | `height`          | float   | 0-9999            | Window height when it becomes a floating window,if the value below 1, it will be the percentage of the screen height,otherwise it will be the pixel value |
 | `offset_x`        | integer | -999-999          | X offset from center (%), 100 is the edge of screen with outer gap                                                                                        |
 | `offset_y`        | integer | -999-999          | Y offset from center (%), 100 is the edge of screen with outer gap                                                                                        |
-| `monitor`         | string  | Any               | Assign to monitor by [monitor spec](/docs/configuration/monitors#monitor-spec-format) (name, make, model, or serial)                                      |
+| `monitor`         | string  | Any               | Assign to monitor by [monitor spec](/configuration/monitors#monitor-spec-format) (name, make, model, or serial)                                           |
 | `tags`            | mask    | `0-9` / `1\|3\|5` | Assign to specific one tag (use `0` for special workspace overlay) or multiple tags (use `\|` to split multiple tags)                                     |
 | `no_force_center` | integer | `0` / `1`         | Window does not force center                                                                                                                              |
 | `no_size_hint`    | integer | `0` / `1`         | Don't use min size and max size for size hints                                                                                                            |
@@ -71,7 +71,7 @@ window_rule_once=Parameter:Values,Parameter:Values,app_id:Values,title:Values
 | `allow_csd`         | integer | `0` / `1` | Allow client side decoration                                                                                                                       |
 | `confine_pointer`   | integer | `0` / `1` | While this window is focused and visible, force the cursor to stay inside it (does not require the client to use the pointer constraints protocol) |
 
-> **Tip:** For detailed visual effects configuration, see the [Window Effects](/docs/visuals/effects) page for blur, shadows, and opacity settings.
+> **Tip:** For detailed visual effects configuration, see the [Window Effects](/visuals/effects) page for blur, shadows, and opacity settings.
 
 ### Layout & Scroller
 
@@ -80,7 +80,7 @@ window_rule_once=Parameter:Values,Parameter:Values,app_id:Values,title:Values
 | `scroller_proportion`        | float | 0.1-1.0 | Set scroller proportion                                      |
 | `scroller_proportion_single` | float | 0.1-1.0 | Set scroller auto adjust proportion when it is single window |
 
-> **Tip:** For comprehensive layout configuration, see the [Layouts](/docs/window-management/layouts) page for all layout options and detailed settings.
+> **Tip:** For comprehensive layout configuration, see the [Layouts](/window-management/layouts) page for all layout options and detailed settings.
 
 ### Animation
 
@@ -91,7 +91,7 @@ window_rule_once=Parameter:Values,Parameter:Values,app_id:Values,title:Values
 | `no_fade_in`           | integer | `0` / `1`               | Window ignores fade-in animation  |
 | `no_fade_out`          | integer | `0` / `1`               | Window ignores fade-out animation |
 
-> **Tip:** For detailed animation configuration, see the [Animations](/docs/visuals/animations) page for available types and settings.
+> **Tip:** For detailed animation configuration, see the [Animations](/visuals/animations) page for available types and settings.
 
 ### Terminal & Swallowing
 
@@ -108,13 +108,13 @@ window_rule_once=Parameter:Values,Parameter:Values,app_id:Values,title:Values
 | `is_unmanaged_global` | integer | `0` / `1`                   | Open as unmanaged global window (for desktop pets or camera windows) |
 | `is_named_scratchpad` | integer | `0` / `1`                   | 0: disable, 1: named scratchpad                                      |
 
-> **Tip:** For scratchpad usage, see the [Scratchpad](/docs/window-management/scratchpad) page for detailed configuration examples.
+> **Tip:** For scratchpad usage, see the [Scratchpad](/window-management/scratchpad) page for detailed configuration examples.
 
 ### Performance & Tearing
 
-| Parameter       | Type    | Values    | Description                                                                                     |
-| :-------------- | :------ | :-------- | :---------------------------------------------------------------------------------------------- |
-| `force_tearing` | integer | `0` / `1` | Set window to tearing state, refer to [Tearing](/docs/configuration/monitors#tearing-game-mode) |
+| Parameter       | Type    | Values    | Description                                                                                |
+| :-------------- | :------ | :-------- | :----------------------------------------------------------------------------------------- |
+| `force_tearing` | integer | `0` / `1` | Set window to tearing state, refer to [Tearing](/configuration/monitors#tearing-game-mode) |
 
 ### Examples
 
@@ -178,7 +178,7 @@ tag_rule=id:Values,monitor_make:xxx,monitor_model:xxx,Parameter:Values
 tag_rule=id:*,Parameter:Values
 ```
 
-> **Tip:** See [Layouts](/docs/window-management/layouts#supported-layouts) for detailed descriptions of each layout type.
+> **Tip:** See [Layouts](/window-management/layouts#supported-layouts) for detailed descriptions of each layout type.
 
 | Parameter                            | Type               | Values         | Description                                                                                                                  |
 | :----------------------------------- | :----------------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------- |
@@ -226,7 +226,7 @@ tag_rule=id:1,layout_name:scroller,scroller_default_proportion_single:0.5,scroll
 
 ```
 
-> **Tip:** For Waybar configuration with persistent tags, see [Status Bar](/docs/visuals/status-bar) documentation.
+> **Tip:** For Waybar configuration with persistent tags, see [Status Bar](/visuals/status-bar) documentation.
 
 ---
 
@@ -252,7 +252,7 @@ layer_rule=layer_name:Values,Parameter:Values,Parameter:Values
 | `no_shadow`            | integer | `0` / `1`               | Disable layer shadow                                                           |
 | `shield_when_capture`  | integer | `0` / `1`               | Shield layer when captured.(it is better to combination with `no_animation:1`) |
 
-> **Tip:** For animation types, see [Animations](/docs/visuals/animations#animation-types). For visual effects, see [Window Effects](/docs/visuals/effects).
+> **Tip:** For animation types, see [Animations](/visuals/animations#animation-types). For visual effects, see [Window Effects](/visuals/effects).
 
 ### Examples
 
