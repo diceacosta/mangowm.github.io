@@ -5,8 +5,9 @@ import { Button } from "@mangowm/ui/components/button";
 import { Dialog, DialogContent, DialogTitle } from "@mangowm/ui/components/dialog";
 import { Skeleton } from "@mangowm/ui/components/skeleton";
 import { formatDate } from "@/lib/date";
-import { entryMedia, type ShowcaseEntry } from "@/lib/showcase-data";
+import { entryMedia, imageSrc, type ShowcaseEntry, type ShowcaseImage } from "@/lib/showcase-data";
 import { videoMimeType } from "@/lib/showcase-media";
+import { ShowcasePicture } from "./showcase-picture";
 
 type MediaStatus = "loading" | "loaded" | "error";
 
@@ -43,13 +44,13 @@ function VideoPlayer({ url, poster }: { url: string; poster?: string }) {
   );
 }
 
-function ImageView({ url, username }: { url: string; username: string }) {
+function ImageView({ image, username }: { image: ShowcaseImage; username: string }) {
   const [status, setStatus] = useState<MediaStatus>("loading");
   const ref = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const image = ref.current;
-    if (image?.complete) setStatus(image.naturalWidth > 0 ? "loaded" : "error");
+    const element = ref.current;
+    if (element?.complete) setStatus(element.naturalWidth > 0 ? "loaded" : "error");
   }, []);
 
   if (status === "error") return <MediaUnavailable />;
@@ -57,10 +58,14 @@ function ImageView({ url, username }: { url: string; username: string }) {
   return (
     <div className="flex h-full w-full items-center justify-center">
       {status === "loading" && <Skeleton className="h-3/4 w-3/4 rounded-lg bg-white/[0.06]" />}
-      <img
+      <ShowcasePicture
         ref={ref}
-        src={url}
+        image={image}
         alt={`${username}'s desktop`}
+        sizes="100vw"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
         onLoad={() => setStatus("loaded")}
         onError={() => setStatus("error")}
         className={cn(
@@ -181,9 +186,13 @@ export function Lightbox({
 
           {current ? (
             current.type === "video" ? (
-              <VideoPlayer key={current.url} url={current.url} poster={entry.screenshots[0]} />
+              <VideoPlayer
+                key={current.url}
+                url={current.url}
+                poster={entry.screenshots[0] ? imageSrc(entry.screenshots[0]) : undefined}
+              />
             ) : (
-              <ImageView key={current.url} url={current.url} username={entry.username} />
+              <ImageView key={current.image.base} image={current.image} username={entry.username} />
             )
           ) : null}
 

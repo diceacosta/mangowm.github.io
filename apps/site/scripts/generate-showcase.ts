@@ -1,8 +1,10 @@
+import { createHash } from "node:crypto";
 import { access, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { ResizeFilterType, Transformer } from "@napi-rs/image";
 import { parse } from "yaml";
-import type { ShowcaseEntry } from "../src/lib/showcase-data.ts";
+import type { ShowcaseEntry, ShowcaseImage } from "../src/lib/showcase-data.ts";
 import {
   LEGACY_SCREENSHOT_MULTI,
   parseRepo,
@@ -16,8 +18,13 @@ import {
 const ENTRIES_URL = "https://raw.githubusercontent.com/mangowm/mango-showcase/HEAD/entries.yml";
 const API = "https://api.github.com";
 const DISCOVERY_CONCURRENCY = 5;
-const DOWNLOAD_CONCURRENCY = 6;
+const ENTRY_CONCURRENCY = 4;
 const USERNAME_RE = /^[A-Za-z0-9-]+$/;
+
+const MAX_WIDTH = 2560;
+const WIDTHS: number[] = [480, 768, 1080, 1440, 1920, MAX_WIDTH];
+const WEBP_QUALITY = 80;
+const HASH_LENGTH = 10;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_FILE = path.resolve(__dirname, "../src/data/showcase.json");
@@ -31,7 +38,7 @@ type RawEntry = {
   added?: unknown;
 };
 
-type MediaFile = { url: string; name: string };
+type MediaFile = { url: string; fileName: string };
 
 type ResolvedEntry = Omit<ShowcaseEntry, "screenshots" | "videos"> & {
   screenshots: MediaFile[];
@@ -54,50 +61,93 @@ function safeSegment(value: string): string {
   return value.replace(/[^\w.-]+/g, "-").replace(/^-+/, "");
 }
 
-function mediaFileName(username: string, url: string): string {
-  const rawName = decodeURIComponent(url.split("/").pop() ?? "media");
-  return `${safeSegment(username)}-${safeSegment(path.basename(rawName)) || "media"}`;
+function shortHash(input: Buffer): string {
+  return createHash("sha256").update(input).digest("hex").slice(0, HASH_LENGTH);
 }
 
-async function downloadMedia(entries: ResolvedEntry[]): Promise<ShowcaseEntry[]> {
-  await mkdir(MEDIA_DIR, { recursive: true });
+function mediaBase(username: string, fileName: string, input: Buffer): string {
+  const stem = path.parse(fileName).name;
+  return `${safeSegment(username)}-${safeSegment(stem) || "media"}-${shortHash(input)}`;
+}
 
-  const jobs = entries.flatMap(({ screenshots, videos }) => [...screenshots, ...videos]);
+function widthsFor(width: number): number[] {
+  const widths = WIDTHS.filter((candidate) => candidate < width);
+  widths.push(Math.min(width, MAX_WIDTH));
+  return widths;
+}
 
-  const download = async ({ url, name }: MediaFile): Promise<{ name: string; ok: boolean }> => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      await writeFile(path.join(MEDIA_DIR, name), Buffer.from(await response.arrayBuffer()));
-      return { name, ok: true };
-    } catch (error) {
-      console.warn(`Showcase: skipping ${url} (${(error as Error).message})`);
-      return { name, ok: false };
+async function download(url: string): Promise<Buffer> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return Buffer.from(await response.arrayBuffer());
+}
+
+async function processScreenshot(username: string, file: MediaFile): Promise<ShowcaseImage | null> {
+  if (path.extname(file.fileName).toLowerCase() === ".gif") {
+    console.warn(`Showcase: skipping ${file.url} (GIF is not supported yet)`);
+    return null;
+  }
+
+  const input = await download(file.url);
+  const base = mediaBase(username, file.fileName, input);
+  const metadata = await new Transformer(input).metadata();
+  const orientation = metadata.orientation ?? 1;
+  const swapAxes = orientation >= 5 && orientation <= 8;
+  const width = swapAxes ? metadata.height : metadata.width;
+  const height = swapAxes ? metadata.width : metadata.height;
+  if (width <= 0 || height <= 0) throw new Error("image has invalid dimensions");
+  const widths = widthsFor(width);
+
+  for (const variantWidth of widths) {
+    const transformer = new Transformer(input);
+    transformer.rotate();
+    if (variantWidth !== width) {
+      transformer.resize({ width: variantWidth, filter: ResizeFilterType.Lanczos3 });
     }
-  };
+    const webp = await transformer.webp(WEBP_QUALITY);
+    await writeFile(path.join(MEDIA_DIR, `${base}-${variantWidth}.webp`), webp);
+  }
 
-  const results = await mapLimit(jobs, DOWNLOAD_CONCURRENCY, download);
-  const failed = new Set(results.filter((result) => !result.ok).map((result) => result.name));
+  return { base: `/${PUBLIC_MEDIA_DIR}/${base}`, width, height, widths };
+}
 
-  console.log(
-    `Showcase: downloaded ${jobs.length - failed.size}/${jobs.length} media files to public/showcase/`,
-  );
+async function processVideo(username: string, file: MediaFile): Promise<string> {
+  const input = await download(file.url);
+  const name = `${mediaBase(username, file.fileName, input)}${path.extname(file.fileName).toLowerCase()}`;
+  await writeFile(path.join(MEDIA_DIR, name), input);
+  return `/${PUBLIC_MEDIA_DIR}/${name}`;
+}
 
-  return entries.flatMap((entry) => {
-    const media = [...entry.screenshots, ...entry.videos];
-    if (media.some(({ name }) => failed.has(name))) {
-      console.warn(`Showcase: dropping ${entry.username} (incomplete media)`);
-      return [];
+async function buildEntry(entry: ResolvedEntry): Promise<ShowcaseEntry | null> {
+  try {
+    const screenshots: ShowcaseImage[] = [];
+    for (const file of entry.screenshots) {
+      const image = await processScreenshot(entry.username, file);
+      if (image) screenshots.push(image);
     }
-    const bundle = (files: MediaFile[]) => files.map(({ name }) => `/${PUBLIC_MEDIA_DIR}/${name}`);
-    return [
-      {
-        ...entry,
-        screenshots: bundle(entry.screenshots),
-        videos: bundle(entry.videos),
-      },
-    ];
-  });
+
+    const videos: string[] = [];
+    for (const file of entry.videos) {
+      videos.push(await processVideo(entry.username, file));
+    }
+
+    if (screenshots.length === 0 && videos.length === 0) {
+      console.warn(`Showcase: dropping ${entry.username} (no usable media)`);
+      return null;
+    }
+
+    return {
+      username: entry.username,
+      dotfiles: entry.dotfiles,
+      tags: entry.tags,
+      added: entry.added,
+      screenshots,
+      videos,
+    };
+  } catch (error) {
+    console.warn(`Showcase: dropping ${entry.username} (${(error as Error).message})`);
+    return null;
+  }
 }
 
 async function listContents(owner: string, repo: string, dir: string): Promise<string[] | null> {
@@ -203,10 +253,10 @@ async function resolveEntry(raw: RawEntry): Promise<ResolvedEntry | null> {
   }
 
   const toMedia = (filePaths: string[]): MediaFile[] =>
-    filePaths.map((filePath) => {
-      const url = rawUrl(repo.owner, repo.repo, filePath);
-      return { url, name: mediaFileName(username, url) };
-    });
+    filePaths.map((filePath) => ({
+      url: rawUrl(repo.owner, repo.repo, filePath),
+      fileName: path.basename(filePath),
+    }));
 
   const screenshots = toMedia(pickScreenshots(paths));
   const videos = toMedia(pickVideos(paths));
@@ -266,9 +316,11 @@ async function writeEmpty(): Promise<void> {
 async function main() {
   try {
     const discovered = await loadEntries();
-    const entries = await downloadMedia(discovered);
+    await mkdir(MEDIA_DIR, { recursive: true });
+    const built = await mapLimit(discovered, ENTRY_CONCURRENCY, buildEntry);
+    const entries = built.filter((entry): entry is ShowcaseEntry => entry !== null);
     if (discovered.length > 0 && entries.length === 0) {
-      throw new Error("no entries survived media download");
+      throw new Error("no entries survived media processing");
     }
     await mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
     await writeFile(OUTPUT_FILE, `${JSON.stringify(entries, null, 2)}\n`);

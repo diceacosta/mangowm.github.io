@@ -2,8 +2,20 @@ import { ExternalLink, Image, Play } from "lucide-react";
 import { Badge } from "@mangowm/ui/components/badge";
 import { formatDate } from "@/lib/date";
 import type { ShowcaseEntry } from "@/lib/showcase-data";
+import { ShowcasePicture } from "./showcase-picture";
 
-export function Card({ entry, onOpen }: { entry: ShowcaseEntry; onOpen: () => void }) {
+const CARD_SIZES =
+  "(min-width: 1200px) 365px, (min-width: 1024px) calc(33.33vw - 35px), (min-width: 640px) calc(50vw - 42px), calc(100vw - 40px)";
+
+export function Card({
+  entry,
+  onOpen,
+  priority = false,
+}: {
+  entry: ShowcaseEntry;
+  onOpen: () => void;
+  priority?: boolean;
+}) {
   const screenshotCount = entry.screenshots.length;
   const videoCount = entry.videos.length;
   const totalMedia = screenshotCount + videoCount;
@@ -19,11 +31,13 @@ export function Card({ entry, onOpen }: { entry: ShowcaseEntry; onOpen: () => vo
         className="relative aspect-video w-full overflow-hidden bg-muted focus-visible:-outline-offset-2"
       >
         {screenshot ? (
-          <img
-            src={screenshot}
+          <ShowcasePicture
+            image={screenshot}
             alt={`${entry.username}'s desktop`}
-            loading="lazy"
-            decoding="async"
+            sizes={CARD_SIZES}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+            decoding={priority ? "sync" : "async"}
             className="relative h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.04]"
           />
         ) : video ? (

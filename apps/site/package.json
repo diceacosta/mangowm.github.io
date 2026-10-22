@@ -27,6 +27,7 @@
   "devDependencies": {
     "@mangowm.github.io/config": "workspace:*",
     "@mangowm/og": "workspace:*",
+    "@napi-rs/image": "^1.15.0",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@types/node": "catalog:",

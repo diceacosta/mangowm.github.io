@@ -72,7 +72,12 @@ export function ShowcasePage() {
       {filteredEntries.length > 0 ? (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filteredEntries.map((entry, index) => (
-            <Card key={entry.username} entry={entry} onOpen={() => openLightbox(index)} />
+            <Card
+              key={entry.username}
+              entry={entry}
+              onOpen={() => openLightbox(index)}
+              priority={index < 3}
+            />
           ))}
         </div>
       ) : (
