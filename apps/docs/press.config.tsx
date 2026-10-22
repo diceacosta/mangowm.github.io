@@ -9,7 +9,7 @@ import { OgImage } from "@mangowm/og";
 import appleTouchIcon from "@mangowm/assets/favicons/apple-touch-icon.png";
 import faviconIco from "@mangowm/assets/favicons/favicon.ico";
 import faviconSvg from "@mangowm/assets/favicons/favicon.svg";
-import mangowmLogo from "@mangowm/assets/logos/mangowm.svg";
+import { NavTitle } from "./src/components/nav-title";
 
 const ogFonts = googleFonts([{ name: "Geist", weight: [400, 600, 800] }]);
 
@@ -64,13 +64,8 @@ export default defineConfig({
     },
   },
   defaultLayoutProps: {
-    nav: {
-      title: (
-        <>
-          <img src={mangowmLogo} alt="" width={20} height={20} />
-          mangowm
-        </>
-      ),
+    slots: {
+      navTitle: NavTitle,
     },
   },
 })
