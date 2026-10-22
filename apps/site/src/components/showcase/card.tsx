@@ -37,7 +37,7 @@ export function Card({
             sizes={CARD_SIZES}
             loading={priority ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "auto"}
-            decoding={priority ? "sync" : "async"}
+            decoding="async"
             className="relative h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.04]"
           />
         ) : video ? (
