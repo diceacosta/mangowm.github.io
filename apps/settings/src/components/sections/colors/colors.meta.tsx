@@ -31,7 +31,7 @@ export const colorsMeta: SectionMeta = {
       description: "Border when window is focused and maximized",
     },
     {
-      configKey: "urgent_dcolor",
+      configKey: "urgent_color",
       label: "Urgent",
       description: "Urgent window border — overrides all other colors",
     },
